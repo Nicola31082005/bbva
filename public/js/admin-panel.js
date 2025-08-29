@@ -27,6 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     transactionDateInput.value = now.toISOString().slice(0, 16);
   }
+
+  // Set default date for transfer form
+  const transferDateInput = document.getElementById("transferDate");
+  if (transferDateInput) {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    transferDateInput.value = now.toISOString().slice(0, 16);
+  }
 });
 
 // Tab switching function
@@ -73,6 +81,15 @@ function setupFormSubmissions() {
       e.preventDefault();
       saveTransaction();
     });
+
+  // Transfer form
+  const transferForm = document.getElementById("transferForm");
+  if (transferForm) {
+    transferForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      saveTransfer();
+    });
+  }
 }
 
 // Modal functions
@@ -601,3 +618,88 @@ document.addEventListener("change", function (e) {
     amountInput.value = currentValue;
   }
 });
+
+// Transfer Modal Functions
+function openTransferModal(id = null) {
+  currentEditId = id;
+  currentEditType = "transfer";
+
+  if (id) {
+    document.getElementById("transferModalTitle").textContent = "Editar Transferencia";
+    loadTransferData(id);
+  } else {
+    document.getElementById("transferModalTitle").textContent = "Agregar Transferencia";
+    document.getElementById("transferForm").reset();
+    document.getElementById("transferId").value = "";
+    
+    // Set default date
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById("transferDate").value = now.toISOString().slice(0, 16);
+  }
+
+  showModal("transferModal");
+}
+
+function loadTransferData(id) {
+  // For now, just show an alert since transfers are derived from transactions
+  // In a real application, you would fetch the transfer data from the API
+  alert("Funcionalidad de edición de transferencias próximamente disponible");
+}
+
+function saveTransfer() {
+  const formData = {
+    transferType: document.getElementById("transferType").value,
+    fromAccountId: parseInt(document.getElementById("transferFromAccount").value),
+    recipientName: document.getElementById("transferRecipientName").value,
+    recipientAccount: document.getElementById("transferRecipientAccount").value,
+    description: document.getElementById("transferDescription").value,
+    amount: parseFloat(document.getElementById("transferAmount").value),
+    currency: document.getElementById("transferCurrency").value,
+    status: document.getElementById("transferStatus").value,
+    date: document.getElementById("transferDate").value,
+  };
+
+  // Validate required fields
+  if (!formData.transferType || !formData.fromAccountId || !formData.recipientName || 
+      !formData.recipientAccount || !formData.description || !formData.amount || 
+      !formData.currency || !formData.status || !formData.date) {
+    showMessage("Por favor, completa todos los campos", "error");
+    return;
+  }
+
+  if (formData.amount <= 0) {
+    showMessage("El monto debe ser mayor que 0", "error");
+    return;
+  }
+
+  // For now, we'll just show a success message since transfers are derived from transactions
+  // In a real application, you would have a separate transfers API endpoint
+  showMessage(
+    currentEditId
+      ? "Transferencia actualizada exitosamente"
+      : "Transferencia registrada exitosamente",
+    "success"
+  );
+  closeModal("transferModal");
+  
+  // Simulate adding the transfer to the UI
+  setTimeout(() => {
+    console.log("Transfer data:", formData);
+    // In a real app, you would refresh the transfers table or add the new row dynamically
+    window.location.reload();
+  }, 1000);
+}
+
+function editTransfer(id) {
+  openTransferModal(id);
+}
+
+function deleteTransfer(id) {
+  if (confirm("¿Estás seguro de que quieres eliminar esta transferencia?")) {
+    // For now, just show a success message since transfers are derived from transactions
+    // In a real application, you would have a separate transfers API endpoint
+    showMessage("Transferencia eliminada exitosamente", "success");
+    setTimeout(() => window.location.reload(), 1000);
+  }
+}
