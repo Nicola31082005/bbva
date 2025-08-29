@@ -23,164 +23,64 @@
 </header>
 
 <main>
-    <!-- Page Title Section -->
-    <section class="page-title-section">
-        <div class="page-title-content">
-            <div class="page-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7,10 12,15 17,10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-            </div>
-            <div class="page-title-text">
-                <h1>Transferencias</h1>
-                <p>Gestiona todas tus transferencias de forma rápida y segura</p>
-            </div>
-        </div>
-    </section>
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">Transferencias</div>
+        <div class="tab inactive">Programadas</div>
+    </div>
 
-    <!-- Quick Actions Section -->
-    <section class="quick-actions-section">
-        <h2>Acciones rápidas</h2>
-        <div class="quick-actions-grid">
-            <div class="quick-action-card" onclick="openNewTransferModal()">
-                <div class="action-icon send">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
-                    </svg>
-                </div>
-                <h3>Nueva Transferencia</h3>
-                <p>Envía dinero de forma inmediata</p>
-            </div>
-            <div class="quick-action-card" onclick="openScheduledTransferModal()">
-                <div class="action-icon schedule">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12,6 12,12 16,14"></polyline>
-                    </svg>
-                </div>
-                <h3>Programar Transferencia</h3>
-                <p>Programa transferencias futuras</p>
-            </div>
-            <div class="quick-action-card" onclick="openBeneficiariesModal()">
-                <div class="action-icon beneficiaries">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                </div>
-                <h3>Beneficiarios</h3>
-                <p>Gestiona tus contactos favoritos</p>
-            </div>
-        </div>
-    </section>
 
     <!-- Transfers History Section -->
-    <section class="transfers-history-section">
+    <section class="section">
         <div class="section-header">
-            <h2>Historial de Transferencias</h2>
-            <div class="filter-controls">
-                <select id="filterType" onchange="filterTransfers()">
-                    <option value="all">Todas</option>
-                    <option value="sent">Enviadas</option>
-                    <option value="received">Recibidas</option>
-                    <option value="scheduled">Programadas</option>
-                </select>
-                <select id="filterPeriod" onchange="filterTransfers()">
-                    <option value="all">Todo el período</option>
-                    <option value="today">Hoy</option>
-                    <option value="week">Esta semana</option>
-                    <option value="month">Este mes</option>
-                </select>
+            <h2>Últimas transferencias</h2>
+            <div class="edit-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
             </div>
         </div>
+        
+        <div class="product-card">
+            <div class="movements-header">
+                <h4>Historial de transferencias</h4>
+                <a href="/admin-panel" target="_blank">Ver admin</a>
+            </div>
 
-        <div class="transfers-list" id="transfersList">
             {{#each transfers}}
-            <div class="transfer-item" data-type="{{this.transferType}}" data-date="{{this.date}}">
-                <div class="transfer-icon {{this.transferType}}">
-                    {{#if (eq this.transferType 'sent')}}
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7,7 17,7 17,17"></polyline>
-                        </svg>
-                    {{else if (eq this.transferType 'received')}}
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="17" y1="7" x2="7" y2="17"></line>
-                            <polyline points="17,17 7,17 7,7"></polyline>
-                        </svg>
-                    {{else if (eq this.transferType 'scheduled')}}
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12,6 12,12 16,14"></polyline>
-                        </svg>
-                    {{/if}}
+            <div class="movement-item">
+                <div class="movement-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        {{#if (eq this.transferType 'sent')}}
+                            <path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/>
+                        {{else}}
+                            <path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/>
+                        {{/if}}
+                    </svg>
                 </div>
-                <div class="transfer-details">
-                    <div class="transfer-main-info">
-                        <h3>{{this.description}}</h3>
-                        <p class="transfer-recipient">
-                            {{#if (eq this.transferType 'sent')}}Para: {{this.recipientName}}{{/if}}
-                            {{#if (eq this.transferType 'received')}}De: {{this.senderName}}{{/if}}
-                            {{#if (eq this.transferType 'scheduled')}}Programada para: {{formatDate this.scheduledDate}}{{/if}}
-                        </p>
-                        <p class="transfer-account">{{this.accountNumber}}</p>
-                    </div>
-                    <div class="transfer-meta">
-                        <span class="transfer-date">{{formatDate this.date}}</span>
-                        <span class="transfer-status status-{{this.status}}">{{this.status}}</span>
-                    </div>
+                <div class="movement-details">
+                    <p>{{this.description}}</p>
+                    <span class="transfer-recipient">
+                        {{#if (eq this.transferType 'sent')}}Para: {{this.recipientName}}{{/if}}
+                        {{#if (eq this.transferType 'received')}}De: {{this.senderName}}{{/if}}
+                    </span>
                 </div>
-                <div class="transfer-amount {{this.transferType}}">
+                <span class="movement-amount {{#if (eq this.transferType 'received')}}positive{{/if}}">
                     {{#if (eq this.transferType 'sent')}}
                         -{{formatAmount this.amount}} {{this.currency}}
                     {{else}}
                         +{{formatAmount this.amount}} {{this.currency}}
                     {{/if}}
-                </div>
+                </span>
             </div>
             {{/each}}
-        </div>
 
-        {{#unless transfers}}
-        <div class="empty-state">
-            <div class="empty-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7,10 12,15 17,10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
+            {{#unless transfers}}
+            <div class="empty-state">
+                <p>No hay transferencias recientes</p>
+                <a href="#" onclick="openNewTransferModal()">Hacer primera transferencia</a>
             </div>
-            <h3>No hay transferencias</h3>
-            <p>Cuando realices transferencias, aparecerán aquí</p>
-            <button class="btn btn-primary" onclick="openNewTransferModal()">Hacer primera transferencia</button>
-        </div>
-        {{/unless}}
-    </section>
+            {{/unless}}
 
-    <!-- Admin Panel Link -->
-    <section class="admin-link-section">
-        <div class="admin-link-card">
-            <div class="admin-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-            </div>
-            <div class="admin-text">
-                <h3>Panel de Administración</h3>
-                <p>Gestiona todas las transferencias desde el panel administrativo</p>
-            </div>
-            <a href="/admin-panel" class="admin-link-btn">
-                <span>Acceder</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9,18 15,12 9,6"></polyline>
-                </svg>
-            </a>
+            <a href="/admin-panel" class="card-footer-link">Ver panel de administración</a>
         </div>
     </section>
 </main>
