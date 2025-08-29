@@ -224,12 +224,66 @@ app.get("/financiera", (req, res) => {
   });
 });
 
+app.get("/transfers", (req, res) => {
+  // Pass user data and transfers data
+  const user = appData.users[0];
+  const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
+  
+  // Create sample transfers data (in a real app, this would come from the database)
+  const transfers = appData.transactions.map(transaction => {
+    const account = appData.accounts.find(acc => acc.id === transaction.accountId);
+    return {
+      id: transaction.id,
+      description: transaction.description,
+      amount: Math.abs(transaction.amount),
+      currency: transaction.currency,
+      date: transaction.date,
+      accountNumber: account ? account.accountNumber : 'N/A',
+      transferType: transaction.amount > 0 ? 'received' : 'sent',
+      recipientName: transaction.amount > 0 ? 'Remitente' : 'Beneficiario',
+      senderName: transaction.amount > 0 ? 'Remitente' : 'Beneficiario',
+      status: 'completed'
+    };
+  });
+  
+  res.render("transfers", {
+    title: "Transferencias - BBVA",
+    pageId: "transfers",
+    user: user,
+    accounts: userAccounts,
+    transfers: transfers,
+  });
+});
+
 // Admin Panel Route
 app.get("/admin-panel", (req, res) => {
+  // Create sample transfers data for admin panel
+  const transfers = appData.transactions.map(transaction => {
+    const account = appData.accounts.find(acc => acc.id === transaction.accountId);
+    return {
+      id: transaction.id,
+      description: transaction.description,
+      amount: Math.abs(transaction.amount),
+      currency: transaction.currency,
+      date: transaction.date,
+      fromAccountId: transaction.accountId,
+      recipientName: transaction.amount > 0 ? 'Remitente Externo' : 'Beneficiario Externo',
+      recipientAccount: transaction.amount > 0 ? 'ES21 0000 0000 0000 0000 0000' : 'ES21 1111 1111 1111 1111 1111',
+      transferType: transaction.amount > 0 ? 'received' : 'sent',
+      status: 'completed'
+    };
+  });
+
+  const adminData = {
+    ...appData,
+    transfers: transfers
+  };
+
   res.render("admin-panel", {
     title: "Panel de Administración - BBVA",
     pageId: "admin-panel",
-    data: appData,
+    data: adminData,
+    transfersCount: transfers.length,
   });
 });
 
