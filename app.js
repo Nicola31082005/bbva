@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const { engine } = require("express-handlebars");
 const path = require("path");
 
@@ -34,6 +35,14 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
+
+// Session configuration
+app.use(session({
+  secret: 'bbva-admin-secret-key-2024',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 24 hours
+}));
 
 // Middleware for parsing JSON and form data
 app.use(express.json());
@@ -224,8 +233,53 @@ app.get("/financiera", (req, res) => {
   });
 });
 
-// Admin Panel Route
-app.get("/admin-panel", (req, res) => {
+// Admin authentication middleware
+function requireAdminAuth(req, res, next) {
+  if (req.session && req.session.isAdmin) {
+    return next();
+  } else {
+    return res.redirect('/admin-login');
+  }
+}
+
+// Admin login routes
+app.get('/admin-login', (req, res) => {
+  if (req.session && req.session.isAdmin) {
+    return res.redirect('/admin-panel');
+  }
+  res.render('admin-login', {
+    title: 'Acceso Admin - BBVA',
+    pageId: 'admin-login'
+  });
+});
+
+app.post('/admin-login', (req, res) => {
+  const { password } = req.body;
+  
+  if (password === '123123') {
+    req.session.isAdmin = true;
+    res.redirect('/admin-panel');
+  } else {
+    res.render('admin-login', {
+      title: 'Acceso Admin - BBVA',
+      pageId: 'admin-login',
+      error: 'Contraseña incorrecta. Inténtalo de nuevo.'
+    });
+  }
+});
+
+// Admin logout route
+app.get('/admin-logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect('/main-page');
+  });
+});
+
+// Admin Panel Route (Protected)
+app.get("/admin-panel", requireAdminAuth, (req, res) => {
   res.render("admin-panel", {
     title: "Panel de Administración - BBVA",
     pageId: "admin-panel",
@@ -236,11 +290,11 @@ app.get("/admin-panel", (req, res) => {
 // CRUD API Routes for Admin Panel
 
 // Users CRUD
-app.get("/api/users", (req, res) => {
+app.get("/api/users", requireAdminAuth, (req, res) => {
   res.json(appData.users);
 });
 
-app.post("/api/users", (req, res) => {
+app.post("/api/users", requireAdminAuth, (req, res) => {
   const newUser = {
     id: getNextId("users"),
     name: req.body.name,
@@ -252,7 +306,7 @@ app.post("/api/users", (req, res) => {
   res.json(newUser);
 });
 
-app.put("/api/users/:id", (req, res) => {
+app.put("/api/users/:id", requireAdminAuth, (req, res) => {
   const userId = parseInt(req.params.id);
   const userIndex = appData.users.findIndex((u) => u.id === userId);
   if (userIndex === -1)
@@ -262,7 +316,7 @@ app.put("/api/users/:id", (req, res) => {
   res.json(appData.users[userIndex]);
 });
 
-app.delete("/api/users/:id", (req, res) => {
+app.delete("/api/users/:id", requireAdminAuth, (req, res) => {
   const userId = parseInt(req.params.id);
   const userIndex = appData.users.findIndex((u) => u.id === userId);
   if (userIndex === -1)
@@ -273,11 +327,11 @@ app.delete("/api/users/:id", (req, res) => {
 });
 
 // Accounts CRUD
-app.get("/api/accounts", (req, res) => {
+app.get("/api/accounts", requireAdminAuth, (req, res) => {
   res.json(appData.accounts);
 });
 
-app.post("/api/accounts", (req, res) => {
+app.post("/api/accounts", requireAdminAuth, (req, res) => {
   const newAccount = {
     id: getNextId("accounts"),
     userId: parseInt(req.body.userId),
@@ -291,7 +345,7 @@ app.post("/api/accounts", (req, res) => {
   res.json(newAccount);
 });
 
-app.put("/api/accounts/:id", (req, res) => {
+app.put("/api/accounts/:id", requireAdminAuth, (req, res) => {
   const accountId = parseInt(req.params.id);
   const accountIndex = appData.accounts.findIndex((a) => a.id === accountId);
   if (accountIndex === -1)
@@ -307,7 +361,7 @@ app.put("/api/accounts/:id", (req, res) => {
   res.json(appData.accounts[accountIndex]);
 });
 
-app.delete("/api/accounts/:id", (req, res) => {
+app.delete("/api/accounts/:id", requireAdminAuth, (req, res) => {
   const accountId = parseInt(req.params.id);
   const accountIndex = appData.accounts.findIndex((a) => a.id === accountId);
   if (accountIndex === -1)
@@ -318,11 +372,11 @@ app.delete("/api/accounts/:id", (req, res) => {
 });
 
 // Cards CRUD
-app.get("/api/cards", (req, res) => {
+app.get("/api/cards", requireAdminAuth, (req, res) => {
   res.json(appData.cards);
 });
 
-app.post("/api/cards", (req, res) => {
+app.post("/api/cards", requireAdminAuth, (req, res) => {
   const newCard = {
     id: getNextId("cards"),
     userId: parseInt(req.body.userId),
@@ -336,7 +390,7 @@ app.post("/api/cards", (req, res) => {
   res.json(newCard);
 });
 
-app.put("/api/cards/:id", (req, res) => {
+app.put("/api/cards/:id", requireAdminAuth, (req, res) => {
   const cardId = parseInt(req.params.id);
   const cardIndex = appData.cards.findIndex((c) => c.id === cardId);
   if (cardIndex === -1)
@@ -349,7 +403,7 @@ app.put("/api/cards/:id", (req, res) => {
   res.json(appData.cards[cardIndex]);
 });
 
-app.delete("/api/cards/:id", (req, res) => {
+app.delete("/api/cards/:id", requireAdminAuth, (req, res) => {
   const cardId = parseInt(req.params.id);
   const cardIndex = appData.cards.findIndex((c) => c.id === cardId);
   if (cardIndex === -1)
@@ -360,11 +414,11 @@ app.delete("/api/cards/:id", (req, res) => {
 });
 
 // Transactions CRUD
-app.get("/api/transactions", (req, res) => {
+app.get("/api/transactions", requireAdminAuth, (req, res) => {
   res.json(appData.transactions);
 });
 
-app.post("/api/transactions", (req, res) => {
+app.post("/api/transactions", requireAdminAuth, (req, res) => {
   const newTransaction = {
     id: getNextId("transactions"),
     accountId: parseInt(req.body.accountId),
@@ -387,7 +441,7 @@ app.post("/api/transactions", (req, res) => {
   res.json(newTransaction);
 });
 
-app.put("/api/transactions/:id", (req, res) => {
+app.put("/api/transactions/:id", requireAdminAuth, (req, res) => {
   const transactionId = parseInt(req.params.id);
   const transactionIndex = appData.transactions.findIndex(
     (t) => t.id === transactionId
@@ -419,7 +473,7 @@ app.put("/api/transactions/:id", (req, res) => {
   res.json(appData.transactions[transactionIndex]);
 });
 
-app.delete("/api/transactions/:id", (req, res) => {
+app.delete("/api/transactions/:id", requireAdminAuth, (req, res) => {
   const transactionId = parseInt(req.params.id);
   const transactionIndex = appData.transactions.findIndex(
     (t) => t.id === transactionId

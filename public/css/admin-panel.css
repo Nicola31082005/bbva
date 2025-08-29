@@ -217,6 +217,15 @@ body {
   background-color: #e0e0e0;
 }
 
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
 .btn-edit {
   background-color: var(--warning-orange);
   color: white;
