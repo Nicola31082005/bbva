@@ -9,6 +9,13 @@
   --positive-green: #20724a;
 }
 
+/* --- Universal Box Sizing --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* --- General Body & Font Styles --- */
 body {
   margin: 0;
@@ -65,14 +72,16 @@ body {
 
 /* --- Header Logo Styling --- */
 .header-logo {
-    height: 28px;
-    width: auto;
-    margin-right: 15px;
+  height: 28px;
+  width: auto;
+  margin-right: 15px;
 }
 
 /* --- Main Content --- */
 main {
   padding: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* --- Tabs --- */
@@ -128,6 +137,7 @@ main {
 .carousel-container {
   position: relative;
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
   padding-bottom: 20px;
 }
@@ -137,6 +147,7 @@ main {
   padding: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   width: 100%;
+  box-sizing: border-box;
   display: none; /* Hidden by default, shown by JavaScript */
 }
 .product-card:first-child {
@@ -148,15 +159,23 @@ main {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
+  min-width: 0;
 }
 .card-header h3 {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+  margin-right: 10px;
 }
 .card-header span {
   font-size: 0.9rem;
   color: var(--text-secondary);
+  flex-shrink: 0;
 }
 .card-balance {
   font-size: 2.5rem;
@@ -192,10 +211,12 @@ main {
   display: flex;
   align-items: center;
   padding: 12px 0;
+  min-width: 0;
+  gap: 15px;
 }
 .movement-icon {
-  margin-right: 15px;
   color: var(--positive-green);
+  flex-shrink: 0;
 }
 .movement-icon svg {
   width: 28px;
@@ -203,14 +224,21 @@ main {
 }
 .movement-details {
   flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 .movement-details p {
   margin: 0;
   font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .movement-amount {
   font-weight: 500;
   font-size: 1rem;
+  flex-shrink: 0;
+  text-align: right;
 }
 .movement-amount.positive {
   color: var(--text-primary);
