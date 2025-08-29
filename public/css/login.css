@@ -1,166 +1,179 @@
 /* --- General Body & Font Styles --- */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f9fa; /* Light grey background */
-    color: #333;
-    display: flex;
-    justify-content: center;
-    padding-top: 60px; /* Increased top padding */
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: #e8edf3;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* --- Mobile App Container --- */
+.app-container {
+  width: 100vw;
+  max-width: 720px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  min-height: calc(100vh - 40px);
 }
 
 /* --- Main Container --- */
 .container {
-    width: 100%;
-    max-width: 700px; /* Increased max-width for a larger container */
-    background-color: #ffffff;
-    padding: 35px 50px; /* Increased padding */
-    box-sizing: border-box;
+  width: 100%;
+  padding: 35px 50px; /* Increased padding */
+  box-sizing: border-box;
 }
 
 /* --- Header Section --- */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 25px; /* Increased padding */
-    margin-bottom: 70px; /* Increased margin */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 25px; /* Increased padding */
+  margin-bottom: 70px; /* Increased margin */
 }
 
 .logo {
-    height: 30px; /* Increased logo size */
+  height: 30px; /* Increased logo size */
 }
 
 .header-links {
-    display: flex;
-    align-items: center;
-    gap: 30px; /* Increased gap */
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Increased gap */
 }
 
 .header-links a {
-    text-decoration: none;
-    color: #0d47a1; /* BBVA Blue */
-    font-size: 16px; /* Increased font size */
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  text-decoration: none;
+  color: #0d47a1; /* BBVA Blue */
+  font-size: 16px; /* Increased font size */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .header-links svg {
-    width: 22px; /* Increased icon size */
-    height: 22px;
-    stroke-width: 1.5;
+  width: 22px; /* Increased icon size */
+  height: 22px;
+  stroke-width: 1.5;
 }
 
 /* --- Login Form Section --- */
 .login-form-container {
-    max-width: 450px; /* Increased max-width for the form */
-    margin: 0 auto; /* Center the form within the container */
+  max-width: 450px; /* Increased max-width for the form */
+  margin: 0 auto; /* Center the form within the container */
 }
 
 .login-form-container h1 {
-    font-size: 32px; /* Increased heading size */
-    font-weight: 400;
-    color: #333;
-    margin: 0 0 40px 0; /* Increased bottom margin */
+  font-size: 32px; /* Increased heading size */
+  font-weight: 400;
+  color: #333;
+  margin: 0 0 40px 0; /* Increased bottom margin */
 }
 
 .form-group {
-    margin-bottom: 20px; /* Increased margin */
+  margin-bottom: 20px; /* Increased margin */
 }
 
 .password-wrapper {
-    position: relative;
+  position: relative;
 }
 
 input[type="text"],
 input[type="password"] {
-    width: 100%;
-    padding: 16px 20px; /* Increased padding */
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 17px; /* Increased font size */
-    box-sizing: border-box;
-    transition: border-color 0.2s;
+  width: 100%;
+  padding: 16px 20px; /* Increased padding */
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 17px; /* Increased font size */
+  box-sizing: border-box;
+  transition: border-color 0.2s;
 }
 
 input::placeholder {
-    color: #6c757d;
+  color: #6c757d;
 }
 
 input:focus {
-    outline: none;
-    border-color: #0d47a1;
+  outline: none;
+  border-color: #0d47a1;
 }
 
 .password-toggle-icon {
-    position: absolute;
-    right: 18px; /* Adjusted position */
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #0d47a1;
+  position: absolute;
+  right: 18px; /* Adjusted position */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #0d47a1;
 }
 
 .password-toggle-icon svg {
-    width: 22px; /* Increased icon size */
-    height: 22px;
+  width: 22px; /* Increased icon size */
+  height: 22px;
 }
 
 .forgot-password-link {
-    display: inline-block;
-    color: #0d47a1;
-    text-decoration: none;
-    font-size: 16px; /* Increased font size */
-    font-weight: 500;
-    margin-top: 15px; /* Increased margin */
-    margin-bottom: 60px; /* Increased margin */
+  display: inline-block;
+  color: #0d47a1;
+  text-decoration: none;
+  font-size: 16px; /* Increased font size */
+  font-weight: 500;
+  margin-top: 15px; /* Increased margin */
+  margin-bottom: 60px; /* Increased margin */
 }
 
 /* --- Action Buttons Section --- */
 .action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Increased gap */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Increased gap */
 }
 
 .btn {
-    width: 100%;
-    padding: 18px; /* Increased padding */
-    font-size: 17px; /* Increased font size */
-    font-weight: bold;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 18px; /* Increased padding */
+  font-size: 17px; /* Increased font size */
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .btn-login {
-    background-color: #e9ecef;
-    color: #adb5bd;
-    border: none;
-    cursor: not-allowed;
+  background-color: #e9ecef;
+  color: #adb5bd;
+  border: none;
+  cursor: not-allowed;
 }
 
 .btn-customer {
-    background-color: #ffffff;
-    color: #0d47a1;
-    border: 1px solid #0d47a1;
+  background-color: #ffffff;
+  color: #0d47a1;
+  border: 1px solid #0d47a1;
 }
 
 .btn-customer:hover {
-    background-color: #f0f6ff;
+  background-color: #f0f6ff;
 }
 
 .btn-create-password {
-    background-color: #f8f9fa;
-    color: #0d47a1;
-    border: none;
+  background-color: #f8f9fa;
+  color: #0d47a1;
+  border: none;
 }
 
 .btn-create-password:hover {
-    background-color: #e9ecef;
+  background-color: #e9ecef;
 }

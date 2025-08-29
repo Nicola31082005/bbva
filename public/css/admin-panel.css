@@ -20,11 +20,29 @@
 }
 
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
-  background-color: var(--background-grey);
+  background-color: #e8edf3;
   color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
   line-height: 1.6;
+}
+
+/* --- Mobile App Container --- */
+.app-container {
+  width: 100vw;
+  max-width: 720px;
+  background-color: var(--background-grey);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  min-height: calc(100vh - 40px);
 }
 
 /* Admin Header */
