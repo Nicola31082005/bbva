@@ -201,6 +201,8 @@ app.get("/main-page", (req, res) => {
     allAccounts: accountsWithTransactions, // All user accounts with their transactions
     allCards: userCards,
     totalProducts: totalProducts,
+    showVisible: true,
+    showRightIcons: true,
     formatAmount: (amount) =>
       amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
   });
@@ -213,6 +215,8 @@ app.get("/buzon", (req, res) => {
     title: "Buzón - BBVA",
     pageId: "buzon",
     user: user,
+    showVisible: false,
+    showRightIcons: false,
   });
 });
 
@@ -223,6 +227,8 @@ app.get("/gestor", (req, res) => {
     title: "Gestor - BBVA",
     pageId: "gestor",
     user: user,
+    showVisible: false,
+    showRightIcons: true,
   });
 });
 
@@ -233,6 +239,8 @@ app.get("/financiera", (req, res) => {
     title: "Salud Financiera - BBVA",
     pageId: "financiera",
     user: user,
+    showVisible: false,
+    showRightIcons: true,
   });
 });
 
@@ -312,6 +320,8 @@ app.get("/transfers", (req, res) => {
     user: user,
     accounts: userAccounts,
     transfers: transfers,
+    showVisible: true,
+    showRightIcons: true,
   });
 });
 
