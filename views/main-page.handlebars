@@ -38,50 +38,34 @@
         </div>
         <div class="products-carousel">
             <div class="carousel-container">
-                <!-- Card 1 -->
-                <div class="product-card">
-                    <div class="card-header">
-                        <h3>Cuenta *8464</h3>
-                        <span>-8464</span>
-                    </div>
-                    <div class="card-balance">400,06€</div>
-                    <div class="card-balance-label">Saldo disponible</div>
-                    
-                    <div class="movements-header">
-                        <h4>Últimos movimientos</h4>
-                        <a href="#">Ver todos</a>
-                    </div>
+                                    <!-- Card 1 -->
+                    <div class="product-card">
+                        <div class="card-header">
+                            <h3>{{account.type}} {{account.accountNumber}}</h3>
+                            <span>{{account.accountNumber}}</span>
+                        </div>
+                        <div class="card-balance">{{formatAmount account.balance}}{{account.currency}}</div>
+                        <div class="card-balance-label">Saldo disponible</div>
+                        
+                        <div class="movements-header">
+                            <h4>Últimos movimientos</h4>
+                            <a href="#" onclick="window.open('/admin-panel', '_blank')">Ver admin</a>
+                        </div>
 
-                    <div class="movement-item">
-                        <div class="movement-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/></svg>
+                        {{#each transactions}}
+                        <div class="movement-item">
+                            <div class="movement-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/></svg>
+                            </div>
+                            <div class="movement-details">
+                                <p>{{this.description}}</p>
+                            </div>
+                            <span class="movement-amount {{#if (gt this.amount 0)}}positive{{/if}}">{{formatAmount this.amount}} {{this.currency}}</span>
                         </div>
-                        <div class="movement-details">
-                            <p>Transferencia recibida</p>
-                        </div>
-                        <span class="movement-amount positive">400,00 €</span>
-                    </div>
-                     <div class="movement-item">
-                        <div class="movement-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/></svg>
-                        </div>
-                        <div class="movement-details">
-                            <p>Transferencia realizada</p>
-                        </div>
-                        <span class="movement-amount">-400,00 €</span>
-                    </div>
-                     <div class="movement-item">
-                        <div class="movement-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/></svg>
-                        </div>
-                        <div class="movement-details">
-                            <p>Abono por transferencia a su favor...</p>
-                        </div>
-                        <span class="movement-amount positive">400,00 €</span>
-                    </div>
+                        {{/each}}
 
-                    <a href="#" class="card-footer-link">Ver análisis de gasto</a>
-                </div>
+                        <a href="/admin-panel" class="card-footer-link">Ver panel de administración</a>
+                    </div>
                 <!-- Card 2 (Peek) -->
                  <div class="product-card" style="opacity: 0.5;">
                     <div class="card-header"><h3>Tarjeta *1234</h3></div>
