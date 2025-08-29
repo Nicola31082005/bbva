@@ -1,120 +1,91 @@
-<!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acceso Admin - BBVA</title>
-    <link rel="stylesheet" href="/css/admin-panel.css">
+    <link rel="stylesheet" href="/css/admin-panel.css" />
     <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, var(--bbva-blue), #1976d2);
-        }
-        .login-container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        .login-header {
-            margin-bottom: 30px;
-        }
-        .login-header h1 {
-            color: var(--bbva-blue);
-            margin: 0 0 10px 0;
-            font-size: 2rem;
-        }
-        .login-header p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--bbva-blue);
-        }
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--bbva-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .login-btn:hover {
-            background: #0a3d91;
-        }
-        .error-message {
-            background: #ffebee;
-            border: 1px solid #f44336;
-            color: #c62828;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .back-link:hover {
-            color: var(--bbva-blue);
-        }
+      body { display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; margin: 0; background: linear-gradient(135deg,
+      var(--bbva-blue), #1976d2); } .login-container { background: white;
+      padding: 40px; border-radius: 12px; box-shadow: 0 8px 32px
+      rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center; }
+      .login-header { margin-bottom: 30px; } .login-header h1 { color:
+      var(--bbva-blue); margin: 0 0 10px 0; font-size: 2rem; } .login-header p {
+      color: var(--text-secondary); margin: 0; } .form-group { margin-bottom:
+      20px; text-align: left; } .form-group label { display: block;
+      margin-bottom: 5px; font-weight: 500; color: var(--text-primary); }
+      .form-group input { width: 100%; padding: 12px; border: 2px solid
+      var(--border-color); border-radius: 6px; font-size: 1rem; transition:
+      border-color 0.3s ease; box-sizing: border-box; } .form-group input:focus
+      { outline: none; border-color: var(--bbva-blue); } .login-btn { width:
+      100%; padding: 12px; background: var(--bbva-blue); color: white; border:
+      none; border-radius: 6px; font-size: 1rem; font-weight: 500; cursor:
+      pointer; transition: background 0.3s ease; } .login-btn:hover {
+      background: #0a3d91; } .error-message { background: #ffebee; border: 1px
+      solid #f44336; color: #c62828; padding: 10px; border-radius: 4px;
+      margin-bottom: 20px; } .back-link { display: inline-block; margin-top:
+      20px; color: var(--text-secondary); text-decoration: none; font-size:
+      0.9rem; } .back-link:hover { color: var(--bbva-blue); }
+      .admin-mode-buttons { display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 20px; } .admin-panel-btn { background: var(--bbva-blue); }
+      .inline-edit-btn { background: #ff6b6b; } .inline-edit-btn:hover {
+      background: #ee5a6f; } .mode-info { margin-top: 20px; padding: 15px;
+      background: #f8f9fa; border-radius: 6px; border-left: 4px solid
+      var(--bbva-blue); } .mode-info p { margin: 5px 0; font-size: 0.85rem;
+      color: var(--text-secondary); }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="login-container">
-        <div class="login-header">
-            <h1>🔒 Acceso Admin</h1>
-            <p>Panel de Administración BBVA</p>
-        </div>
+      <div class="login-header">
+        <h1>🔒 Acceso Admin</h1>
+        <p>Panel de Administración BBVA</p>
+      </div>
 
-        {{#if error}}
+      {{#if error}}
         <div class="error-message">
-            {{error}}
+          {{error}}
         </div>
-        {{/if}}
+      {{/if}}
 
-        <form action="/admin-login" method="POST">
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login-btn">Acceder</button>
-        </form>
+      <form action="/admin-login" method="POST" id="adminForm">
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <input type="hidden" id="mode" name="mode" value="panel" />
 
-        <a href="/main-page" class="back-link">← Volver al inicio</a>
+        <div class="admin-mode-buttons">
+          <button
+            type="submit"
+            class="login-btn admin-panel-btn"
+            onclick="setMode('panel')"
+          >
+            ⚙️ Panel Admin
+          </button>
+          <button
+            type="submit"
+            class="login-btn inline-edit-btn"
+            onclick="setMode('inline')"
+          >
+            ✏️ Edición en Línea
+          </button>
+        </div>
+      </form>
+
+      <div class="mode-info">
+        <p><strong>Panel Admin:</strong>
+          Accede al panel de administración tradicional</p>
+        <p><strong>Edición en Línea:</strong>
+          Edita directamente en el sitio web</p>
+      </div>
+
+      <script>
+        function setMode(mode) { document.getElementById('mode').value = mode; }
+      </script>
+
+      <a href="/main-page" class="back-link">← Volver al inicio</a>
     </div>
-</body>
+  </body>
 </html>

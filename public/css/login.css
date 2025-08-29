@@ -3,32 +3,40 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
-  background-color: #e8edf3;
+  background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
   color: #333;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 20px;
+  align-items: center;
+  height: 100vh;
+  padding: 15px;
+  overflow: hidden;
 }
 
 /* --- Mobile App Container --- */
 .app-container {
-  width: 100vw;
+  width: 100%;
   max-width: 720px;
-  background-color: #ffffff;
+  background-color: #1a2332;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   position: relative;
-  min-height: calc(100vh - 40px);
+  height: calc(100vh - 30px);
+  max-height: calc(100vh - 30px);
+  margin-top: -30px;
 }
 
 /* --- Main Container --- */
 .container {
   width: 100%;
-  padding: 35px 50px; /* Increased padding */
+  padding: 25px 40px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 /* --- Header Section --- */
@@ -36,9 +44,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e9ecef;
-  padding-bottom: 25px; /* Increased padding */
-  margin-bottom: 70px; /* Increased margin */
+  border-bottom: 1px solid #334155;
+  padding-bottom: 25px;
+  margin-bottom: 40px;
 }
 
 .logo {
@@ -53,35 +61,59 @@ header {
 
 .header-links a {
   text-decoration: none;
-  color: #0d47a1; /* BBVA Blue */
-  font-size: 16px; /* Increased font size */
-  font-weight: 500;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 400;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.header-links a:hover {
+  color: #ffffff;
 }
 
 .header-links svg {
-  width: 22px; /* Increased icon size */
-  height: 22px;
+  width: 18px;
+  height: 18px;
   stroke-width: 1.5;
 }
 
 /* --- Login Form Section --- */
 .login-form-container {
-  max-width: 450px; /* Increased max-width for the form */
-  margin: 0 auto; /* Center the form within the container */
+  width: 107%;
+  margin: 0;
+  margin-bottom: 20px;
+  margin-left: -3%;
+}
+
+.login-actions-container {
+  flex: 1;
 }
 
 .login-form-container h1 {
-  font-size: 32px; /* Increased heading size */
+  font-size: 26px;
   font-weight: 400;
-  color: #333;
-  margin: 0 0 40px 0; /* Increased bottom margin */
+  color: #ffffff;
+  margin: 30px 0 30px 0;
+  text-align: left;
+  width: 100%;
 }
 
 .form-group {
-  margin-bottom: 20px; /* Increased margin */
+  margin-bottom: 20px;
+}
+
+/* --- Error Message --- */
+.error-message {
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .password-wrapper {
@@ -91,89 +123,226 @@ header {
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 16px 20px; /* Increased padding */
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 17px; /* Increased font size */
+  padding: 22px 24px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  font-size: 18px;
   box-sizing: border-box;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s;
+  background-color: #334155;
+  color: #ffffff;
 }
 
 input::placeholder {
-  color: #6c757d;
+  color: #94a3b8;
 }
 
 input:focus {
   outline: none;
-  border-color: #0d47a1;
+  border-color: #0066cc;
+  background-color: #3b4a5c;
 }
 
 .password-toggle-icon {
   position: absolute;
-  right: 18px; /* Adjusted position */
+  right: 18px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #0d47a1;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.password-toggle-icon:hover {
+  color: #ffffff;
 }
 
 .password-toggle-icon svg {
-  width: 22px; /* Increased icon size */
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .forgot-password-link {
   display: inline-block;
-  color: #0d47a1;
+  color: #0066cc;
   text-decoration: none;
-  font-size: 16px; /* Increased font size */
-  font-weight: 500;
-  margin-top: 15px; /* Increased margin */
-  margin-bottom: 60px; /* Increased margin */
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 12px;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.forgot-password-link:hover {
+  color: #1a73e8;
 }
 
 /* --- Action Buttons Section --- */
 .action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Increased gap */
+  gap: 12px;
 }
 
 .btn {
   width: 100%;
-  padding: 18px; /* Increased padding */
-  font-size: 17px; /* Increased font size */
-  font-weight: bold;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: all 0.2s;
   box-sizing: border-box;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-login {
-  background-color: #e9ecef;
-  color: #adb5bd;
+  background-color: #0066cc;
+  color: #ffffff;
   border: none;
+  margin-bottom: 12px;
+}
+
+.btn-login:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.btn-login:disabled {
+  background-color: #475569;
+  color: #94a3b8;
   cursor: not-allowed;
 }
 
 .btn-customer {
-  background-color: #ffffff;
-  color: #0d47a1;
-  border: 1px solid #0d47a1;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #475569;
+  margin-bottom: 15px;
 }
 
 .btn-customer:hover {
-  background-color: #f0f6ff;
+  background-color: #334155;
+  border-color: #64748b;
 }
 
-.btn-create-password {
-  background-color: #f8f9fa;
-  color: #0d47a1;
-  border: none;
+.create-password-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  display: block;
+  transition: color 0.2s;
 }
 
-.btn-create-password:hover {
-  background-color: #e9ecef;
+.create-password-link:hover {
+  color: #1a73e8;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .app-container {
+    height: calc(100vh - 20px);
+    max-height: calc(100vh - 20px);
+    margin-top: -25px;
+  }
+
+  .container {
+    padding: 20px 25px;
+  }
+
+  .login-actions-container {
+    max-width: 100%;
+  }
+
+  .login-form-container h1 {
+    font-size: 24px;
+    margin: 25px 0 25px 0;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    padding: 20px 20px;
+    font-size: 17px;
+  }
+
+  .btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .header-links {
+    gap: 20px;
+  }
+
+  .header-links a {
+    font-size: 13px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .forgot-password-link {
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 8px;
+  }
+
+  .app-container {
+    height: calc(100vh - 16px);
+    max-height: calc(100vh - 16px);
+    margin-top: -20px;
+  }
+
+  .container {
+    padding: 15px 20px;
+  }
+
+  .header-links {
+    gap: 15px;
+  }
+
+  .header-links a {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .header-links svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .login-form-container h1 {
+    font-size: 22px;
+    margin: 25px 0 25px 0;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .forgot-password-link {
+    font-size: 13px;
+    margin-bottom: 25px;
+  }
+
+  .action-buttons {
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 12px;
+  }
 }

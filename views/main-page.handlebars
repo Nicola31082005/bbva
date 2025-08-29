@@ -1,4 +1,16 @@
-<div class="app-container">
+<div class="app-container" {{#if isAdminMode}}data-admin-mode="true"{{/if}}>
+{{#if isAdminMode}}
+<!-- Admin Mode Indicator -->
+<div class="admin-mode-indicator">
+    <div class="admin-toolbar">
+        <span class="admin-status">🛠️ Modo de Edición Admin</span>
+        <div class="admin-actions">
+            <button class="admin-btn" onclick="exitAdminMode()">❌ Salir del Modo Admin</button>
+            <a href="/admin-panel" class="admin-btn">⚙️ Panel Admin</a>
+        </div>
+    </div>
+</div>
+{{/if}}
 {{> top-header showVisible=true showRightIcons=true}}
 
 <main>
@@ -21,10 +33,18 @@
                 {{#each allAccounts}}
                 <div class="product-card" data-type="account">
                     <div class="card-header">
-                        <h3>{{this.type}} {{this.accountNumber}}</h3>
-                        <span>{{this.accountNumber}}</span>
+                        <h3 {{#if ../isAdminMode}}class="editable-field" data-entity="account" data-id="{{this.id}}" data-field="type" contenteditable="false"{{/if}}>{{this.type}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</h3>
+                        <span {{#if ../isAdminMode}}class="editable-field" data-entity="account" data-id="{{this.id}}" data-field="accountNumber" contenteditable="false"{{/if}}>{{this.accountNumber}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span>
                     </div>
-                    <div class="card-balance">{{formatAmount this.balance}} {{this.currency}}</div>
+                    <div class="card-balance">
+                        {{#if ../isAdminMode}}
+                            <span class="editable-field" data-entity="account" data-id="{{this.id}}" data-field="balance" contenteditable="false">{{formatAmount this.balance}}</span> 
+                            <span class="editable-field" data-entity="account" data-id="{{this.id}}" data-field="currency" contenteditable="false">{{this.currency}}</span> 
+                            <span class="edit-indicator">✏️</span>
+                        {{else}}
+                            {{formatAmount this.balance}} {{this.currency}}
+                        {{/if}}
+                    </div>
                     <div class="card-balance-label">Saldo disponible</div>
                     
                     <div class="movements-header">
@@ -37,9 +57,17 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 10v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1H4zM10 5a3 3 0 0 0-3 3v1h6V8a3 3 0 0 0-3-3zM3 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM3 18a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1z"/></svg>
                         </div>
                         <div class="movement-details">
-                            <p>{{this.description}}</p>
+                            <p {{#if ../../isAdminMode}}class="editable-field" data-entity="transaction" data-id="{{this.id}}" data-field="description" contenteditable="false"{{/if}}>{{this.description}} {{#if ../../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</p>
                         </div>
-                        <span class="movement-amount {{#if (gt this.amount 0)}}positive{{/if}}">{{formatAmount this.amount}} {{this.currency}}</span>
+                        <span class="movement-amount {{#if (gt this.amount 0)}}positive{{/if}}">
+                            {{#if ../../isAdminMode}}
+                                <span class="editable-field" data-entity="transaction" data-id="{{this.id}}" data-field="amount" contenteditable="false">{{formatAmount this.amount}}</span> 
+                                <span class="editable-field" data-entity="transaction" data-id="{{this.id}}" data-field="currency" contenteditable="false">{{this.currency}}</span> 
+                                <span class="edit-indicator">✏️</span>
+                            {{else}}
+                                {{formatAmount this.amount}} {{this.currency}}
+                            {{/if}}
+                        </span>
                     </div>
                     {{/each}}
 
@@ -50,20 +78,35 @@
                 {{#each allCards}}
                 <div class="product-card" data-type="card">
                     <div class="card-header">
-                        <h3>Tarjeta {{this.type}} {{this.cardNumber}}</h3>
-                        <span>{{this.cardNumber}}</span>
+                        <h3>Tarjeta <span {{#if ../isAdminMode}}class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="type" contenteditable="false"{{/if}}>{{this.type}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span> <span {{#if ../isAdminMode}}class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="cardNumber" contenteditable="false"{{/if}}>{{this.cardNumber}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span></h3>
+                        <span {{#if ../isAdminMode}}class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="cardNumber" contenteditable="false"{{/if}}>{{this.cardNumber}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span>
                     </div>
-                    <div class="card-balance">{{formatAmount this.limit}} {{this.currency}}</div>
+                    <div class="card-balance">
+                        {{#if ../isAdminMode}}
+                            <span class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="limit" contenteditable="false">{{formatAmount this.limit}}</span> 
+                            <span class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="currency" contenteditable="false">{{this.currency}}</span> 
+                            <span class="edit-indicator">✏️</span>
+                        {{else}}
+                            {{formatAmount this.limit}} {{this.currency}}
+                        {{/if}}
+                    </div>
                     <div class="card-balance-label">Límite disponible</div>
                     
                     <div class="movements-header">
                         <h4>Estado</h4>
-                        <span class="card-status {{this.status}}">{{this.status}}</span>
+                        <span class="card-status {{this.status}}">
+                            {{#if ../isAdminMode}}
+                                <span class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="status" contenteditable="false">{{this.status}}</span> 
+                                <span class="edit-indicator">✏️</span>
+                            {{else}}
+                                {{this.status}}
+                            {{/if}}
+                        </span>
                     </div>
 
                     <div class="card-info">
-                        <p>Tipo: {{this.type}}</p>
-                        <p>Estado: {{this.status}}</p>
+                        <p>Tipo: <span {{#if ../isAdminMode}}class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="type" contenteditable="false"{{/if}}>{{this.type}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span></p>
+                        <p>Estado: <span {{#if ../isAdminMode}}class="editable-field" data-entity="card" data-id="{{this.id}}" data-field="status" contenteditable="false"{{/if}}>{{this.status}} {{#if ../isAdminMode}}<span class="edit-indicator">✏️</span>{{/if}}</span></p>
                     </div>
 
 
@@ -82,4 +125,7 @@
 {{> bottom-nav activePage="main-page"}}
 
 <script src="/js/main-page.js"></script>
+{{#if isAdminMode}}
+<script src="/js/inline-editor.js"></script>
+{{/if}}
 </div>

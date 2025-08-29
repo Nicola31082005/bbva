@@ -541,3 +541,258 @@ main {
 .dropdown-overlay.show {
   display: block;
 }
+
+/* --- Admin Mode Styles --- */
+.admin-mode-indicator {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.admin-status {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.admin-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* --- Inline Editing Styles --- */
+[data-admin-mode="true"] .editable-field {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px 4px;
+  display: inline-block;
+  min-width: 50px;
+  min-height: 20px;
+}
+
+[data-admin-mode="true"] .editable-field:hover {
+  background-color: rgba(255, 235, 59, 0.2);
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+[data-admin-mode="true"] .editable-field.editing {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+[data-admin-mode="true"] .editable-field[contenteditable="true"] {
+  background-color: white;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+  outline: none;
+}
+
+.edit-indicator {
+  opacity: 0;
+  font-size: 0.7rem;
+  margin-left: 4px;
+  transition: opacity 0.3s ease;
+  color: #ff9800;
+}
+
+[data-admin-mode="true"] .editable-field:hover .edit-indicator {
+  opacity: 1;
+}
+
+[data-admin-mode="true"] .editable-field.editing .edit-indicator {
+  opacity: 0;
+}
+
+/* Edit Success Animation */
+@keyframes editSuccess {
+  0% {
+    background-color: rgba(76, 175, 80, 0.3);
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.edit-success {
+  animation: editSuccess 0.6s ease-out;
+}
+
+/* Loading indicator for saving */
+.saving-indicator {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: #2196f3;
+  margin-left: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.saving-indicator.visible {
+  opacity: 1;
+}
+
+.saving-indicator::after {
+  content: "⏳";
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Admin mode global styling */
+[data-admin-mode="true"] {
+  border: 3px solid #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+/* Toast notifications for admin actions */
+.admin-toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.3s ease;
+}
+
+.admin-toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.admin-toast.error {
+  background: #f44336;
+}
+
+.admin-toast.warning {
+  background: #ff9800;
+}
+
+/* Dropdown for select fields */
+.admin-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.admin-dropdown-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-dropdown-option:hover {
+  background-color: #f5f5f5;
+}
+
+.admin-dropdown-option:last-child {
+  border-bottom: none;
+}
+
+/* Edit Controls (Save/Cancel buttons) */
+.edit-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+.edit-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.save-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-btn {
+  background: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #da190b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
