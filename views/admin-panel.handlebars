@@ -1,35 +1,41 @@
 <!-- Admin Panel Header -->
-<header class="admin-header">
-    <div class="admin-header-content">
-        <h1><i class="admin-icon">⚙️</i> Panel de Administración BBVA</h1>
-        <div class="admin-nav">
-            <a href="/main-page" class="btn btn-secondary">Volver al Inicio</a>
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <h1><i class="admin-icon">⚙️</i> Panel de Configuración BBVA</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 0.95rem;">Gestiona los datos bancarios de {{data.users.0.name}}</p>
+            <div class="admin-nav">
+                <a href="/main-page" class="btn btn-secondary">Volver al Inicio</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
 <main class="admin-main">
     <!-- Dashboard Overview -->
     <section class="dashboard-overview">
+        <div class="info-banner" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid var(--bbva-blue); border-radius: 12px; padding: 15px; margin-bottom: 25px; text-align: center;">
+            <p style="margin: 0; color: var(--bbva-blue); font-weight: 500;">
+                💡 Configura los datos bancarios que aparecerán en la aplicación principal
+            </p>
+        </div>
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>{{data.users.length}}</h3>
-                <p>Usuarios Totales</p>
+                <h3>1</h3>
+                <p>Usuario del Sistema</p>
                 <i class="stat-icon">👤</i>
             </div>
             <div class="stat-card">
                 <h3>{{data.accounts.length}}</h3>
-                <p>Cuentas Totales</p>
+                <p>Cuentas Configuradas</p>
                 <i class="stat-icon">🏦</i>
             </div>
             <div class="stat-card">
                 <h3>{{data.cards.length}}</h3>
-                <p>Tarjetas Totales</p>
+                <p>Tarjetas Configuradas</p>
                 <i class="stat-icon">💳</i>
             </div>
             <div class="stat-card">
                 <h3>{{data.transactions.length}}</h3>
-                <p>Transacciones</p>
+                <p>Transacciones Activas</p>
                 <i class="stat-icon">📈</i>
             </div>
         </div>
@@ -37,7 +43,7 @@
 
     <!-- Admin Tabs -->
     <div class="admin-tabs">
-        <button class="tab-btn active" data-tab="users">👤 Usuarios</button>
+        <button class="tab-btn active" data-tab="users">👤 Perfil</button>
         <button class="tab-btn" data-tab="accounts">🏦 Cuentas</button>
         <button class="tab-btn" data-tab="cards">💳 Tarjetas</button>
         <button class="tab-btn" data-tab="transactions">📈 Transacciones</button>
@@ -46,8 +52,8 @@
     <!-- Users Management -->
     <section id="users" class="admin-section active">
         <div class="section-header">
-            <h2>Gestión de Usuarios</h2>
-            <button class="btn btn-primary" onclick="openUserModal()">+ Agregar Usuario</button>
+            <h2>Perfil del Usuario</h2>
+            <button class="btn btn-primary" onclick="editUser({{data.users.0.id}})">✏️ Editar Perfil</button>
         </div>
         <div class="table-container">
             <table class="admin-table">

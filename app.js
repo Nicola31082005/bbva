@@ -51,13 +51,6 @@ let appData = {
       phone: "+34 612 345 678",
       status: "active",
     },
-    {
-      id: 2,
-      name: "María García",
-      email: "maria.garcia@email.com",
-      phone: "+34 623 456 789",
-      status: "active",
-    },
   ],
   accounts: [
     {
@@ -78,15 +71,6 @@ let appData = {
       type: "Cuenta de ahorro",
       status: "active",
     },
-    {
-      id: 3,
-      userId: 2,
-      accountNumber: "*9876",
-      balance: 875.45,
-      currency: "€",
-      type: "Cuenta corriente",
-      status: "active",
-    },
   ],
   cards: [
     {
@@ -105,15 +89,6 @@ let appData = {
       type: "Crédito",
       status: "active",
       limit: 3000.0,
-      currency: "€",
-    },
-    {
-      id: 3,
-      userId: 2,
-      cardNumber: "**** **** **** 9012",
-      type: "Débito",
-      status: "active",
-      limit: 500.0,
       currency: "€",
     },
   ],
@@ -154,15 +129,6 @@ let appData = {
       currency: "€",
       date: new Date("2024-01-12"),
     },
-    {
-      id: 5,
-      accountId: 3,
-      type: "debit",
-      description: "Compra en comercio",
-      amount: -45.2,
-      currency: "€",
-      date: new Date("2024-01-11"),
-    },
   ],
   currencies: [
     { code: "€", name: "Euro", symbol: "€" },
@@ -186,15 +152,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/main-page", (req, res) => {
-  // Get first user's account and recent transactions for demo
-  const user = appData.users[0] || { id: 1, name: "Usuario Demo" };
+  // Single user banking app - always use the first (and only) user
+  const user = appData.users[0];
   const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
-  const mainAccount = userAccounts[0] || {
-    id: 1,
-    accountNumber: "*0000",
-    balance: 0,
-    currency: "€",
-  };
+  const mainAccount = userAccounts[0]; // Primary account for display
 
   // Get recent transactions for the main account
   const recentTransactions = appData.transactions
@@ -208,29 +169,40 @@ app.get("/main-page", (req, res) => {
     user: user,
     account: mainAccount,
     transactions: recentTransactions,
+    allAccounts: userAccounts, // All user accounts for potential display
+    allCards: appData.cards.filter((card) => card.userId === user.id),
     formatAmount: (amount) =>
       amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
   });
 });
 
 app.get("/buzon", (req, res) => {
+  // Pass user data for consistent personalization
+  const user = appData.users[0];
   res.render("buzon", {
     title: "Buzón - BBVA",
     pageId: "buzon",
+    user: user,
   });
 });
 
 app.get("/gestor", (req, res) => {
+  // Pass user data to gestor page for dynamic profile display
+  const user = appData.users[0];
   res.render("gestor", {
     title: "Gestor - BBVA",
     pageId: "gestor",
+    user: user,
   });
 });
 
 app.get("/financiera", (req, res) => {
+  // Pass user data for consistent personalization
+  const user = appData.users[0];
   res.render("financiera", {
     title: "Salud Financiera - BBVA",
     pageId: "financiera",
+    user: user,
   });
 });
 
