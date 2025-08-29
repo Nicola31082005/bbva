@@ -63,6 +63,13 @@ body {
   stroke: var(--text-secondary);
 }
 
+/* --- Header Logo Styling --- */
+.header-logo {
+    height: 28px;
+    width: auto;
+    margin-right: 15px;
+}
+
 /* --- Main Content --- */
 main {
   padding: 20px;

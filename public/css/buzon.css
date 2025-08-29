@@ -17,6 +17,30 @@ body {
     padding-bottom: 80px; /* Space for the fixed bottom nav */
 }
 
+/* --- Header Section --- */
+.top-header {
+    background-color: var(--card-background);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+.top-header .left {
+    display: flex;
+    align-items: center;
+}
+.top-header .center {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* --- Header Logo Styling --- */
+.header-logo {
+    height: 28px;
+    width: auto;
+}
+
 /* --- Main Content --- */
 main {
     padding: 20px;
