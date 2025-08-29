@@ -29,7 +29,14 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 .top-header .left {
-    width: 64px; /* To balance the right side */
+    display: flex;
+    align-items: center;
+}
+
+/* --- Header Logo Styling --- */
+.header-logo {
+    height: 28px;
+    width: auto;
 }
 .top-header .right {
     display: flex;

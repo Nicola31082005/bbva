@@ -25,8 +25,9 @@ app.engine(
         });
       },
       formatAmount: (amount) => {
-        if (amount === undefined || amount === null) return "0,00";
-        return amount.toFixed(2).replace(".", ",");
+        if (amount === undefined || amount === null || isNaN(amount)) return "0,00";
+        const num = parseFloat(amount);
+        return num.toFixed(2).replace(".", ",");
       },
     },
   })
@@ -208,8 +209,6 @@ app.get("/main-page", (req, res) => {
     user: user,
     account: mainAccount,
     transactions: recentTransactions,
-    formatAmount: (amount) =>
-      amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
   });
 });
 
