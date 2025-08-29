@@ -60,14 +60,14 @@ body {
   align-items: center;
   gap: 4px;
   font-size: 0.75rem;
-  color: var(--accent-blue);
+  color: var(--bbva-blue);
   font-weight: 500;
   cursor: pointer;
 }
 .header-icon svg {
   width: 24px;
   height: 24px;
-  stroke: var(--accent-blue);
+  stroke: var(--bbva-blue);
   stroke-width: 1.5;
 }
 .header-icon.visible-icon {
