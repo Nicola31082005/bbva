@@ -164,14 +164,31 @@ app.get("/main-page", (req, res) => {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 
+  // Add transactions to each account
+  const accountsWithTransactions = userAccounts.map(account => {
+    const accountTransactions = appData.transactions
+      .filter(t => t.accountId === account.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+    
+    return {
+      ...account,
+      recentTransactions: accountTransactions
+    };
+  });
+
+  const userCards = appData.cards.filter((card) => card.userId === user.id);
+  const totalProducts = userAccounts.length + userCards.length;
+
   res.render("main-page", {
     title: "Inicio - BBVA",
     pageId: "main-page",
     user: user,
     account: mainAccount,
     transactions: recentTransactions,
-    allAccounts: userAccounts, // All user accounts for potential display
-    allCards: appData.cards.filter((card) => card.userId === user.id),
+    allAccounts: accountsWithTransactions, // All user accounts with their transactions
+    allCards: userCards,
+    totalProducts: totalProducts,
     formatAmount: (amount) =>
       amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
   });

@@ -126,9 +126,9 @@ main {
   position: relative;
 }
 .carousel-container {
-  display: flex;
-  overflow-x: hidden; /* Hides the scrollbar, shows a peek of the next card */
-  gap: 15px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
   padding-bottom: 20px;
 }
 .product-card {
@@ -136,8 +136,11 @@ main {
   border-radius: 8px;
   padding: 25px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  flex: 0 0 90%; /* Card takes up 90% of the container width */
-  max-width: 90%;
+  width: 100%;
+  display: none; /* Hidden by default, shown by JavaScript */
+}
+.product-card:first-child {
+  display: block; /* Show first card by default */
 }
 
 .card-header {
@@ -213,6 +216,27 @@ main {
   color: var(--text-primary);
 }
 
+.card-info {
+  margin: 15px 0;
+}
+.card-info p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.card-status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.card-status.active {
+  background-color: #e8f5e8;
+  color: var(--positive-green);
+}
+
 .card-footer-link {
   display: block;
   text-align: center;
@@ -247,8 +271,10 @@ main {
 
 /* --- Quick Actions Section --- */
 .quick-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 20px;
+  max-width: 100%;
 }
 .action-item {
   display: flex;
@@ -259,6 +285,10 @@ main {
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+.action-item:hover {
+  transform: translateY(-2px);
 }
 .action-icon-wrapper {
   background: var(--card-background);
