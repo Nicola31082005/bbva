@@ -26,7 +26,8 @@ app.engine(
         });
       },
       formatAmount: (amount) => {
-        if (amount === undefined || amount === null || isNaN(amount)) return "0,00";
+        if (amount === undefined || amount === null || isNaN(amount))
+          return "0,00";
         const num = parseFloat(amount);
         return num.toFixed(2).replace(".", ",");
       },
@@ -37,12 +38,14 @@ app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 
 // Session configuration
-app.use(session({
-  secret: 'bbva-admin-secret-key-2024',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 24 hours
-}));
+app.use(
+  session({
+    secret: "bbva-admin-secret-key-2024",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
+  })
+);
 
 // Middleware for parsing JSON and form data
 app.use(express.json());
@@ -174,15 +177,15 @@ app.get("/main-page", (req, res) => {
     .slice(0, 3);
 
   // Add transactions to each account
-  const accountsWithTransactions = userAccounts.map(account => {
+  const accountsWithTransactions = userAccounts.map((account) => {
     const accountTransactions = appData.transactions
-      .filter(t => t.accountId === account.id)
+      .filter((t) => t.accountId === account.id)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
-    
+
     return {
       ...account,
-      recentTransactions: accountTransactions
+      recentTransactions: accountTransactions,
     };
   });
 
@@ -238,52 +241,114 @@ function requireAdminAuth(req, res, next) {
   if (req.session && req.session.isAdmin) {
     return next();
   } else {
-    return res.redirect('/admin-login');
+    return res.redirect("/admin-login");
   }
 }
 
 // Admin login routes
-app.get('/admin-login', (req, res) => {
+app.get("/admin-login", (req, res) => {
   if (req.session && req.session.isAdmin) {
-    return res.redirect('/admin-panel');
+    return res.redirect("/admin-panel");
   }
-  res.render('admin-login', {
-    title: 'Acceso Admin - BBVA',
-    pageId: 'admin-login'
+  res.render("admin-login", {
+    title: "Acceso Admin - BBVA",
+    pageId: "admin-login",
   });
 });
 
-app.post('/admin-login', (req, res) => {
+app.post("/admin-login", (req, res) => {
   const { password } = req.body;
-  
-  if (password === '123123') {
+
+  if (password === "123123") {
     req.session.isAdmin = true;
-    res.redirect('/admin-panel');
+    res.redirect("/admin-panel");
   } else {
-    res.render('admin-login', {
-      title: 'Acceso Admin - BBVA',
-      pageId: 'admin-login',
-      error: 'Contraseña incorrecta. Inténtalo de nuevo.'
+    res.render("admin-login", {
+      title: "Acceso Admin - BBVA",
+      pageId: "admin-login",
+      error: "Contraseña incorrecta. Inténtalo de nuevo.",
     });
   }
 });
 
 // Admin logout route
-app.get('/admin-logout', (req, res) => {
+app.get("/admin-logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
     }
-    res.redirect('/main-page');
+    res.redirect("/main-page");
+  });
+});
+
+// Transfers route
+app.get("/transfers", (req, res) => {
+  // Pass user data and transfers data
+  const user = appData.users[0];
+  const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
+
+  // Create sample transfers data (in a real app, this would come from the database)
+  const transfers = appData.transactions.map((transaction) => {
+    const account = appData.accounts.find(
+      (acc) => acc.id === transaction.accountId
+    );
+    return {
+      id: transaction.id,
+      description: transaction.description,
+      amount: Math.abs(transaction.amount),
+      currency: transaction.currency,
+      date: transaction.date,
+      accountNumber: account ? account.accountNumber : "N/A",
+      transferType: transaction.amount > 0 ? "received" : "sent",
+      recipientName: transaction.amount > 0 ? "Remitente" : "Beneficiario",
+      senderName: transaction.amount > 0 ? "Remitente" : "Beneficiario",
+      status: "completed",
+    };
+  });
+
+  res.render("transfers", {
+    title: "Transferencias - BBVA",
+    pageId: "transfers",
+    user: user,
+    accounts: userAccounts,
+    transfers: transfers,
   });
 });
 
 // Admin Panel Route (Protected)
 app.get("/admin-panel", requireAdminAuth, (req, res) => {
+  // Create sample transfers data for admin panel
+  const transfers = appData.transactions.map((transaction) => {
+    const account = appData.accounts.find(
+      (acc) => acc.id === transaction.accountId
+    );
+    return {
+      id: transaction.id,
+      description: transaction.description,
+      amount: Math.abs(transaction.amount),
+      currency: transaction.currency,
+      date: transaction.date,
+      fromAccountId: transaction.accountId,
+      recipientName:
+        transaction.amount > 0 ? "Remitente Externo" : "Beneficiario Externo",
+      recipientAccount:
+        transaction.amount > 0
+          ? "ES21 0000 0000 0000 0000 0000"
+          : "ES21 1111 1111 1111 1111 1111",
+      transferType: transaction.amount > 0 ? "received" : "sent",
+      status: "completed",
+    };
+  });
+
+  const adminData = {
+    ...appData,
+    transfers: transfers,
+  };
   res.render("admin-panel", {
     title: "Panel de Administración - BBVA",
     pageId: "admin-panel",
-    data: appData,
+    data: adminData,
+    transfersCount: transfers.length,
   });
 });
 

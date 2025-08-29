@@ -320,6 +320,31 @@ body {
   color: #d63031;
 }
 
+/* Transfer Types */
+.transfer-type {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transfer-sent {
+  background-color: #ffebee;
+  color: var(--negative-red);
+}
+
+.transfer-received {
+  background-color: #e8f5e8;
+  color: var(--success-green);
+}
+
+.transfer-scheduled {
+  background-color: #fff3e0;
+  color: var(--warning-orange);
+}
+
 /* Amount Styling */
 .amount.positive {
   color: var(--positive-green);

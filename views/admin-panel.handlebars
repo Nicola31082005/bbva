@@ -39,6 +39,11 @@
                 <p>Transacciones Activas</p>
                 <i class="stat-icon">📈</i>
             </div>
+            <div class="stat-card">
+                <h3>{{transfersCount}}</h3>
+                <p>Transferencias Totales</p>
+                <i class="stat-icon">💸</i>
+            </div>
         </div>
     </section>
 
@@ -48,6 +53,7 @@
         <button class="tab-btn" data-tab="accounts">🏦 Cuentas</button>
         <button class="tab-btn" data-tab="cards">💳 Tarjetas</button>
         <button class="tab-btn" data-tab="transactions">📈 Transacciones</button>
+        <button class="tab-btn" data-tab="transfers">💸 Transferencias</button>
     </div>
 
     <!-- Users Management -->
@@ -214,6 +220,57 @@
                         <td>
                             <button class="btn btn-sm btn-edit" onclick="editTransaction({{this.id}})">Editar</button>
                             <button class="btn btn-sm btn-delete" onclick="deleteTransaction({{this.id}})">Eliminar</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Transfers Management -->
+    <section id="transfers" class="admin-section">
+        <div class="section-header">
+            <h2>Gestión de Transferencias</h2>
+            <button class="btn btn-primary" onclick="openTransferModal()">+ Agregar Transferencia</button>
+        </div>
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Cuenta Origen</th>
+                        <th>Beneficiario</th>
+                        <th>Cuenta Destino</th>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                        <th>Moneda</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="transfers-tbody">
+                    {{#each data.transfers}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td><span class="transfer-type transfer-{{this.transferType}}">{{this.transferType}}</span></td>
+                        <td>
+                            {{#each ../data.accounts}}
+                                {{#if (eq this.id ../fromAccountId)}}{{this.accountNumber}}{{/if}}
+                            {{/each}}
+                        </td>
+                        <td>{{this.recipientName}}</td>
+                        <td>{{this.recipientAccount}}</td>
+                        <td>{{this.description}}</td>
+                        <td class="amount {{#if (eq this.transferType 'received')}}positive{{else}}negative{{/if}}">{{this.amount}} {{this.currency}}</td>
+                        <td>{{this.currency}}</td>
+                        <td><span class="status-badge status-{{this.status}}">{{this.status}}</span></td>
+                        <td>{{formatDate this.date}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-edit" onclick="editTransfer({{this.id}})">Editar</button>
+                            <button class="btn btn-sm btn-delete" onclick="deleteTransfer({{this.id}})">Eliminar</button>
                         </td>
                     </tr>
                     {{/each}}
@@ -430,6 +487,80 @@
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('transactionModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Transfer Modal -->
+<div id="transferModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="transferModalTitle">Agregar Transferencia</h3>
+            <span class="close" onclick="closeModal('transferModal')">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="transferForm">
+                <input type="hidden" id="transferId">
+                <div class="form-group">
+                    <label for="transferType">Tipo de Transferencia:</label>
+                    <select id="transferType" required>
+                        <option value="">Seleccionar Tipo</option>
+                        <option value="sent">Enviada</option>
+                        <option value="received">Recibida</option>
+                        <option value="scheduled">Programada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transferFromAccount">Cuenta Origen:</label>
+                    <select id="transferFromAccount" required>
+                        <option value="">Seleccionar Cuenta</option>
+                        {{#each data.accounts}}
+                        <option value="{{this.id}}">{{this.accountNumber}} - {{this.type}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transferRecipientName">Nombre del Beneficiario:</label>
+                    <input type="text" id="transferRecipientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="transferRecipientAccount">Cuenta del Beneficiario:</label>
+                    <input type="text" id="transferRecipientAccount" required>
+                </div>
+                <div class="form-group">
+                    <label for="transferDescription">Descripción:</label>
+                    <input type="text" id="transferDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="transferAmount">Monto:</label>
+                    <input type="number" id="transferAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="transferCurrency">Moneda:</label>
+                    <select id="transferCurrency" required>
+                        {{#each data.currencies}}
+                        <option value="{{this.symbol}}">{{this.name}} ({{this.symbol}})</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transferStatus">Estado:</label>
+                    <select id="transferStatus" required>
+                        <option value="completed">Completada</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="failed">Fallida</option>
+                        <option value="scheduled">Programada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transferDate">Fecha:</label>
+                    <input type="datetime-local" id="transferDate" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('transferModal')">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
