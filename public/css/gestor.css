@@ -1,0 +1,239 @@
+:root {
+    --bbva-blue: #0d47a1;
+    --bbva-dark-blue: #002d72;
+    --bbva-light-blue: #edf5ff;
+    --background-grey: #f4f6f8;
+    --card-background: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #6c757d;
+    --border-color: #e9ecef;
+}
+
+/* --- General Body & Font Styles --- */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-grey);
+    color: var(--text-primary);
+    padding-bottom: 80px; /* Space for the fixed bottom nav */
+}
+
+/* --- Main Content --- */
+main {
+    padding: 20px;
+}
+
+/* --- Card Styles --- */
+.card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 25px;
+}
+
+/* --- Equipo Contigo Card --- */
+.equipo-card {
+    padding-bottom: 15px;
+}
+.equipo-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.equipo-icon {
+    background-color: var(--bbva-light-blue);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.equipo-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--bbva-blue);
+}
+.equipo-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.llamar-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--bbva-blue);
+    font-weight: 500;
+    font-size: 0.9rem;
+    width: fit-content;
+    margin: 0 auto;
+}
+.llamar-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.llamar-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Cita Card --- */
+.cita-card {
+    display: flex;
+    flex-direction: column;
+}
+.cita-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+ .cita-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--bbva-blue);
+}
+.cita-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.cita-card p {
+    margin: 0 0 15px 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+.cita-card a {
+    color: var(--bbva-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* --- Blue BBVA Card --- */
+.blue-bbva-card {
+    text-align: center;
+}
+.blue-bbva-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+.blue-bbva-card h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.blue-bbva-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 10px 0 25px 0;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.comenzar-btn {
+    background-color: var(--bbva-dark-blue);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 14px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- Social Media Links --- */
+.social-links {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+.social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+.social-icon-wrapper {
+     width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social-icon-wrapper svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--text-primary);
+}
+
+/* --- Bottom Navigation Bar --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--card-background);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    z-index: 1000;
+}
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+.nav-item.active {
+    color: var(--bbva-blue);
+}
+.nav-item.active .nav-icon-wrapper {
+    background-color: var(--bbva-blue);
+    border-radius: 50%;
+}
+.nav-item.active .nav-icon-wrapper svg {
+    stroke: white;
+}
+.nav-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-secondary);
+}
+.nav-item.active svg {
+    stroke: var(--bbva-blue);
+}
