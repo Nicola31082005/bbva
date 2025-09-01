@@ -1,0 +1,151 @@
+{{> desktop/top-header}}
+
+<div class="desktop-main-container">
+    {{> desktop/sidebar}}
+
+    <main class="desktop-main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Mortgages and Loans</h1>
+        </div>
+
+        <!-- Current Mortgages Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2>Current Mortgages</h2>
+            </div>
+            <div class="content-area">
+                <div class="empty-state">
+                    <p>You don't have any active mortgages at the moment.</p>
+                    <button class="btn btn-primary">Apply for a Mortgage</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Loans Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2>Current Loans</h2>
+            </div>
+            <div class="content-area">
+                <div class="empty-state">
+                    <p>You don't have any active loans at the moment.</p>
+                    <button class="btn btn-primary">Apply for a Loan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Products Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2>Available Products</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-item">
+                    <h3>Home Mortgage</h3>
+                    <p>Finance your dream home with competitive interest rates.</p>
+                    <ul>
+                        <li>Up to 80% financing</li>
+                        <li>Fixed and variable rates</li>
+                        <li>Up to 30 years term</li>
+                    </ul>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+
+                <div class="product-item">
+                    <h3>Personal Loan</h3>
+                    <p>Quick approval for your personal projects and needs.</p>
+                    <ul>
+                        <li>Up to €60,000</li>
+                        <li>Fast approval process</li>
+                        <li>Flexible repayment terms</li>
+                    </ul>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+
+                <div class="product-item">
+                    <h3>Car Loan</h3>
+                    <p>Finance your new or used vehicle with special rates.</p>
+                    <ul>
+                        <li>Up to 100% financing</li>
+                        <li>Competitive rates</li>
+                        <li>Up to 8 years term</li>
+                    </ul>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+
+                <div class="product-item">
+                    <h3>Home Improvement Loan</h3>
+                    <p>Renovate and improve your home with our special financing.</p>
+                    <ul>
+                        <li>Up to €50,000</li>
+                        <li>No collateral required</li>
+                        <li>Quick processing</li>
+                    </ul>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loan Calculator Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2>Loan Calculator</h2>
+            </div>
+            <div class="calculator-area">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="loanAmount">Loan Amount (€)</label>
+                        <input type="number" id="loanAmount" placeholder="Enter amount" min="1000" max="500000">
+                    </div>
+                    <div class="form-group">
+                        <label for="loanTerm">Term (years)</label>
+                        <select id="loanTerm">
+                            <option value="5">5 years</option>
+                            <option value="10">10 years</option>
+                            <option value="15">15 years</option>
+                            <option value="20">20 years</option>
+                            <option value="25">25 years</option>
+                            <option value="30">30 years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="interestRate">Interest Rate (%)</label>
+                        <input type="number" id="interestRate" placeholder="3.5" step="0.1" min="1" max="15">
+                    </div>
+                    <button class="btn btn-primary" onclick="calculateLoan()">Calculate</button>
+                </div>
+                <div class="calculator-result">
+                    <div class="result-item">
+                        <span class="result-label">Monthly Payment:</span>
+                        <span class="result-value" id="monthlyPayment">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Interest:</span>
+                        <span class="result-value" id="totalInterest">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Amount:</span>
+                        <span class="result-value" id="totalAmount">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <h2>Need Help?</h2>
+            </div>
+            <div class="contact-info">
+                <p>Our mortgage and loan specialists are here to help you find the best solution for your needs.</p>
+                <div class="contact-options">
+                    <button class="btn btn-primary">Schedule an Appointment</button>
+                    <button class="btn btn-secondary">Call Us: 944 23 00 45</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/js/desktop/mortgages.js"></script>

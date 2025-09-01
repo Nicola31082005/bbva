@@ -373,6 +373,36 @@ app.post("/api/toggle-admin-mode", requireAdminAuth, (req, res) => {
   });
 });
 
+// Accounts and Cards route
+app.get("/accounts", requireUserAuth, (req, res) => {
+  const user = appData.users[0];
+  const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
+  const userCards = appData.cards.filter((card) => card.userId === user.id);
+
+  res.render("desktop/accounts", {
+    title: "Accounts and Cards - BBVA",
+    pageId: "accounts",
+    layout: "desktop/main",
+    user: user,
+    accounts: userAccounts,
+    cards: userCards,
+    isAdminMode: req.session.isAdminMode || false,
+  });
+});
+
+// Mortgages and Loans route
+app.get("/mortgages", requireUserAuth, (req, res) => {
+  const user = appData.users[0];
+
+  res.render("desktop/mortgages", {
+    title: "Mortgages and Loans - BBVA",
+    pageId: "mortgages",
+    layout: "desktop/main",
+    user: user,
+    isAdminMode: req.session.isAdminMode || false,
+  });
+});
+
 // Transfers route
 app.get("/transfers", requireUserAuth, (req, res) => {
   // Pass user data and transfers data
