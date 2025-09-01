@@ -293,6 +293,120 @@ body.desktop {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    min-height: calc(100vh - 80px);
+    background: #f5f7fa;
+}
+
+/* Sidebar Styles */
+.desktop-sidebar {
+    width: 280px;
+    background: #ffffff;
+    border-right: 1px solid #e8ecf0;
+    padding: 0;
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 70px;
+    height: calc(100vh - 70px);
+    z-index: 999;
+    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+.sidebar-logo img {
+    height: 28px;
+    width: auto;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+.nav-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #5a6c7d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    margin: 0 12px 4px 12px;
+    border-radius: 8px;
+}
+
+.nav-menu-item:hover {
+    background-color: #f8fafc;
+    color: #004481;
+}
+
+.nav-menu-item.active {
+    background-color: #004481;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #5a6c7d;
+    transition: color 0.2s ease;
+}
+
+.nav-menu-item:hover .nav-icon svg {
+    color: #004481;
+}
+
+.nav-menu-item.active .nav-icon svg {
+    color: #ffffff;
+}
+
+.nav-text {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+.exit-btn {
+    color: #dc3545 !important;
+}
+
+.exit-btn:hover {
+    background-color: #fff5f5 !important;
+    color: #dc3545 !important;
 }
 
 /* Button Styles */
@@ -445,8 +559,14 @@ body.desktop {
         padding: 0 1.5rem;
     }
     
+    .desktop-sidebar {
+        width: 260px;
+    }
+    
     .desktop-main-content {
         padding: 1.5rem;
+        margin-left: 260px;
+        width: calc(100% - 260px);
     }
     
     .admin-toolbar {
@@ -463,12 +583,18 @@ body.desktop {
         display: none;
     }
     
+    .desktop-sidebar {
+        display: none;
+    }
+    
     .header-container {
         padding: 0 1rem;
     }
     
     .desktop-main-content {
         padding: 1rem;
+        margin-left: 0;
+        width: 100%;
     }
     
     .admin-toolbar {
