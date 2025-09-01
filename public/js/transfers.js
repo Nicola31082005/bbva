@@ -32,6 +32,118 @@ function openBeneficiariesModal() {
     alert('Funcionalidad de beneficiarios próximamente disponible');
 }
 
+// Show all transactions (now requires phone verification)
+function showAllTransactions() {
+    // Open phone verification modal first
+    openModal('phoneVerificationModal');
+    resetPhoneVerificationModal();
+}
+
+// Reset phone verification modal to initial state
+function resetPhoneVerificationModal() {
+    document.getElementById('phoneRequestStep').style.display = 'block';
+    document.getElementById('codeVerificationStep').style.display = 'none';
+    document.getElementById('verificationSuccessStep').style.display = 'none';
+    
+    // Reset form
+    const form = document.getElementById('verificationCodeForm');
+    if (form) {
+        form.reset();
+    }
+}
+
+// Send verification code (simulated)
+function sendVerificationCode() {
+    // Hide phone request step and show code verification step
+    document.getElementById('phoneRequestStep').style.display = 'none';
+    document.getElementById('codeVerificationStep').style.display = 'block';
+    
+    // Generate a random 6-digit code for simulation
+    const verificationCode = Math.floor(100000 + Math.random() * 900000);
+    console.log('Simulated verification code:', verificationCode); // In real app, this would be sent via SMS
+    
+    // Store the code for verification (in real app, this would be server-side)
+    window.currentVerificationCode = verificationCode;
+    
+    // Start countdown timer
+    startCountdown();
+    startResendCountdown();
+    
+    // Focus on the input field
+    setTimeout(() => {
+        document.getElementById('verificationCode').focus();
+    }, 100);
+}
+
+// Start countdown timer for code expiration
+function startCountdown() {
+    let timeLeft = 60;
+    const countdownElement = document.getElementById('countdown');
+    
+    const timer = setInterval(() => {
+        timeLeft--;
+        countdownElement.textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            countdownElement.textContent = '0';
+            // In a real app, you might disable the form or show an expired message
+        }
+    }, 1000);
+}
+
+// Start countdown for resend button
+function startResendCountdown() {
+    let timeLeft = 30;
+    const resendBtn = document.getElementById('resendCodeBtn');
+    const resendCountdown = document.getElementById('resendCountdown');
+    
+    resendBtn.disabled = true;
+    
+    const timer = setInterval(() => {
+        timeLeft--;
+        resendCountdown.textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            resendBtn.disabled = false;
+            resendBtn.innerHTML = 'Reenviar código';
+        }
+    }, 1000);
+}
+
+// Resend verification code
+function resendVerificationCode() {
+    sendVerificationCode();
+}
+
+// Go back to phone step
+function goBackToPhoneStep() {
+    document.getElementById('codeVerificationStep').style.display = 'none';
+    document.getElementById('phoneRequestStep').style.display = 'block';
+}
+
+// Proceed to show all transactions after successful verification
+function proceedToAllTransactions() {
+    // Close the verification modal
+    closeModal('phoneVerificationModal');
+    
+    // Show all transfer items that might be hidden
+    const transferItems = document.querySelectorAll('.movement-item');
+    transferItems.forEach(item => {
+        item.style.display = 'flex';
+    });
+    
+    // Update the section header to indicate all transactions are shown
+    const sectionHeader = document.querySelector('.section-header h2');
+    if (sectionHeader) {
+        sectionHeader.textContent = 'Todas las transferencias';
+    }
+    
+    // Optional: You could also make an AJAX call to fetch more transactions
+    // fetchAllTransactions();
+}
+
 // Filter transfers
 function filterTransfers() {
     const typeFilter = document.getElementById('filterType').value;
@@ -84,6 +196,28 @@ function filterTransfers() {
 // Form submission
 document.addEventListener('DOMContentLoaded', function() {
     const newTransferForm = document.getElementById('newTransferForm');
+    const verificationCodeForm = document.getElementById('verificationCodeForm');
+    
+    // Handle verification code form submission
+    if (verificationCodeForm) {
+        verificationCodeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enteredCode = document.getElementById('verificationCode').value;
+            const correctCode = window.currentVerificationCode;
+            
+            if (enteredCode === correctCode.toString()) {
+                // Verification successful
+                document.getElementById('codeVerificationStep').style.display = 'none';
+                document.getElementById('verificationSuccessStep').style.display = 'block';
+            } else {
+                // Verification failed
+                alert('Código incorrecto. Por favor, inténtalo de nuevo.');
+                document.getElementById('verificationCode').value = '';
+                document.getElementById('verificationCode').focus();
+            }
+        });
+    }
     
     if (newTransferForm) {
         newTransferForm.addEventListener('submit', function(e) {

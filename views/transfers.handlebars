@@ -21,7 +21,7 @@
         <div class="product-card">
             <div class="movements-header">
                 <h4>Historial de transferencias</h4>
-                <a href="/admin-panel" target="_blank">Ver admin</a>
+                <a href="#" onclick="showAllTransactions()">Ver todas</a>
             </div>
 
             {{#each transfers}}
@@ -59,7 +59,7 @@
             </div>
             {{/unless}}
 
-            <a href="/admin-panel" class="card-footer-link">Ver panel de administración</a>
+            <a href="#" onclick="showAllTransactions()" class="card-footer-link">Ver todas las transacciones</a>
         </div>
     </section>
 </main>
@@ -114,6 +114,8 @@
         </div>
     </div>
 </div>
+
+{{> phone-verification}}
 
 {{> bottom-nav activePage="transfers"}}
 
