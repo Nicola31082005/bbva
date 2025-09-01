@@ -781,7 +781,7 @@ app.post("/login", (req, res) => {
   const { userid, password } = req.body;
 
   // Check if credentials match the specified ones
-  if (userid === "73629477Z" && password === "s29F9") {
+  if (userid === "A73629477ZD" && password === "As29F9D") {
     req.session.isLoggedIn = true;
     req.session.userId = userid;
     res.redirect("/main-page");
