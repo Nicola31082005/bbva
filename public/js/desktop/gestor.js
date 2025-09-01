@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize service cards
     initializeServiceCards();
     
-    console.log('👤 Desktop profile scripts loaded');
+    console.log('Desktop profile scripts loaded');
 });
 
 // Contact actions functionality
