@@ -1,0 +1,499 @@
+/* Desktop Profile/Gestor Styles - Clean */
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Welcome Card */
+.welcome-card {
+    padding: 24px;
+    background: #0066cc;
+    border-radius: 8px;
+    color: white;
+}
+
+.welcome-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.welcome-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.welcome-avatar svg {
+    width: 32px;
+    height: 32px;
+}
+
+.welcome-text h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.welcome-text p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+/* Contact Content */
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-info-desktop {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.contact-icon-large {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.contact-icon-large svg {
+    width: 24px;
+    height: 24px;
+    color: #6b7280;
+}
+
+.contact-details-desktop h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.contact-details-desktop p {
+    margin: 0 0 12px 0;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.contact-phone-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.phone-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.phone-hours {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.call-btn,
+.chat-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.call-btn {
+    background: #0066cc;
+    color: white;
+}
+
+.call-btn:hover {
+    background: #0052a3;
+}
+
+.chat-btn {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.chat-btn:hover {
+    background: #e5e7eb;
+}
+
+.call-btn svg,
+.chat-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Appointment Content */
+.appointment-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.appointment-info {
+    display: flex;
+    gap: 16px;
+}
+
+.appointment-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #fef3c7;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.appointment-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #d97706;
+}
+
+.appointment-text h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.appointment-text p {
+    margin: 0 0 12px 0;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.appointment-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.appointment-benefits li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.appointment-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #059669;
+    font-weight: bold;
+}
+
+.appointment-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.appointment-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.appointment-link:hover {
+    color: #0052a3;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.service-item {
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.service-item:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #0066cc;
+    border-radius: 8px;
+    margin: 0 auto 16px;
+}
+
+.service-icon svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.service-item h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.service-item p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Assistant Card */
+.assistant-card {
+    padding: 20px;
+    background: #0066cc;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+
+.assistant-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.bbva-logo {
+    width: 48px;
+    height: auto;
+    margin-bottom: 12px;
+}
+
+.assistant-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.assistant-card p {
+    margin: 0 0 20px 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.assistant-card .btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.assistant-card .btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Quick Contact Card */
+.quick-contact-card {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.quick-contact-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1f2937;
+    transition: all 0.2s ease;
+}
+
+.contact-option:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.contact-option svg {
+    width: 20px;
+    height: 20px;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contact-text strong {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.contact-text span {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Profile Summary Card */
+.profile-summary-card {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.profile-summary-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.profile-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.view-full-profile {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.view-full-profile:hover {
+    color: #0052a3;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-sidebar {
+        order: -1;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-actions {
+        flex-direction: column;
+    }
+    
+    .appointment-info {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .appointment-benefits {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

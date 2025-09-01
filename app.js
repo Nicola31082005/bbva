@@ -262,9 +262,10 @@ app.get("/main-page", requireUserAuth, (req, res) => {
 app.get("/buzon", requireUserAuth, (req, res) => {
   // Pass user data for consistent personalization
   const user = appData.users[0];
-  res.render("buzon", {
+  res.render(`${req.viewPrefix}buzon`, {
     title: "Buzón - BBVA",
     pageId: "buzon",
+    layout: req.layoutPath,
     user: user,
     showVisible: false,
     showRightIcons: false,
@@ -274,9 +275,10 @@ app.get("/buzon", requireUserAuth, (req, res) => {
 app.get("/gestor", requireUserAuth, (req, res) => {
   // Pass user data to gestor page for dynamic profile display
   const user = appData.users[0];
-  res.render("gestor", {
+  res.render(`${req.viewPrefix}gestor`, {
     title: "Gestor - BBVA",
     pageId: "gestor",
+    layout: req.layoutPath,
     user: user,
     showVisible: false,
     showRightIcons: true,
@@ -286,9 +288,10 @@ app.get("/gestor", requireUserAuth, (req, res) => {
 app.get("/financiera", requireUserAuth, (req, res) => {
   // Pass user data for consistent personalization
   const user = appData.users[0];
-  res.render("financiera", {
+  res.render(`${req.viewPrefix}financiera`, {
     title: "Salud Financiera - BBVA",
     pageId: "financiera",
+    layout: req.layoutPath,
     user: user,
     showVisible: false,
     showRightIcons: true,
@@ -379,10 +382,10 @@ app.get("/accounts", requireUserAuth, (req, res) => {
   const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
   const userCards = appData.cards.filter((card) => card.userId === user.id);
 
-  res.render("desktop/accounts", {
+  res.render(`${req.viewPrefix}accounts`, {
     title: "Accounts and Cards - BBVA",
     pageId: "accounts",
-    layout: "desktop/main",
+    layout: req.layoutPath,
     user: user,
     accounts: userAccounts,
     cards: userCards,
@@ -394,10 +397,10 @@ app.get("/accounts", requireUserAuth, (req, res) => {
 app.get("/mortgages", requireUserAuth, (req, res) => {
   const user = appData.users[0];
 
-  res.render("desktop/mortgages", {
+  res.render(`${req.viewPrefix}mortgages`, {
     title: "Mortgages and Loans - BBVA",
     pageId: "mortgages",
-    layout: "desktop/main",
+    layout: req.layoutPath,
     user: user,
     isAdminMode: req.session.isAdminMode || false,
   });

@@ -1,0 +1,609 @@
+/* Desktop Financial Health/Financiera Styles - Clean */
+.financial-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.financial-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.financial-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Tabs Navigation */
+.tabs-navigation {
+    display: flex;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 8px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #6b7280;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #374151;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn:hover:not(.active) {
+    color: #374151;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Products Summary */
+.products-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.products-count {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.configure-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.configure-link:hover {
+    color: #0052a3;
+}
+
+/* Net Worth Card */
+.networth-card {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border: 1px solid #e2e8f0;
+}
+
+.networth-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.networth-main {
+    flex: 1;
+}
+
+.networth-label {
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.networth-amount {
+    margin: 0 0 12px 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #374151;
+    line-height: 1;
+}
+
+.networth-change {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.change-arrow {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.change-arrow.positive {
+    color: #059669;
+}
+
+.change-arrow.negative {
+    color: #dc2626;
+}
+
+.networth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.evolution-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.evolution-link:hover {
+    color: #0052a3;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 200px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #9ca3af;
+}
+
+.chart-placeholder svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+}
+
+.chart-placeholder p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Assets Grid */
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.asset-card {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.asset-card:hover {
+    border-color: #d1d5db;
+}
+
+.asset-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.asset-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.asset-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #6b7280;
+}
+
+.asset-info {
+    flex: 1;
+}
+
+.asset-info h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.asset-description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.asset-amount {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #374151;
+    text-align: right;
+}
+
+/* Asset Details */
+.asset-details {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+}
+
+.account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.account-item span:first-child {
+    color: #6b7280;
+}
+
+.account-item span:last-child {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Investment Opportunity */
+.investment-opportunity .asset-icon {
+    background: #fef3c7;
+}
+
+.investment-opportunity .asset-icon svg {
+    color: #d97706;
+}
+
+.opportunity-prompt {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+    text-align: center;
+}
+
+.opportunity-prompt p {
+    margin: 0 0 12px 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+/* Add Asset Section */
+.add-asset-section {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+}
+
+.add-asset-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.add-asset-btn:hover {
+    color: #0052a3;
+}
+
+.add-asset-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.add-asset-description {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    line-height: 1.4;
+}
+
+/* Goals Section */
+.goals-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+}
+
+.empty-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #9ca3af;
+}
+
+.goals-empty-state h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.goals-empty-state p {
+    margin: 0 0 20px 0;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* Health Score Card */
+.health-score-card {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.health-score-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.score-display {
+    margin-bottom: 20px;
+}
+
+.score-circle {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #374151;
+}
+
+.score-description {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.score-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.score-label {
+    color: #6b7280;
+}
+
+.score-indicator {
+    font-size: 1.2rem;
+}
+
+.score-indicator.excellent {
+    color: #059669;
+}
+
+.score-indicator.good {
+    color: #0066cc;
+}
+
+.score-indicator.needs-work {
+    color: #d97706;
+}
+
+.score-indicator.poor {
+    color: #dc2626;
+}
+
+/* Quick Actions List */
+.quick-actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #1f2937;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.quick-action:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.quick-action svg {
+    width: 16px;
+    height: 16px;
+    color: #6b7280;
+}
+
+/* Tips Card */
+.tips-card {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.tips-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.tip-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.tip-item:last-of-type {
+    margin-bottom: 12px;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.tip-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.tip-content h4 {
+    margin: 0 0 4px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.tip-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+.view-all-tips {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.view-all-tips:hover {
+    color: #0052a3;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .financial-layout {
+        grid-template-columns: 1fr 280px;
+        gap: 20px;
+    }
+    
+    .assets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 1024px) {
+    .financial-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .financial-sidebar {
+        order: -1;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .networth-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .networth-actions {
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .assets-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .financial-sidebar {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabs-navigation {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        text-align: center;
+    }
+    
+    .networth-amount {
+        font-size: 2rem;
+    }
+    
+    .asset-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .asset-amount {
+        text-align: center;
+    }
+}
