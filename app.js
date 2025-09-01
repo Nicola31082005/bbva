@@ -285,18 +285,7 @@ app.get("/gestor", requireUserAuth, (req, res) => {
   });
 });
 
-app.get("/financiera", requireUserAuth, (req, res) => {
-  // Pass user data for consistent personalization
-  const user = appData.users[0];
-  res.render(`${req.viewPrefix}financiera`, {
-    title: "Salud Financiera - BBVA",
-    pageId: "financiera",
-    layout: req.layoutPath,
-    user: user,
-    showVisible: false,
-    showRightIcons: true,
-  });
-});
+
 
 // Admin authentication middleware
 function requireAdminAuth(req, res, next) {
