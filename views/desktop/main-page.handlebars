@@ -1,0 +1,245 @@
+{{#if isAdminMode}}
+<!-- Admin Mode Indicator -->
+<div class="admin-mode-indicator desktop">
+    <div class="admin-toolbar">
+        <span class="admin-status">🛠️ Modo de Edición Admin</span>
+        <div class="admin-actions">
+            <button class="admin-btn" onclick="exitAdminMode()">❌ Salir del Modo Admin</button>
+            <a href="/admin-panel" class="admin-btn">⚙️ Panel Admin</a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{> desktop/top-header}}
+
+<div class="desktop-main-container">
+    <!-- Sidebar -->
+    {{> desktop/sidebar}}
+
+    <!-- Main Content Area -->
+    <main class="desktop-main-content">
+        <!-- Top Navigation Links -->
+        <div class="top-nav-links">
+            <a href="#" class="nav-link">Tax information</a>
+            <a href="#" class="nav-link">Emergency help</a>
+            <a href="#" class="nav-link">Inheritance processing</a>
+            <a href="#" class="nav-link">Accessibility</a>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-header">
+                <div class="welcome-content">
+                    <h1>Good afternoon, TASIO</h1>
+                    <p class="last-connection">Last connection 09/01/2025 at 16:07</p>
+                </div>
+                <div class="user-contact">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7C14.4 7 14 7.4 14 8V16C14 16.6 14.4 17 15 17H21V15H16V13H19V11H16V9H21ZM9 13.5V7H7V13.5C7 15.43 8.57 17 10.5 17S14 15.43 14 13.5H12C12 14.33 11.33 15 10.5 15S9 14.33 9 13.5Z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <span class="contact-label">Contigo Team</span>
+                            <span class="contact-phone">944 23 00 45</span>
+                        </div>
+                    </div>
+                    <a href="#" class="appointment-btn">
+                        Request teller appointment
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="balance-summary">
+                <div class="balance-main">
+                    <p class="balance-label">AT BBVA YOU HAVE:</p>
+                    <div class="main-balance-display">
+                        <span class="balance-amount-large">400.06 €</span>
+                    </div>
+                </div>
+                
+                <div class="balance-details">
+              
+                    
+                    <div class="balance-controls">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="showAmounts" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Show amounts</span>
+                        <a href="#" class="customize-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            Customize Global Position
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="products-info">
+                    <div class="products-card">
+                        <h3>Explore all the products you can take out</h3>
+                        <a href="#" class="see-all-btn">See all</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- ECO Cars Promotion -->
+        <div class="eco-cars-section">
+            <div class="eco-card">
+                <button class="close-btn" aria-label="Close">×</button>
+                <div class="eco-content">
+                    <div class="eco-header">
+                        <div class="car-icon">
+                            <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Car body -->
+                                <path d="M15 35 L20 25 L30 20 L70 20 L80 25 L85 35 L85 45 L80 45 L80 40 L20 40 L20 45 L15 45 Z" fill="#4A90E2"/>
+                                <!-- Windows -->
+                                <path d="M25 25 L30 22 L70 22 L75 25 L75 32 L25 32 Z" fill="#87CEEB"/>
+                                <!-- Wheels -->
+                                <circle cx="25" cy="42" r="8" fill="#333"/>
+                                <circle cx="75" cy="42" r="8" fill="#333"/>
+                                <circle cx="25" cy="42" r="5" fill="#666"/>
+                                <circle cx="75" cy="42" r="5" fill="#666"/>
+                                <!-- Headlight -->
+                                <circle cx="85" cy="30" r="3" fill="#FFE135"/>
+                            </svg>
+                        </div>
+                        <div class="eco-text">
+                            <h3>Catalog of ECO cars</h3>
+                            <p>Find your model and calculate how much it would cost you to pay in installments in one click.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="see-cars-btn">See cars</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fast Transactions Section -->
+        <div class="fast-transactions-section">
+            <div class="section-header">
+                <h2>FAST TRANSACTIONS</h2>
+                <a href="#" class="setup-link">
+                    Set up
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="fast-actions-grid">
+                <div class="fast-action-item">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                    </div>
+                    <span class="action-label">Check CVV</span>
+                </div>
+                <div class="fast-action-item">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <span class="action-label">Manage a transfer</span>
+                </div>
+                <div class="fast-action-item">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12l2 2 4-4"></path>
+                            <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                    </div>
+                    <span class="action-label">View PIN</span>
+                </div>
+                <div class="fast-action-item">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <span class="action-label">Send / Receive money (Bizum)</span>
+                </div>
+            </div>
+            <a href="#" class="see-all-transactions">See all the transactions</a>
+        </div>
+
+        <!-- Everyday Operations Section -->
+        <div class="operations-section">
+            <div class="section-header">
+                <h2>MY EVERYDAY OPERATIONS - FROM 01 SEPTEMBER 2024, TO 30 SEPTEMBER 2025</h2>
+                <a href="#" class="setup-link">
+                    Set up
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="operations-grid">
+                <div class="operation-card income">
+                    <div class="operation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="operation-info">
+                        <span class="operation-label">Income</span>
+                        <span class="operation-amount">3,193 €</span>
+                    </div>
+                </div>
+                <div class="operation-card expenses">
+                    <div class="operation-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="operation-info">
+                        <span class="operation-label">Expenses</span>
+                        <span class="operation-amount">2,543 €</span>
+                    </div>
+                </div>
+            </div>
+            <div class="associated-actions">
+                <h3>ASSOCIATED ACTIONS</h3>
+                <a href="#" class="action-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    See details by category
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Floating Help Button -->
+<div class="floating-help">
+    <button class="help-btn" title="Help">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="help-text">Help</span>
+    </button>
+</div>
+
+<script src="/js/desktop/main-page.js"></script>
+{{#if isAdminMode}}
+<script src="/js/inline-editor.js"></script>
+{{/if}}

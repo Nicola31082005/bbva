@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <!-- Desktop-specific CSS -->
+    {{#if pageId}}
+        <link rel="stylesheet" href="/css/desktop/{{pageId}}.css">
+    {{/if}}
+    <!-- Common desktop styles -->
+    <link rel="stylesheet" href="/css/desktop/common.css">
+    <!-- BBVA Brand Font System -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="desktop {{pageId}}">
+    <div class="desktop-app-container">
+        {{{body}}}
+    </div>
+    
+    <!-- Desktop-specific scripts -->
+    <script src="/js/desktop/common.js"></script>
+    {{#if pageId}}
+        <script src="/js/desktop/{{pageId}}.js"></script>
+    {{/if}}
+    
+    <!-- Header functionality script -->
+    <script src="/js/header.js"></script>
+</body>
+</html>

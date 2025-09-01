@@ -1,0 +1,479 @@
+/* Desktop Common Styles */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.desktop {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f5f7fa;
+    color: #2c3e50;
+    line-height: 1.5;
+    min-height: 100vh;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.desktop-app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Desktop Header Styles */
+.desktop-header {
+    background: #ffffff;
+    color: #004481;
+    padding: 0;
+    box-shadow: 0 1px 0 #e8ecf0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #e8ecf0;
+}
+
+.header-container {
+    max-width: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 70px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.bbva-logo {
+    height: 28px;
+    width: auto;
+}
+
+/* Main Navigation */
+.main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: #004481;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-item:hover {
+    background-color: #f0f8ff;
+    color: #004481;
+}
+
+.nav-item.active {
+    background-color: #e6f3ff;
+    color: #004481;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #004481;
+}
+
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Header Right Section */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.user-greeting {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.user-email {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #004481;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background-color: #f0f8ff;
+    color: #004481;
+}
+
+.action-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* User Menu Dropdown */
+.user-menu-dropdown {
+    position: relative;
+}
+
+.user-avatar {
+    background: none;
+    border: none;
+    color: #004481;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-avatar:hover {
+    background-color: #f0f8ff;
+    color: #004481;
+}
+
+.user-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.dropdown-arrow {
+    width: 16px !important;
+    height: 16px !important;
+    transition: transform 0.3s ease;
+}
+
+.user-avatar.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    margin-top: 0.5rem;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.dropdown-item:last-child {
+    border-radius: 0 0 8px 8px;
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.logout {
+    color: #dc3545;
+}
+
+.dropdown-item.logout:hover {
+    background-color: #fff5f5;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 0.5rem 0;
+}
+
+/* Auth Actions (for login page) */
+.auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.help-link,
+.close-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.help-link:hover,
+.close-link:hover {
+    color: white;
+}
+
+/* Main Container Layout */
+.desktop-main-container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    margin: 0;
+}
+
+.desktop-main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #004481 0%, #0066cc 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #003366 0%, #0052a3 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #004481;
+    border: 2px solid #004481;
+}
+
+.btn-secondary:hover {
+    background: #004481;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.2);
+}
+
+/* Card Styles */
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-action {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-action:hover {
+    background-color: #f8f9fa;
+    color: #004481;
+}
+
+.card-action svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Admin Mode Styles */
+.admin-mode-indicator.desktop {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 0.75rem 0;
+    text-align: center;
+    position: sticky;
+    top: 70px;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(255, 107, 53, 0.2);
+}
+
+.admin-toolbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.admin-status {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.admin-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .header-container {
+        padding: 0 1.5rem;
+    }
+    
+    .desktop-main-content {
+        padding: 1.5rem;
+    }
+    
+    .admin-toolbar {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-navigation {
+        display: none;
+    }
+    
+    .user-info {
+        display: none;
+    }
+    
+    .header-container {
+        padding: 0 1rem;
+    }
+    
+    .desktop-main-content {
+        padding: 1rem;
+    }
+    
+    .admin-toolbar {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

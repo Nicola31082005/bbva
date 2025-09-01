@@ -1,0 +1,1432 @@
+/* Desktop Main Page Styles */
+
+/* Sidebar Styles */
+.desktop-sidebar {
+    width: 280px;
+    background: #ffffff;
+    border-right: 1px solid #e8ecf0;
+    padding: 0;
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 70px;
+    height: calc(100vh - 70px);
+    z-index: 999;
+    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+.sidebar-logo img {
+    height: 28px;
+    width: auto;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+.nav-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #5a6c7d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    margin: 0 12px 4px 12px;
+    border-radius: 8px;
+}
+
+.nav-menu-item:hover {
+    background-color: #f8fafc;
+    color: #004481;
+}
+
+.nav-menu-item.active {
+    background-color: #004481;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nav-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #5a6c7d;
+    transition: color 0.2s ease;
+}
+
+.nav-menu-item:hover .nav-icon svg {
+    color: #004481;
+}
+
+.nav-menu-item.active .nav-icon svg {
+    color: #ffffff;
+}
+
+.nav-text {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    border-top: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+.exit-btn {
+    color: #dc3545 !important;
+}
+
+.exit-btn:hover {
+    background-color: #fff5f5 !important;
+    color: #dc3545 !important;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 8px;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.quick-action-btn:hover {
+    background: #004481;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.2);
+}
+
+.quick-action-btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Account Summary */
+.account-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-account {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.summary-account:hover {
+    background: #e9ecef;
+}
+
+.account-info {
+    margin-bottom: 0.5rem;
+}
+
+.account-type {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.account-number {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.account-balance {
+    text-align: right;
+}
+
+.balance-amount {
+    font-weight: 700;
+    color: #004481;
+    font-size: 1.1rem;
+}
+
+/* Recent Activity */
+.recent-activity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: #e9ecef;
+}
+
+.activity-icon {
+    width: 32px;
+    height: 32px;
+    background: #004481;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-icon svg {
+    width: 16px;
+    height: 16px;
+    color: white;
+}
+
+.activity-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-description {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activity-date {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.activity-amount {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.activity-amount.positive {
+    color: #28a745;
+}
+
+.no-activity {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Support Links */
+.support-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.support-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    color: #666;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.support-link:hover {
+    background: #f8f9fa;
+    color: #004481;
+}
+
+.support-link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Main Content Area */
+.desktop-main-content {
+    background: #f5f7fa;
+    padding: 24px 32px;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    min-height: calc(100vh - 70px);
+}
+
+/* Top Navigation Links */
+.top-nav-links {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.nav-link {
+    color: #004481;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+/* Welcome Section */
+.welcome-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8ecf0;
+    overflow: hidden;
+}
+
+.welcome-header {
+    padding: 32px 32px 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.welcome-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.last-connection {
+    color: #718096;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.user-contact {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    background: #004481;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    fill: currentColor;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.contact-phone {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.appointment-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #004481;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.appointment-btn:hover {
+    background: #003366;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.3);
+}
+
+.appointment-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Balance Summary */
+.balance-summary {
+    padding: 32px;
+}
+
+.balance-main {
+    margin-bottom: 24px;
+}
+
+.balance-label {
+    color: #718096;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.main-balance-display {
+    margin-bottom: 24px;
+}
+
+.balance-amount-large {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a202c;
+    line-height: 1;
+}
+
+.balance-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.available-balance-box {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #004481;
+}
+
+.available-label {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.available-amount-display {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.balance-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #004481;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #004481;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.customize-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #004481;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.customize-link:hover {
+    text-decoration: underline;
+}
+
+.customize-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.products-info {
+    display: flex;
+    align-items: stretch;
+}
+
+.products-card {
+    background: linear-gradient(135deg, #004481 0%, #0066cc 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.2);
+}
+
+.products-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.see-all-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.see-all-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* ECO Cars Section */
+.eco-cars-section {
+    margin-bottom: 2rem;
+}
+
+.eco-card {
+    background: linear-gradient(135deg, #e8f8ff 0%, #d4f1ff 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #b3e0ff;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.eco-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.car-icon {
+    width: 80px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.car-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.eco-text h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.eco-text p {
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.see-cars-btn {
+    background: #004481;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.see-cars-btn:hover {
+    background: #003366;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.3);
+}
+
+/* Fast Transactions Section */
+.fast-transactions-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8ecf0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a202c;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.setup-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #004481;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.setup-link:hover {
+    text-decoration: underline;
+}
+
+.setup-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.fast-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.fast-action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e8ecf0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    min-height: 140px;
+    justify-content: center;
+}
+
+.fast-action-item:hover {
+    background: #f8fafc;
+    border-color: #004481;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 68, 129, 0.15);
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    border: 2px solid #004481;
+}
+
+.action-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #004481;
+}
+
+.action-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.2;
+}
+
+.see-all-transactions {
+    color: #004481;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.see-all-transactions:hover {
+    text-decoration: underline;
+}
+
+/* Operations Section */
+.operations-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8ecf0;
+}
+
+.operations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.operation-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e9ecef;
+    background: white;
+}
+
+.operation-card.income {
+    border-left: 4px solid #ffc107;
+}
+
+.operation-card.expenses {
+    border-left: 4px solid #17a2b8;
+}
+
+.operation-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.operation-card.income .operation-icon {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.operation-card.expenses .operation-icon {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.operation-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.operation-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.operation-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.operation-amount {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.associated-actions {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1.5rem;
+}
+
+.associated-actions h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.action-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #004481;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.action-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Floating Help Button */
+.floating-help {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 1000;
+}
+
+.help-btn {
+    background: #004481;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 68, 129, 0.3);
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.help-btn:hover {
+    background: #003366;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 68, 129, 0.4);
+}
+
+.help-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.help-text {
+    white-space: nowrap;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+}
+
+.dashboard-card {
+    grid-column: span 1;
+}
+
+.transactions-overview {
+    grid-column: span 2;
+}
+
+/* Accounts Overview */
+.accounts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.account-item:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.account-details h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.account-number {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.account-balance {
+    text-align: right;
+}
+
+.balance-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #004481;
+    display: block;
+}
+
+.balance-currency {
+    color: #004481;
+    font-weight: 600;
+}
+
+.balance-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.account-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.account-action-btn {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.account-action-btn:hover {
+    background: #004481;
+    color: white;
+}
+
+.account-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Cards Overview */
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.card-item:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.card-visual {
+    width: 120px;
+    height: 75px;
+    background: linear-gradient(135deg, #004481 0%, #0066cc 100%);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: white;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.card-chip {
+    width: 20px;
+    height: 16px;
+    background: #ffd700;
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.card-number {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.card-type {
+    font-size: 0.7rem;
+    opacity: 0.9;
+}
+
+.card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-limit {
+    text-align: right;
+}
+
+.limit-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #004481;
+    display: block;
+}
+
+.limit-currency {
+    color: #004481;
+    font-weight: 600;
+}
+
+.limit-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.card-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.card-status.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.card-status.blocked {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Transactions Overview */
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.transaction-item:hover {
+    background: #e9ecef;
+}
+
+.transaction-icon {
+    width: 40px;
+    height: 40px;
+    background: #004481;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.transaction-icon svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.transaction-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.transaction-description {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transaction-date {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.transaction-amount {
+    text-align: right;
+    font-weight: 600;
+}
+
+.transaction-amount.positive .amount-value {
+    color: #28a745;
+}
+
+.transaction-amount.negative .amount-value {
+    color: #dc3545;
+}
+
+.amount-value {
+    font-size: 1.1rem;
+    display: block;
+}
+
+.amount-currency {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Financial Health Widget */
+.financial-health {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.health-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.health-score {
+    flex-shrink: 0;
+}
+
+.score-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.score-label {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.health-insights {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.insight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.insight-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.insight-item.good svg {
+    color: #28a745;
+}
+
+.insight-item.warning svg {
+    color: #ffc107;
+}
+
+.insight-item.danger svg {
+    color: #dc3545;
+}
+
+/* Admin Mode Editable Fields */
+.editable-field {
+    position: relative;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.editable-field:hover {
+    background: rgba(255, 107, 53, 0.1);
+}
+
+.edit-indicator {
+    opacity: 0;
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+    transition: opacity 0.3s ease;
+}
+
+.editable-field:hover .edit-indicator {
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .fast-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .desktop-sidebar {
+        width: 260px;
+    }
+    
+    .desktop-main-content {
+        padding: 1rem 1.5rem;
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+    
+    .welcome-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 24px;
+    }
+    
+    .user-contact {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .balance-details {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .operations-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .fast-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .top-nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-sidebar {
+        display: none;
+    }
+    
+    .desktop-main-content {
+        padding: 1rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .welcome-header {
+        padding: 20px;
+    }
+    
+    .balance-summary {
+        padding: 20px;
+    }
+    
+    .user-contact {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .fast-actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .fast-action-item {
+        flex-direction: row;
+        text-align: left;
+        padding: 1rem;
+    }
+    
+    .action-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0;
+        margin-right: 1rem;
+    }
+    
+    .action-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .balance-amount {
+        font-size: 2.5rem;
+    }
+    
+    .top-nav-links {
+        display: none;
+    }
+}

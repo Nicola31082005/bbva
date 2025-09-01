@@ -6,6 +6,32 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Device detection middleware
+function detectDevice(req, res, next) {
+  const userAgent = req.headers['user-agent'] || '';
+  const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  
+  // Allow manual override via query parameter for testing
+  if (req.query.device === 'mobile') {
+    req.isMobile = true;
+  } else if (req.query.device === 'desktop') {
+    req.isMobile = false;
+  } else {
+    req.isMobile = isMobile;
+  }
+  
+  // Set layout and view paths based on device
+  if (req.isMobile) {
+    req.layoutPath = 'main';
+    req.viewPrefix = '';
+  } else {
+    req.layoutPath = 'desktop/main';
+    req.viewPrefix = 'desktop/';
+  }
+  
+  next();
+}
+
 // Configure Handlebars as the view engine
 app.engine(
   "handlebars",
@@ -54,14 +80,17 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, "public")));
 
+// Apply device detection middleware to all routes
+app.use(detectDevice);
+
 // In-memory data store (in production, use a real database)
 let appData = {
   users: [
     {
       id: 1,
-      name: "Juan Pérez",
-      email: "juan.perez@email.com",
-      phone: "+34 612 345 678",
+      name: "TASIO",
+      email: "tasio@email.com",
+      phone: "+34 944 23 00 45",
       status: "active",
     },
   ],
@@ -158,9 +187,10 @@ function getNextId(arrayName) {
 
 // Routes
 app.get("/", (req, res) => {
-  res.render("login", {
+  res.render(`${req.viewPrefix}login`, {
     title: "Iniciar sesión - BBVA",
     pageId: "login",
+    layout: req.layoutPath,
   });
 });
 
@@ -211,9 +241,10 @@ app.get("/main-page", requireUserAuth, (req, res) => {
     }
   }
 
-  res.render("main-page", {
+  res.render(`${req.viewPrefix}main-page`, {
     title: "Inicio - BBVA",
     pageId: "main-page",
+    layout: req.layoutPath,
     user: user,
     account: mainAccount,
     transactions: recentTransactions,
@@ -367,9 +398,10 @@ app.get("/transfers", requireUserAuth, (req, res) => {
     };
   });
 
-  res.render("transfers", {
+  res.render(`${req.viewPrefix}transfers`, {
     title: "Transferencias - BBVA",
     pageId: "transfers",
+    layout: req.layoutPath,
     user: user,
     accounts: userAccounts,
     transfers: transfers,
