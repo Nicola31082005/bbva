@@ -3,37 +3,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acceso Admin - BBVA</title>
-    <link rel="stylesheet" href="/css/admin-panel.css" />
     <style>
-      body { display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; margin: 0; background: linear-gradient(135deg,
-      var(--bbva-blue), #1976d2); } .login-container { background: white;
-      padding: 40px; border-radius: 12px; box-shadow: 0 8px 32px
-      rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center; }
-      .login-header { margin-bottom: 30px; } .login-header h1 { color:
+      :root { --bbva-blue: #004481; --text-primary: #333; --text-secondary:
+      #666; --border-color: #ddd; } body { display: flex; align-items: center;
+      justify-content: center; min-height: 100vh; margin: 0; background:
+      linear-gradient(135deg, var(--bbva-blue), #1976d2); font-family: Arial,
+      sans-serif; } .login-container { background: white; padding: 40px;
+      border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); width: 100%;
+      max-width: 500px; text-align: center; } .login-header h1 { color:
       var(--bbva-blue); margin: 0 0 10px 0; font-size: 2rem; } .login-header p {
-      color: var(--text-secondary); margin: 0; } .form-group { margin-bottom:
-      20px; text-align: left; } .form-group label { display: block;
-      margin-bottom: 5px; font-weight: 500; color: var(--text-primary); }
-      .form-group input { width: 100%; padding: 12px; border: 2px solid
-      var(--border-color); border-radius: 6px; font-size: 1rem; transition:
-      border-color 0.3s ease; box-sizing: border-box; } .form-group input:focus
-      { outline: none; border-color: var(--bbva-blue); } .login-btn { width:
-      100%; padding: 12px; background: var(--bbva-blue); color: white; border:
-      none; border-radius: 6px; font-size: 1rem; font-weight: 500; cursor:
-      pointer; transition: background 0.3s ease; } .login-btn:hover {
-      background: #0a3d91; } .error-message { background: #ffebee; border: 1px
-      solid #f44336; color: #c62828; padding: 10px; border-radius: 4px;
-      margin-bottom: 20px; } .back-link { display: inline-block; margin-top:
-      20px; color: var(--text-secondary); text-decoration: none; font-size:
-      0.9rem; } .back-link:hover { color: var(--bbva-blue); }
+      color: var(--text-secondary); margin: 0; } .error-message { background:
+      #ffebee; border: 1px solid #f44336; color: #c62828; padding: 10px;
+      border-radius: 4px; margin-bottom: 20px; } /* Captcha Styles */
+      .captcha-section { margin-bottom: 30px; text-align: left; }
+      .captcha-section h3 { font-size: 1.5rem; margin-bottom: 20px; color:
+      var(--text-primary); } .birth-date-container { display: flex; gap: 20px;
+      margin-bottom: 20px; } .month-section { flex: 2; } .day-year-section {
+      flex: 1; display: flex; flex-direction: column; gap: 15px; }
+      .month-columns { display: flex; gap: 15px; border: 2px solid #ddd;
+      padding: 15px; border-radius: 8px; } .month-column { flex: 1; display:
+      flex; flex-direction: column; gap: 8px; border: 1px solid #ccc; padding:
+      10px; border-radius: 6px; background: #fafafa; } .month-piece {
+      background: #f8f9fa; border: 1px solid #ddd; padding: 8px 12px;
+      text-align: center; border-radius: 4px; cursor: pointer; transition: all
+      0.2s ease; font-size: 0.9rem; } .month-piece:hover { background: #e3f2fd;
+      border-color: var(--bbva-blue); } .month-piece.selected { background:
+      #42a5f5; color: white; border-color: var(--bbva-blue); } .day-year-section
+      select, .day-year-section input { width: 100%; padding: 8px; border: 1px
+      solid #ddd; border-radius: 4px; } .human-verification { text-align:
+      center; padding: 20px; background: #f8f9fa; border-radius: 8px; border:
+      1px solid #ddd; } .verification-icon { font-size: 2rem; margin-bottom:
+      10px; } .human-verification h4 { margin: 10px 0; color:
+      var(--text-primary); font-size: 1.2rem; } .human-verification p { margin:
+      10px 0; color: var(--text-secondary); } .begin-puzzle-btn { background:
+      #4caf50; color: white; border: none; padding: 12px 24px; border-radius:
+      6px; font-size: 1rem; cursor: pointer; transition: background 0.3s ease; }
+      .begin-puzzle-btn:hover { background: #45a049; }
+      .begin-puzzle-btn:disabled { background: #ccc; cursor: not-allowed; }
+      .form-group { margin-bottom: 20px; text-align: left; } .form-group label {
+      display: block; margin-bottom: 5px; font-weight: 500; color:
+      var(--text-primary); } .form-group input { width: 100%; padding: 12px;
+      border: 2px solid var(--border-color); border-radius: 6px; font-size:
+      1rem; transition: border-color 0.3s ease; box-sizing: border-box; }
+      .form-group input:focus { outline: none; border-color: var(--bbva-blue); }
       .admin-mode-buttons { display: flex; flex-direction: column; gap: 10px;
-      margin-bottom: 20px; } .admin-panel-btn { background: var(--bbva-blue); }
+      margin-bottom: 20px; } .login-btn { width: 100%; padding: 12px;
+      background: var(--bbva-blue); color: white; border: none; border-radius:
+      6px; font-size: 1rem; font-weight: 500; cursor: pointer; transition:
+      background 0.3s ease; } .login-btn:hover { background: #0a3d91; }
       .inline-edit-btn { background: #ff6b6b; } .inline-edit-btn:hover {
       background: #ee5a6f; } .mode-info { margin-top: 20px; padding: 15px;
       background: #f8f9fa; border-radius: 6px; border-left: 4px solid
       var(--bbva-blue); } .mode-info p { margin: 5px 0; font-size: 0.85rem;
-      color: var(--text-secondary); }
+      color: var(--text-secondary); } .back-link { display: inline-block;
+      margin-top: 20px; color: var(--text-secondary); text-decoration: none;
+      font-size: 0.9rem; } .back-link:hover { color: var(--bbva-blue); } /*
+      Responsive design */ @media (max-width: 600px) { .birth-date-container {
+      flex-direction: column; gap: 15px; } .month-columns { gap: 10px; padding:
+      10px; } .month-column { gap: 6px; padding: 6px; } .month-piece { padding:
+      6px 8px; font-size: 0.8rem; } }
     </style>
   </head>
   <body>
@@ -49,12 +77,95 @@
         </div>
       {{/if}}
 
-      <form action="/admin-login" method="POST" id="adminForm">
+      <!-- Captcha Section -->
+      <div class="captcha-section">
+        <h3>Select Birth date</h3>
+
+        <div class="birth-date-container">
+          <div class="month-section">
+            <label>month</label>
+            <div class="month-columns">
+              <div class="month-column" data-column="1">
+                {{#each captcha.columns.first}}
+                  <div
+                    class="month-piece"
+                    data-piece="{{this}}"
+                    data-column="1"
+                  >{{this}}</div>
+                {{/each}}
+              </div>
+              <div class="month-column" data-column="2">
+                {{#each captcha.columns.second}}
+                  <div
+                    class="month-piece"
+                    data-piece="{{this}}"
+                    data-column="2"
+                  >{{this}}</div>
+                {{/each}}
+              </div>
+              <div class="month-column" data-column="3">
+                {{#each captcha.columns.third}}
+                  <div
+                    class="month-piece"
+                    data-piece="{{this}}"
+                    data-column="3"
+                  >{{this}}</div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+
+          <div class="day-year-section">
+            <div class="form-group">
+              <label for="day">day</label>
+              <select id="day" name="day">
+                <option value="{{captcha.day}}">{{captcha.day}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="year">year</label>
+              <input
+                type="number"
+                id="year"
+                name="year"
+                value="{{captcha.year}}"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="human-verification">
+          <div class="verification-icon">🛡️</div>
+          <h4>Verify that you are human</h4>
+          <p>Continue by completing this quick puzzle.</p>
+          <button type="button" class="begin-puzzle-btn" id="beginPuzzle">Begin
+            puzzle</button>
+        </div>
+      </div>
+
+      <form
+        action="/admin-login"
+        method="POST"
+        id="adminForm"
+        style="display: none;"
+      >
         <div class="form-group">
           <label for="password">Contraseña:</label>
           <input type="password" id="password" name="password" required />
         </div>
         <input type="hidden" id="mode" name="mode" value="panel" />
+        <input type="hidden" id="column1" name="column1" value="" />
+        <input type="hidden" id="column2" name="column2" value="" />
+        <input type="hidden" id="column3" name="column3" value="" />
+        <input type="hidden" id="dayValue" name="day" value="{{captcha.day}}" />
+        <input
+          type="hidden"
+          id="yearValue"
+          name="year"
+          value="{{captcha.year}}"
+        />
 
         <div class="admin-mode-buttons">
           <button
@@ -82,7 +193,61 @@
       </div>
 
       <script>
-        function setMode(mode) { document.getElementById('mode').value = mode; }
+        let selectedColumns = { 1: null, 2: null, 3: null }; let puzzleStarted =
+        false; function setMode(mode) { document.getElementById('mode').value =
+        mode; } document.addEventListener('DOMContentLoaded', function() { //
+        Reset state on page load selectedColumns = { 1: null, 2: null, 3: null
+        }; puzzleStarted = false; const beginPuzzleBtn =
+        document.getElementById('beginPuzzle'); const monthPieces =
+        document.querySelectorAll('.month-piece'); const adminForm =
+        document.getElementById('adminForm'); const column1Input =
+        document.getElementById('column1'); const column2Input =
+        document.getElementById('column2'); const column3Input =
+        document.getElementById('column3'); // Ensure captcha section is visible
+        and form is hidden
+        document.querySelector('.captcha-section').style.display = 'block';
+        adminForm.style.display = 'none'; // Clear any previous selections
+        monthPieces.forEach(function(piece) {
+        piece.classList.remove('selected'); }); // Begin puzzle button click
+        beginPuzzleBtn.addEventListener('click', function() { if
+        (!puzzleStarted) { puzzleStarted = true; this.textContent = 'Select one
+        piece from each column to form a month'; this.disabled = true; // Enable
+        month piece selection monthPieces.forEach(function(piece) {
+        piece.addEventListener('click', function() {
+        toggleColumnSelection(this); }); }); // Show instruction const
+        instruction = document.createElement('p'); instruction.textContent =
+        'Click one piece from each column (first, second, third part)';
+        instruction.style.fontSize = '0.9rem'; instruction.style.color =
+        'var(--text-secondary)'; instruction.style.marginTop = '10px';
+        this.parentElement.appendChild(instruction); // Add submit button const
+        submitBtn = document.createElement('button'); submitBtn.textContent =
+        'Submit Captcha'; submitBtn.className = 'begin-puzzle-btn';
+        submitBtn.style.marginTop = '10px'; submitBtn.addEventListener('click',
+        function() { if (selectedColumns[1] && selectedColumns[2] &&
+        selectedColumns[3]) { // Update hidden inputs column1Input.value =
+        selectedColumns[1]; column2Input.value = selectedColumns[2];
+        column3Input.value = selectedColumns[3]; // Hide captcha section and
+        show login form document.querySelector('.captcha-section').style.display
+        = 'none'; adminForm.style.display = 'block'; // Focus on password field
+        document.getElementById('password').focus(); } else { alert('Please
+        select one piece from each column to form a complete month.'); } });
+        this.parentElement.appendChild(submitBtn); } }); }); function
+        toggleColumnSelection(piece) { const pieceValue = piece.dataset.piece;
+        const columnNumber = parseInt(piece.dataset.column); // Deselect any
+        previously selected piece in this column const columnPieces =
+        document.querySelectorAll('[data-column="' + columnNumber + '"]');
+        columnPieces.forEach(function(p) { p.classList.remove('selected'); });
+        // Select this piece piece.classList.add('selected');
+        selectedColumns[columnNumber] = pieceValue; // Update visual feedback
+        updateSelectionFeedback(); } function updateSelectionFeedback() { const
+        beginPuzzleBtn = document.getElementById('beginPuzzle'); const
+        selectedParts = []; if (selectedColumns[1])
+        selectedParts.push(selectedColumns[1]); if (selectedColumns[2])
+        selectedParts.push(selectedColumns[2]); if (selectedColumns[3])
+        selectedParts.push(selectedColumns[3]); if (selectedParts.length > 0) {
+        beginPuzzleBtn.textContent = 'Selected: ' + selectedParts.join(' + ') +
+        ' (' + selectedParts.length + '/3)'; } else if (puzzleStarted) {
+        beginPuzzleBtn.textContent = 'Select one piece from each column'; } }
       </script>
 
       <a href="/main-page" class="back-link">← Volver al inicio</a>

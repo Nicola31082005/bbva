@@ -8,27 +8,30 @@ const PORT = process.env.PORT || 3000;
 
 // Device detection middleware
 function detectDevice(req, res, next) {
-  const userAgent = req.headers['user-agent'] || '';
-  const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  
+  const userAgent = req.headers["user-agent"] || "";
+  const isMobile =
+    /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent
+    );
+
   // Allow manual override via query parameter for testing
-  if (req.query.device === 'mobile') {
+  if (req.query.device === "mobile") {
     req.isMobile = true;
-  } else if (req.query.device === 'desktop') {
+  } else if (req.query.device === "desktop") {
     req.isMobile = false;
   } else {
     req.isMobile = isMobile;
   }
-  
+
   // Set layout and view paths based on device
   if (req.isMobile) {
-    req.layoutPath = 'main';
-    req.viewPrefix = '';
+    req.layoutPath = "main";
+    req.viewPrefix = "";
   } else {
-    req.layoutPath = 'desktop/main';
-    req.viewPrefix = 'desktop/';
+    req.layoutPath = "desktop/main";
+    req.viewPrefix = "desktop/";
   }
-  
+
   next();
 }
 
@@ -184,6 +187,77 @@ function getNextId(arrayName) {
   const items = appData[arrayName];
   return items.length > 0 ? Math.max(...items.map((item) => item.id)) + 1 : 1;
 }
+ha
+// Captcha functionality
+function generateCaptcha() {
+  const months = [
+    { name: "january", pieces: ["jan", "u", "ary"] },
+    { name: "february", pieces: ["febr", "u", "ary"] },
+    { name: "march", pieces: ["m", "ar", "ch"] },
+    { name: "april", pieces: ["a", "pr", "il"] },
+    { name: "may", pieces: ["m", "a", "y"] },
+    { name: "june", pieces: ["j", "un", "e"] },
+    { name: "july", pieces: ["j", "ul", "y"] },
+    { name: "august", pieces: ["au", "gu", "st"] },
+    { name: "september", pieces: ["sep", "t", "ember"] },
+    { name: "october", pieces: ["oct", "o", "ber"] },
+    { name: "november", pieces: ["n", "ov", "ember"] },
+    { name: "december", pieces: ["dec", "em", "ber"] },
+  ];
+
+  // Select a random month as the correct answer
+  const correctMonth = months[Math.floor(Math.random() * months.length)];
+
+  // Organize all pieces by position (first, second, third)
+  const firstParts = [];
+  const secondParts = [];
+  const thirdParts = [];
+
+  months.forEach((month) => {
+    firstParts.push(month.pieces[0]);
+    secondParts.push(month.pieces[1]);
+    thirdParts.push(month.pieces[2]);
+  });
+
+  // Remove duplicates and shuffle each column
+  const uniqueFirstParts = [...new Set(firstParts)].sort(
+    () => Math.random() - 0.5
+  );
+  const uniqueSecondParts = [...new Set(secondParts)].sort(
+    () => Math.random() - 0.5
+  );
+  const uniqueThirdParts = [...new Set(thirdParts)].sort(
+    () => Math.random() - 0.5
+  );
+
+  // Ensure correct pieces are included in their respective columns
+  if (!uniqueFirstParts.includes(correctMonth.pieces[0])) {
+    uniqueFirstParts.push(correctMonth.pieces[0]);
+  }
+  if (!uniqueSecondParts.includes(correctMonth.pieces[1])) {
+    uniqueSecondParts.push(correctMonth.pieces[1]);
+  }
+  if (!uniqueThirdParts.includes(correctMonth.pieces[2])) {
+    uniqueThirdParts.push(correctMonth.pieces[2]);
+  }
+
+  // Final shuffle for each column
+  const column1 = uniqueFirstParts.sort(() => Math.random() - 0.5);
+  const column2 = uniqueSecondParts.sort(() => Math.random() - 0.5);
+  const column3 = uniqueThirdParts.sort(() => Math.random() - 0.5);
+
+  return {
+    correctMonth: correctMonth.name,
+    correctPieces: correctMonth.pieces,
+    columns: {
+      first: column1,
+      second: column2,
+      third: column3,
+    },
+    day: Math.floor(Math.random() * 28) + 1, // Random day 1-28
+    year: Math.floor(Math.random() * 50) + 1970, // Random year 1970-2019
+  };
+}
 
 // Routes
 app.get("/", (req, res) => {
@@ -285,8 +359,6 @@ app.get("/gestor", requireUserAuth, (req, res) => {
   });
 });
 
-
-
 // Admin authentication middleware
 function requireAdminAuth(req, res, next) {
   console.log("🔐 Admin auth check:", {
@@ -311,27 +383,63 @@ app.get("/admin-login", (req, res) => {
   if (req.session && req.session.isAdmin) {
     return res.redirect("/admin-panel");
   }
+
+  // Generate captcha for the session
+  const captcha = generateCaptcha();
+  req.session.captcha = captcha;
+
   res.render("admin-login", {
     title: "Acceso Admin - BBVA",
     pageId: "admin-login",
+    captcha: captcha,
   });
 });
 
 app.post("/admin-login", (req, res) => {
-  const { password } = req.body;
+  const { password, column1, column2, column3, day, year } = req.body;
+  const storedCaptcha = req.session.captcha;
 
-  if (password === "123123") {
+  // Validate captcha first
+  let captchaValid = false;
+  if (storedCaptcha && column1 && column2 && column3) {
+    const userSelection = [column1, column2, column3];
+    const correctPieces = storedCaptcha.correctPieces;
+
+    captchaValid =
+      userSelection[0] === correctPieces[0] &&
+      userSelection[1] === correctPieces[1] &&
+      userSelection[2] === correctPieces[2];
+  }
+
+  // Validate password and captcha
+  if (password === "123123" && captchaValid) {
     req.session.isAdmin = true;
     req.session.isLoggedIn = true; // Also set user as logged in to access main page
+    req.session.captcha = null; // Clear captcha after successful login
+
     // Check if they want to access admin panel or inline editing
     const redirectTo =
       req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-panel";
     res.redirect(redirectTo);
   } else {
+    // Generate new captcha for retry
+    const newCaptcha = generateCaptcha();
+    req.session.captcha = newCaptcha;
+
+    let errorMessage = "Error de verificación. ";
+    if (password !== "123123") {
+      errorMessage += "Contraseña incorrecta. ";
+    }
+    if (!captchaValid) {
+      errorMessage += "Captcha incorrecto. ";
+    }
+    errorMessage += "Inténtalo de nuevo.";
+
     res.render("admin-login", {
       title: "Acceso Admin - BBVA",
       pageId: "admin-login",
-      error: "Contraseña incorrecta. Inténtalo de nuevo.",
+      captcha: newCaptcha,
+      error: errorMessage,
     });
   }
 });
