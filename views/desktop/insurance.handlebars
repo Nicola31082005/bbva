@@ -1,0 +1,275 @@
+{{#if isWysiwygMode}}
+<!-- WYSIWYG Admin Toolbar -->
+<div id="wysiwygToolbar" class="wysiwyg-toolbar">
+    <div class="toolbar-content">
+        <div class="toolbar-left">
+            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-subtitle">Click on any text to edit</span>
+        </div>
+        <div class="toolbar-center">
+            <div class="page-navigation">
+                <a href="/admin-wysiwyg" class="nav-btn">
+                    <i class="icon">🏠</i>
+                    <span>Main</span>
+                </a>
+                <a href="/admin-wysiwyg/gestor" class="nav-btn">
+                    <i class="icon">👤</i>
+                    <span>Gestor</span>
+                </a>
+                <a href="/admin-wysiwyg/accounts" class="nav-btn">
+                    <i class="icon">🏦</i>
+                    <span>Accounts</span>
+                </a>
+                <a href="/admin-wysiwyg/insurance" class="nav-btn active">
+                    <i class="icon">🛡️</i>
+                    <span>Insurance</span>
+                </a>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="icon">✏️</i>
+                <span>Edit Mode: ON</span>
+            </button>
+            <button class="toolbar-btn" onclick="saveAllChanges()">
+                <i class="icon">💾</i>
+                <span>Save All</span>
+            </button>
+            <a href="/insurance" class="toolbar-btn toolbar-btn-exit">
+                <i class="icon">👁️</i>
+                <span>View Mode</span>
+            </a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{> desktop/top-header}}
+
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
+    {{> desktop/sidebar}}
+
+    <main class="desktop-main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                {{#if isWysiwygMode}}data-field="pageTitle" data-page="insurance" data-type="text"{{/if}}>
+                {{desktopData.insurance.pageTitle}}
+            </h1>
+            <div class="header-actions">
+                <button class="btn btn-primary">My Policies</button>
+                <button class="btn btn-secondary">Get Quote</button>
+                <button class="btn btn-icon" title="Print">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6,9 6,2 18,2 18,9"></polyline>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                </button>
+                <button class="btn btn-icon" title="Export">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14,2 14,8 20,8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10,9 9,9 8,9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                    {{#if isWysiwygMode}}data-field="welcomeSubtitle" data-page="insurance" data-type="text"{{/if}}>
+                    {{desktopData.insurance.welcomeSubtitle}}
+                </h2>
+                <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                   {{#if isWysiwygMode}}data-field="protectionDescription" data-page="insurance" data-type="text"{{/if}}>
+                   {{desktopData.insurance.protectionDescription}}
+                </p>
+            </div>
+            <div class="welcome-icon">
+                <div class="protection-shield">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="insurance-layout">
+            <!-- Main Content -->
+            <div class="insurance-main">
+                <!-- Insurance Products Section -->
+                <div class="products-section">
+                    <div class="section-header">
+                        <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                            {{#if isWysiwygMode}}data-field="availableProductsTitle" data-page="insurance" data-type="text"{{/if}}>
+                            {{desktopData.insurance.availableProductsTitle}}
+                        </h2>
+                    </div>
+
+                    <!-- Insurance Products Grid -->
+                    <div class="products-grid">
+                        {{#each desktopData.insuranceProducts}}
+                        <div class="product-card" data-type="{{type}}">
+                           
+                            <div class="product-content">
+                                <h3>{{title}}</h3>
+                                <p>{{description}}</p>
+                                <ul class="product-features">
+                                    {{#each features}}
+                                    <li>{{this}}</li>
+                                    {{/each}}
+                                </ul>
+                                <div class="product-pricing">
+                                    <span class="premium">{{premium}}</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary">Get Quote</button>
+                                <button class="btn btn-secondary">Learn More</button>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Services Section -->
+                <div class="services-section">
+                    <div class="section-header">
+                        <h2>Insurance Services</h2>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                            <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                                {{#if isWysiwygMode}}data-field="claimsTitle" data-page="insurance" data-type="text"{{/if}}>
+                                {{desktopData.insurance.claimsTitle}}
+                            </h3>
+                            <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                               {{#if isWysiwygMode}}data-field="claimsDescription" data-page="insurance" data-type="text"{{/if}}>
+                               {{desktopData.insurance.claimsDescription}}
+                            </p>
+                            <button class="btn btn-outline">File a Claim</button>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                </svg>
+                            </div>
+                            <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                                {{#if isWysiwygMode}}data-field="coverageTitle" data-page="insurance" data-type="text"{{/if}}>
+                                {{desktopData.insurance.coverageTitle}}
+                            </h3>
+                            <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                               {{#if isWysiwygMode}}data-field="coverageDescription" data-page="insurance" data-type="text"{{/if}}>
+                               {{desktopData.insurance.coverageDescription}}
+                            </p>
+                            <button class="btn btn-outline">View Coverage</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="insurance-sidebar">
+                <!-- Contact Card -->
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <div class="contact-name {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="contactTeam" data-page="insurance" data-type="text"{{/if}}>
+                                 {{desktopData.insurance.contactTeam}}
+                            </div>
+                            <div class="contact-phone {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="contactPhone" data-page="insurance" data-type="text"{{/if}}>
+                                 {{desktopData.insurance.contactPhone}}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="contact-description {{#if isWysiwygMode}}editable{{/if}}" 
+                       {{#if isWysiwygMode}}data-field="contactDescription" data-page="insurance" data-type="text"{{/if}}>
+                       {{desktopData.insurance.contactDescription}}
+                    </p>
+                    <button class="request-consultation-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span>Request Consultation</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-card">
+                    <h3>Quick Actions</h3>
+                    <div class="quick-actions-list">
+                        <button class="quick-action-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10,9 9,9 8,9"></polyline>
+                            </svg>
+                            <span>View Policy Documents</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                            <span>24/7 Emergency Support</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 3v5h5"></path>
+                                <path d="M3 8C5 6 9 4 13 4s8 2 10 4"></path>
+                                <path d="M21 21v-5h-5"></path>
+                                <path d="M21 16c-2 2-6 4-10 4S3 18 1 16"></path>
+                            </svg>
+                            <span>Update Coverage</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Insurance Calculator -->
+                <div class="calculator-card">
+                    <h3>Insurance Calculator</h3>
+                    <p>Get an instant quote for your insurance needs</p>
+                    <div class="calculator-form">
+                        <select class="form-select">
+                            <option value="">Select Insurance Type</option>
+                            <option value="life">Life Insurance</option>
+                            <option value="home">Home Insurance</option>
+                            <option value="auto">Car Insurance</option>
+                            <option value="health">Health Insurance</option>
+                        </select>
+                        <button class="btn btn-primary calculate-btn">Calculate Premium</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/js/desktop/insurance.js"></script>

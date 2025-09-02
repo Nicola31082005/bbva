@@ -250,6 +250,22 @@ let appData = {
       contactDescription: "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
       contactPhone: "944 23 00 45"
     },
+    insurance: {
+      id: 1,
+      pageTitle: "Insurance and Protection",
+      welcomeSubtitle: "Protect what matters most to you",
+      availableProductsTitle: "Available Insurance Products",
+      protectionTitle: "Comprehensive Protection",
+      protectionDescription: "From life insurance to property protection, we offer comprehensive coverage for all your needs.",
+      coverageTitle: "Coverage Options",
+      coverageDescription: "Flexible insurance solutions tailored to your lifestyle and budget.",
+      claimsTitle: "Claims Support",
+      claimsDescription: "24/7 claims support to help you when you need it most.",
+      contactTitle: "Insurance Specialists",
+      contactDescription: "Our insurance experts are here to help you find the right coverage for your needs.",
+      contactPhone: "944 23 00 45",
+      contactTeam: "Insurance Team"
+    },
     fastActions: [
       { id: 1, label: "Check CVV", icon: "card" },
       { id: 2, label: "Manage a transfer", icon: "transfer" },
@@ -318,6 +334,56 @@ let appData = {
         title: "Home Improvement Loan",
         description: "Renovate and improve your home with our special financing.",
         features: ["Up to €50,000", "No collateral required", "Quick processing"]
+      }
+    ],
+    insuranceProducts: [
+      {
+        id: 1,
+        title: "Life Insurance",
+        description: "Protect your family's financial future with comprehensive life insurance coverage.",
+        features: ["Up to €1,000,000 coverage", "Flexible premium payments", "Family protection benefits"],
+        premium: "From €15/month",
+        type: "life"
+      },
+      {
+        id: 2,
+        title: "Home Insurance",
+        description: "Complete protection for your home and personal belongings.",
+        features: ["Building and contents coverage", "24/7 emergency assistance", "Natural disaster protection"],
+        premium: "From €25/month",
+        type: "home"
+      },
+      {
+        id: 3,
+        title: "Car Insurance",
+        description: "Comprehensive vehicle protection with competitive rates.",
+        features: ["Comprehensive and third-party coverage", "Breakdown assistance", "Accident forgiveness"],
+        premium: "From €35/month",
+        type: "auto"
+      },
+      {
+        id: 4,
+        title: "Health Insurance",
+        description: "Private healthcare coverage with extensive network of providers.",
+        features: ["Private hospital access", "Dental and optical coverage", "Specialist consultations"],
+        premium: "From €45/month",
+        type: "health"
+      },
+      {
+        id: 5,
+        title: "Travel Insurance",
+        description: "Travel with confidence with our comprehensive travel protection.",
+        features: ["Medical coverage abroad", "Trip cancellation protection", "Lost luggage coverage"],
+        premium: "From €8/trip",
+        type: "travel"
+      },
+      {
+        id: 6,
+        title: "Personal Liability Insurance",
+        description: "Protection against personal liability claims and legal costs.",
+        features: ["Up to €300,000 coverage", "Legal expense coverage", "Family protection"],
+        premium: "From €12/month",
+        type: "liability"
       }
     ]
   }
@@ -564,6 +630,21 @@ app.get("/mortgages", requireUserAuth, (req, res) => {
   });
 });
 
+// Insurance route
+app.get("/insurance", requireUserAuth, (req, res) => {
+  const user = appData.users[0];
+
+  res.render(`${req.viewPrefix}insurance`, {
+    title: "Insurance and Protection - BBVA",
+    pageId: "insurance",
+    layout: req.layoutPath,
+    user: user,
+    isAdminMode: req.session.isAdminMode || false,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
+  });
+});
+
 // Transfers route
 app.get("/transfers", requireUserAuth, (req, res) => {
   // Pass user data and transfers data
@@ -698,6 +779,26 @@ app.get("/admin-wysiwyg/accounts", requireAdminAuth, (req, res) => {
     user: user,
     accounts: userAccounts,
     cards: userCards,
+    isAdminMode: false,
+    isWysiwygMode: true,
+    desktopData: appData.desktopData,
+  });
+});
+
+app.get("/admin-wysiwyg/insurance", requireAdminAuth, (req, res) => {
+  console.log("🖥️ WYSIWYG Admin insurance page accessed");
+
+  if (req.isMobile) {
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
+  const user = appData.users[0];
+
+  res.render("desktop/insurance", {
+    title: "WYSIWYG Admin - Insurance - BBVA",
+    pageId: "insurance",
+    layout: "desktop/main",
+    user: user,
     isAdminMode: false,
     isWysiwygMode: true,
     desktopData: appData.desktopData,
