@@ -275,6 +275,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-right: 1rem;
 }
 
 .contact-icon svg {

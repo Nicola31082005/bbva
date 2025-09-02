@@ -305,14 +305,17 @@
     font-weight: 600;
     color: #1a202c;
     margin-bottom: 0.25rem;
+    margin-left: 0.5rem;
 }
 
 .contact-phone {
+    margin-left: 0.5rem;
     color: #64748b;
     font-size: 0.9rem;
 }
 
 .request-appointment-btn {
+    margin-top: 2rem;
     width: 100%;
     background: #004481;
     color: #ffffff;

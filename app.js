@@ -12,7 +12,8 @@ function detectDevice(req, res, next) {
   const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
   
   // Allow manual override via query parameter for testing
-  if (req.query.device === 'mobile') {
+  // Support both 'device=mobile' and 'mobile' query parameters
+  if (req.query.device === 'mobile' || req.query.mobile !== undefined) {
     req.isMobile = true;
   } else if (req.query.device === 'desktop') {
     req.isMobile = false;
@@ -826,7 +827,9 @@ function requireUserAuth(req, res, next) {
   if (req.session && req.session.isLoggedIn) {
     return next();
   } else {
-    return res.redirect("/");
+    // Preserve mobile query parameter in redirect to login
+    const redirectUrl = req.isMobile ? "/?mobile" : "/";
+    return res.redirect(redirectUrl);
   }
 }
 
@@ -838,12 +841,16 @@ app.post("/login", (req, res) => {
   if (userid === "123123" && password === "123123") {
     req.session.isLoggedIn = true;
     req.session.userId = userid;
-    res.redirect("/main-page");
+    
+    // Preserve mobile query parameter in redirect
+    const redirectUrl = req.isMobile ? "/main-page?mobile" : "/main-page";
+    res.redirect(redirectUrl);
   } else {
-    res.render("login", {
+    res.render(`${req.viewPrefix}login`, {
       title: "Iniciar sesión - BBVA",
       pageId: "login",
-      // error: "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
+      layout: req.layoutPath,
+      error: "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
     });
   }
 });
@@ -854,7 +861,9 @@ app.get("/logout", (req, res) => {
     if (err) {
       console.log(err);
     }
-    res.redirect("/");
+    // Preserve mobile query parameter in redirect to login
+    const redirectUrl = req.isMobile ? "/?mobile" : "/";
+    res.redirect(redirectUrl);
   });
 });
 
