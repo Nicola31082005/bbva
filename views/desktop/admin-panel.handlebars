@@ -1,0 +1,726 @@
+{{> desktop/top-header}}
+
+<div class="desktop-main-content">
+    {{> desktop/sidebar}}
+    
+    <div class="content-area">
+        <!-- Admin Panel Header -->
+        <div class="admin-header-section">
+            <div class="admin-header-content">
+                <div class="admin-title-section">
+                    <h1 class="admin-title">
+                        <i class="admin-icon">⚙️</i>
+                        Panel de Configuración BBVA
+                    </h1>
+                    <p class="admin-subtitle">Gestiona los datos bancarios de {{data.users.0.name}}</p>
+                </div>
+                <div class="admin-actions">
+                    <a href="/admin-wysiwyg" class="btn btn-primary">
+                        <i class="icon">🎨</i>
+                        WYSIWYG Mode
+                    </a>
+                    <a href="/main-page" class="btn btn-secondary">
+                        <i class="icon">←</i>
+                        Volver al Inicio
+                    </a>
+                    <a href="/admin-logout" class="btn btn-warning">
+                        <i class="icon">🔓</i>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Overview -->
+        <div class="dashboard-overview">
+            <div class="info-banner">
+                <div class="banner-content">
+                    <i class="banner-icon">💡</i>
+                    <p>Gestiona el contenido específico que aparece en las páginas desktop de BBVA</p>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 class="stat-number">3</h3>
+                        <p class="stat-label">Páginas Desktop</p>
+                    </div>
+                    <i class="stat-icon">🖥️</i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 class="stat-number">{{desktopData.operations.length}}</h3>
+                        <p class="stat-label">Operaciones Configuradas</p>
+                    </div>
+                    <i class="stat-icon">⚙️</i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 class="stat-number">{{desktopData.mortgageProducts.length}}</h3>
+                        <p class="stat-label">Productos Hipoteca</p>
+                    </div>
+                    <i class="stat-icon">🏠</i>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 class="stat-number">{{desktopData.fastActions.length}}</h3>
+                        <p class="stat-label">Acciones Rápidas</p>
+                    </div>
+                    <i class="stat-icon">⚡</i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Navigation Tabs -->
+        <div class="admin-tabs-container">
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="desktop-content">
+                    <i class="tab-icon">🖥️</i>
+                    <span>Contenido Desktop</span>
+                </button>
+                <button class="tab-btn" data-tab="operations">
+                    <i class="tab-icon">⚙️</i>
+                    <span>Operaciones</span>
+                </button>
+                <button class="tab-btn" data-tab="mortgage-products">
+                    <i class="tab-icon">🏠</i>
+                    <span>Productos Hipoteca</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="admin-content">
+            <!-- Desktop Content Management -->
+            <section id="desktop-content" class="admin-section active">
+                <div class="section-header">
+                    <div class="section-title">
+                        <h2>Contenido Desktop</h2>
+                        <p class="section-description">Gestiona el contenido específico de las páginas desktop</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openDesktopContentModal()">
+                        <i class="icon">✏️</i>
+                        Editar Contenido
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Página</th>
+                                <th>Título Principal</th>
+                                <th>Mensaje de Bienvenida</th>
+                                <th>Balance Total</th>
+                                <th>Teléfono de Contacto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="type-badge">Main Page</span></td>
+                                <td class="content-text">{{desktopData.mainPage.welcomeMessage}}</td>
+                                <td class="content-text">{{desktopData.mainPage.lastConnection}}</td>
+                                <td class="balance-cell">
+                                    <span class="balance-amount">{{desktopData.mainPage.totalBalance}}</span>
+                                </td>
+                                <td class="user-phone">{{desktopData.mainPage.contactPhone}}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-sm btn-edit" onclick="editDesktopContent('mainPage')">
+                                        <i class="icon">✏️</i>
+                                        Editar
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="type-badge">Accounts</span></td>
+                                <td class="content-text">{{desktopData.accounts.pageTitle}}</td>
+                                <td class="content-text">{{desktopData.accounts.accountNumber}}</td>
+                                <td class="balance-cell">
+                                    <span class="balance-amount">{{desktopData.accounts.currentBalance}}</span>
+                                </td>
+                                <td class="user-phone">{{desktopData.accounts.contactPhone}}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-sm btn-edit" onclick="editDesktopContent('accounts')">
+                                        <i class="icon">✏️</i>
+                                        Editar
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="type-badge">Mortgages</span></td>
+                                <td class="content-text">{{desktopData.mortgages.pageTitle}}</td>
+                                <td class="content-text">{{desktopData.mortgages.contactDescription}}</td>
+                                <td class="balance-cell">-</td>
+                                <td class="user-phone">{{desktopData.mortgages.contactPhone}}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-sm btn-edit" onclick="editDesktopContent('mortgages')">
+                                        <i class="icon">✏️</i>
+                                        Editar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Operations Management -->
+            <section id="operations" class="admin-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <h2>Gestión de Operaciones</h2>
+                        <p class="section-description">Administra las operaciones disponibles en el desktop</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openOperationModal()">
+                        <i class="icon">+</i>
+                        Agregar Operación
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Texto del Enlace</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="operations-tbody">
+                            {{#each desktopData.operations}}
+                            <tr>
+                                <td><span class="id-badge">{{this.id}}</span></td>
+                                <td class="operation-title">{{this.title}}</td>
+                                <td class="description-cell">{{this.description}}</td>
+                                <td class="link-text">{{this.linkText}}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-sm btn-edit" onclick="editOperation({{this.id}})">
+                                        <i class="icon">✏️</i>
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-delete" onclick="deleteOperation({{this.id}})">
+                                        <i class="icon">🗑️</i>
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Mortgage Products Management -->
+            <section id="mortgage-products" class="admin-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <h2>Productos Hipotecarios</h2>
+                        <p class="section-description">Administra los productos hipotecarios disponibles</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openMortgageProductModal()">
+                        <i class="icon">+</i>
+                        Agregar Producto
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Características</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mortgage-products-tbody">
+                            {{#each desktopData.mortgageProducts}}
+                            <tr>
+                                <td><span class="id-badge">{{this.id}}</span></td>
+                                <td class="product-title">{{this.title}}</td>
+                                <td class="description-cell">{{this.description}}</td>
+                                <td class="features-cell">
+                                    {{#each this.features}}
+                                    <span class="feature-tag">{{this}}</span>
+                                    {{/each}}
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-sm btn-edit" onclick="editMortgageProduct({{this.id}})">
+                                        <i class="icon">✏️</i>
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-delete" onclick="deleteMortgageProduct({{this.id}})">
+                                        <i class="icon">🗑️</i>
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- User Modal -->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="userModalTitle">Agregar Usuario</h3>
+            <button class="modal-close" onclick="closeModal('userModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userName">Nombre:</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email:</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userPhone">Teléfono:</label>
+                        <input type="tel" id="userPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userStatus">Estado:</label>
+                        <select id="userStatus">
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('userModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Account Modal -->
+<div id="accountModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="accountModalTitle">Agregar Cuenta</h3>
+            <button class="modal-close" onclick="closeModal('accountModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="accountForm">
+                <input type="hidden" id="accountId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="accountUserId">Usuario:</label>
+                        <select id="accountUserId" required>
+                            <option value="">Seleccionar Usuario</option>
+                            {{#each data.users}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountNumber">Número de Cuenta:</label>
+                        <input type="text" id="accountNumber" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="accountType">Tipo:</label>
+                        <select id="accountType" required>
+                            <option value="">Seleccionar Tipo</option>
+                            <option value="Cuenta corriente">Cuenta corriente</option>
+                            <option value="Cuenta de ahorro">Cuenta de ahorro</option>
+                            <option value="Cuenta nómina">Cuenta nómina</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountBalance">Balance:</label>
+                        <input type="number" id="accountBalance" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="accountCurrency">Moneda:</label>
+                        <select id="accountCurrency" required>
+                            {{#each data.currencies}}
+                            <option value="{{this.symbol}}">{{this.name}} ({{this.symbol}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountStatus">Estado:</label>
+                        <select id="accountStatus">
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('accountModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Card Modal -->
+<div id="cardModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="cardModalTitle">Agregar Tarjeta</h3>
+            <button class="modal-close" onclick="closeModal('cardModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="cardForm">
+                <input type="hidden" id="cardId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardUserId">Usuario:</label>
+                        <select id="cardUserId" required>
+                            <option value="">Seleccionar Usuario</option>
+                            {{#each data.users}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Número de Tarjeta:</label>
+                        <input type="text" id="cardNumber" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardType">Tipo:</label>
+                        <select id="cardType" required>
+                            <option value="">Seleccionar Tipo</option>
+                            <option value="Débito">Débito</option>
+                            <option value="Crédito">Crédito</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardLimit">Límite:</label>
+                        <input type="number" id="cardLimit" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardCurrency">Moneda:</label>
+                        <select id="cardCurrency" required>
+                            {{#each data.currencies}}
+                            <option value="{{this.symbol}}">{{this.name}} ({{this.symbol}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardStatus">Estado:</label>
+                        <select id="cardStatus">
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('cardModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="transactionModalTitle">Agregar Transacción</h3>
+            <button class="modal-close" onclick="closeModal('transactionModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="transactionForm">
+                <input type="hidden" id="transactionId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transactionAccountId">Cuenta:</label>
+                        <select id="transactionAccountId" required>
+                            <option value="">Seleccionar Cuenta</option>
+                            {{#each data.accounts}}
+                            <option value="{{this.id}}">{{this.accountNumber}} - {{this.type}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionType">Tipo:</label>
+                        <select id="transactionType" required>
+                            <option value="">Seleccionar Tipo</option>
+                            <option value="credit">Crédito (+)</option>
+                            <option value="debit">Débito (-)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transactionDescription">Descripción:</label>
+                        <input type="text" id="transactionDescription" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionAmount">Monto:</label>
+                        <input type="number" id="transactionAmount" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transactionCurrency">Moneda:</label>
+                        <select id="transactionCurrency" required>
+                            {{#each data.currencies}}
+                            <option value="{{this.symbol}}">{{this.name}} ({{this.symbol}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionDate">Fecha:</label>
+                        <input type="datetime-local" id="transactionDate" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('transactionModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Transfer Modal -->
+<div id="transferModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="transferModalTitle">Agregar Transferencia</h3>
+            <button class="modal-close" onclick="closeModal('transferModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="transferForm">
+                <input type="hidden" id="transferId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transferType">Tipo de Transferencia:</label>
+                        <select id="transferType" required>
+                            <option value="">Seleccionar Tipo</option>
+                            <option value="sent">Enviada</option>
+                            <option value="received">Recibida</option>
+                            <option value="scheduled">Programada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferFromAccount">Cuenta Origen:</label>
+                        <select id="transferFromAccount" required>
+                            <option value="">Seleccionar Cuenta</option>
+                            {{#each data.accounts}}
+                            <option value="{{this.id}}">{{this.accountNumber}} - {{this.type}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transferRecipientName">Nombre del Beneficiario:</label>
+                        <input type="text" id="transferRecipientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferRecipientAccount">Cuenta del Beneficiario:</label>
+                        <input type="text" id="transferRecipientAccount" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transferDescription">Descripción:</label>
+                        <input type="text" id="transferDescription" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferAmount">Monto:</label>
+                        <input type="number" id="transferAmount" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transferCurrency">Moneda:</label>
+                        <select id="transferCurrency" required>
+                            {{#each data.currencies}}
+                            <option value="{{this.symbol}}">{{this.name}} ({{this.symbol}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferStatus">Estado:</label>
+                        <select id="transferStatus" required>
+                            <option value="completed">Completada</option>
+                            <option value="pending">Pendiente</option>
+                            <option value="failed">Fallida</option>
+                            <option value="scheduled">Programada</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="transferDate">Fecha:</label>
+                        <input type="datetime-local" id="transferDate" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('transferModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Desktop Content Modal -->
+<div id="desktopContentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="desktopContentModalTitle">Editar Contenido Desktop</h3>
+            <button class="modal-close" onclick="closeModal('desktopContentModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="desktopContentForm">
+                <input type="hidden" id="desktopContentPage">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="welcomeMessage">Mensaje de Bienvenida:</label>
+                        <input type="text" id="welcomeMessage">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastConnection">Última Conexión:</label>
+                        <input type="text" id="lastConnection">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="totalBalance">Balance Total:</label>
+                        <input type="text" id="totalBalance">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Teléfono de Contacto:</label>
+                        <input type="text" id="contactPhone">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contactTeam">Equipo de Contacto:</label>
+                        <input type="text" id="contactTeam">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentText">Texto de Cita:</label>
+                        <input type="text" id="appointmentText">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('desktopContentModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Operation Modal -->
+<div id="operationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="operationModalTitle">Agregar Operación</h3>
+            <button class="modal-close" onclick="closeModal('operationModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="operationForm">
+                <input type="hidden" id="operationId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="operationTitle">Título:</label>
+                        <input type="text" id="operationTitle" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="operationDescription">Descripción:</label>
+                        <textarea id="operationDescription" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="operationLinkText">Texto del Enlace:</label>
+                        <input type="text" id="operationLinkText" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('operationModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Mortgage Product Modal -->
+<div id="mortgageProductModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="mortgageProductModalTitle">Agregar Producto Hipotecario</h3>
+            <button class="modal-close" onclick="closeModal('mortgageProductModal')">
+                <i class="icon">×</i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="mortgageProductForm">
+                <input type="hidden" id="mortgageProductId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productTitle">Título:</label>
+                        <input type="text" id="productTitle" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productDescription">Descripción:</label>
+                        <textarea id="productDescription" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productFeatures">Características (separadas por coma):</label>
+                        <textarea id="productFeatures" rows="3" placeholder="Característica 1, Característica 2, Característica 3" required></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('mortgageProductModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

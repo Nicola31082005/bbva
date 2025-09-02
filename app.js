@@ -178,6 +178,126 @@ let appData = {
     { code: "USD", name: "US Dollar", symbol: "$" },
     { code: "GBP", name: "British Pound", symbol: "£" },
   ],
+  // Desktop-specific data for handlebars templates
+  desktopData: {
+    mainPage: {
+      id: 1,
+      welcomeMessage: "Good afternoon, TASIO",
+      lastConnection: "Last connection 09/01/2025 at 16:07",
+      totalBalance: "400.06 €",
+      contactTeam: "Contigo Team",
+      contactPhone: "944 23 00 45",
+      appointmentText: "Request teller appointment",
+      balanceLabel: "AT BBVA YOU HAVE:",
+      showAmountsLabel: "Show amounts",
+      customizeText: "Customize Global Position",
+      productsTitle: "Explore all the products you can take out",
+      fastTransactionsTitle: "FAST TRANSACTIONS",
+      operationsTitle: "Perform an operation",
+      operationsSubtitle: "IMPORTANT ACTIVITY"
+    },
+    accounts: {
+      id: 1,
+      pageTitle: "Accounts and Cards",
+      accountNumber: "ES2901825297280203028464",
+      accountType: "CUENTAS PERSONALES",
+      accountHolder: "ACCOUNT HOLDER",
+      currentBalance: "400.06 €",
+      availableBalance: "400.06€",
+      cardNumber: "4188202159055886",
+      cardStatus: "PENDING ACTIVATION",
+      cardType: "TARJETAS DE DÉBITO",
+      contactTeam: "Contigo Team",
+      contactPhone: "944230045",
+      appointmentText: "Request teller appointment",
+      transfersTitle: "Next scheduled transfers and internal transfers",
+      productSuggestion: "Do you want to take out a product?"
+    },
+    transfers: {
+      id: 1,
+      operationsTitle: "Perform an operation",
+      operationsSubtitle: "IMPORTANT ACTIVITY"
+    },
+    mortgages: {
+      id: 1,
+      pageTitle: "Mortgages and Loans",
+      availableProductsTitle: "Available Products",
+      calculatorTitle: "Loan Calculator",
+      contactTitle: "Need Help?",
+      contactDescription: "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
+      contactPhone: "944 23 00 45"
+    },
+    fastActions: [
+      { id: 1, label: "Check CVV", icon: "card" },
+      { id: 2, label: "Manage a transfer", icon: "transfer" },
+      { id: 3, label: "View PIN", icon: "pin" },
+      { id: 4, label: "Send / Receive money (Bizum)", icon: "bizum" }
+    ],
+    operations: [
+      {
+        id: 1,
+        title: "Transfers to other banks and transfers within the bank",
+        description: "You can make a domestic transfer and send your money immediately, on a one-off basis or scheduled.",
+        linkText: "Make a transfer to another bank or transfer within the bank"
+      },
+      {
+        id: 2,
+        title: "Send / Request Bizum",
+        description: "All you need is your cell phone to send money to a friend, shop online or donate to the cause of your choice.",
+        linkText: "Go to Bizum"
+      },
+      {
+        id: 3,
+        title: "International transfer",
+        description: "In foreign currency to more than 31 countries and with a preferential exchange rate.",
+        linkText: "Make an international transfer"
+      },
+      {
+        id: 4,
+        title: "Activate and deactivate your cards",
+        description: "Securely control the use of your cards by turning them on (activating) or off (deactivating).",
+        linkText: "Limit card operations"
+      },
+      {
+        id: 5,
+        title: "Split an expense",
+        description: "Finance your purchases, payments or transfers and pay in a more convenient and flexible way.",
+        linkText: "Split an expense"
+      },
+      {
+        id: 6,
+        title: "Transfer from account to card",
+        description: "For when you want to settle a payment or take advantage of the benefits of using the card.",
+        linkText: "Transfer from account to card"
+      }
+    ],
+    mortgageProducts: [
+      {
+        id: 1,
+        title: "Home Mortgage",
+        description: "Finance your dream home with competitive interest rates.",
+        features: ["Up to 80% financing", "Fixed and variable rates", "Up to 30 years term"]
+      },
+      {
+        id: 2,
+        title: "Personal Loan",
+        description: "Quick approval for your personal projects and needs.",
+        features: ["Up to €60,000", "Fast approval process", "Flexible repayment terms"]
+      },
+      {
+        id: 3,
+        title: "Car Loan",
+        description: "Finance your new or used vehicle with special rates.",
+        features: ["Up to 100% financing", "Competitive rates", "Up to 8 years term"]
+      },
+      {
+        id: 4,
+        title: "Home Improvement Loan",
+        description: "Renovate and improve your home with our special financing.",
+        features: ["Up to €50,000", "No collateral required", "Quick processing"]
+      }
+    ]
+  }
 };
 
 // Helper function to get next ID
@@ -242,6 +362,15 @@ app.get("/main-page", requireUserAuth, (req, res) => {
     }
   }
 
+  // Handle message parameter for notifications
+  let message = null;
+  if (req.query.message === "admin-desktop-only") {
+    message = {
+      type: "warning",
+      text: "El Panel de Administración solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil."
+    };
+  }
+
   res.render(`${req.viewPrefix}main-page`, {
     title: "Inicio - BBVA",
     pageId: "main-page",
@@ -255,6 +384,9 @@ app.get("/main-page", requireUserAuth, (req, res) => {
     showVisible: true,
     showRightIcons: true,
     isAdminMode: finalAdminMode, // Pass final admin mode to template
+    message: message, // Pass message for notifications
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
     formatAmount: (amount) =>
       amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
   });
@@ -324,9 +456,17 @@ app.post("/admin-login", (req, res) => {
   if (password === "123123") {
     req.session.isAdmin = true;
     req.session.isLoggedIn = true; // Also set user as logged in to access main page
+    
     // Check if they want to access admin panel or inline editing
     const redirectTo =
       req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-panel";
+    
+    // If trying to access admin panel from mobile, redirect to main page with message
+    if (redirectTo === "/admin-panel" && req.isMobile) {
+      console.log("📱 Mobile user attempted admin panel access, redirecting to main page");
+      return res.redirect("/main-page?message=admin-desktop-only");
+    }
+    
     res.redirect(redirectTo);
   } else {
     res.render("admin-login", {
@@ -380,6 +520,8 @@ app.get("/accounts", requireUserAuth, (req, res) => {
     accounts: userAccounts,
     cards: userCards,
     isAdminMode: req.session.isAdminMode || false,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
   });
 });
 
@@ -393,6 +535,8 @@ app.get("/mortgages", requireUserAuth, (req, res) => {
     layout: req.layoutPath,
     user: user,
     isAdminMode: req.session.isAdminMode || false,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
   });
 });
 
@@ -430,11 +574,83 @@ app.get("/transfers", requireUserAuth, (req, res) => {
     transfers: transfers,
     showVisible: true,
     showRightIcons: true,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
   });
 });
 
-// Admin Panel Route (Protected)
+// WYSIWYG Admin Mode Route (Protected) - Desktop Only
+app.get("/admin-wysiwyg", requireAdminAuth, (req, res) => {
+  console.log("🖥️ WYSIWYG Admin mode accessed:", {
+    isMobile: req.isMobile,
+    userAgent: req.headers['user-agent']
+  });
+
+  // Redirect mobile users to main page with message
+  if (req.isMobile) {
+    console.log("📱 Mobile user redirected from WYSIWYG admin");
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
+  // Get user data for the WYSIWYG interface
+  const user = appData.users[0];
+  const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
+  const mainAccount = userAccounts[0];
+  const recentTransactions = appData.transactions
+    .filter((t) => t.accountId === mainAccount.id)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
+
+  const accountsWithTransactions = userAccounts.map((account) => {
+    const accountTransactions = appData.transactions
+      .filter((t) => t.accountId === account.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    return {
+      ...account,
+      recentTransactions: accountTransactions,
+    };
+  });
+
+  const userCards = appData.cards.filter((card) => card.userId === user.id);
+  const totalProducts = userAccounts.length + userCards.length;
+
+  res.render("desktop/main-page", {
+    title: "WYSIWYG Admin - BBVA",
+    pageId: "main-page",
+    layout: "desktop/main",
+    user: user,
+    account: mainAccount,
+    transactions: recentTransactions,
+    allAccounts: accountsWithTransactions,
+    allCards: userCards,
+    totalProducts: totalProducts,
+    showVisible: true,
+    showRightIcons: true,
+    isAdminMode: false,
+    isWysiwygMode: true, // New flag for WYSIWYG mode
+    desktopData: appData.desktopData,
+    formatAmount: (amount) =>
+      amount >= 0 ? `+${amount.toFixed(2)}` : amount.toFixed(2),
+  });
+});
+
+// Admin Panel Route (Protected) - Desktop Only
 app.get("/admin-panel", requireAdminAuth, (req, res) => {
+  console.log("🖥️ Admin panel accessed:", {
+    isMobile: req.isMobile,
+    userAgent: req.headers['user-agent'],
+    viewPrefix: req.viewPrefix,
+    layoutPath: req.layoutPath
+  });
+
+  // Redirect mobile users to main page with message
+  if (req.isMobile) {
+    console.log("📱 Mobile user redirected from admin panel");
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
   // Create sample transfers data for admin panel
   const transfers = appData.transactions.map((transaction) => {
     const account = appData.accounts.find(
@@ -462,15 +678,225 @@ app.get("/admin-panel", requireAdminAuth, (req, res) => {
     ...appData,
     transfers: transfers,
   };
-  res.render("admin-panel", {
+
+  // Only serve desktop version
+  res.render("desktop/admin-panel", {
     title: "Panel de Administración - BBVA",
     pageId: "admin-panel",
+    layout: "desktop/main",
     data: adminData,
     transfersCount: transfers.length,
+    isMobile: false,
+    isDesktop: true,
+    // Pass desktop-specific data for desktop admin panel
+    desktopData: appData.desktopData,
   });
 });
 
 // CRUD API Routes for Admin Panel
+
+// Desktop data API endpoint
+app.get("/api/desktop-data", (req, res) => {
+  res.json({
+    desktopData: appData.desktopData
+  });
+});
+
+// Update desktop content API endpoint
+app.put("/api/desktop-content", (req, res) => {
+  try {
+    const { page, ...updates } = req.body;
+    
+    if (!page) {
+      return res.status(400).json({ error: "Page parameter is required" });
+    }
+    
+    console.log(`📝 Updating desktop content for page: ${page}`, updates);
+    
+    // Update the appropriate page data - only update fields that are provided
+    if (page === 'mainPage') {
+      const pageData = appData.desktopData.mainPage;
+      
+      // Map WYSIWYG field names to actual data field names
+      if (updates.welcomeMessage !== undefined) pageData.welcomeMessage = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined) pageData.lastConnection = updates.lastConnection;
+      if (updates.totalBalance !== undefined) pageData.totalBalance = updates.totalBalance;
+      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
+      if (updates.balanceLabel !== undefined) pageData.balanceLabel = updates.balanceLabel;
+      if (updates.fastTransactionsTitle !== undefined) pageData.fastTransactionsTitle = updates.fastTransactionsTitle;
+      if (updates.operationsTitle !== undefined) pageData.operationsTitle = updates.operationsTitle;
+      if (updates.operationsSubtitle !== undefined) pageData.operationsSubtitle = updates.operationsSubtitle;
+      
+    } else if (page === 'accounts') {
+      const pageData = appData.desktopData.accounts;
+      
+      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined) pageData.accountNumber = updates.lastConnection;
+      if (updates.totalBalance !== undefined) {
+        pageData.currentBalance = updates.totalBalance;
+        pageData.availableBalance = updates.totalBalance;
+      }
+      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
+      
+    } else if (page === 'mortgages') {
+      const pageData = appData.desktopData.mortgages;
+      
+      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined) pageData.contactDescription = updates.lastConnection;
+      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
+    }
+    
+    console.log(`✅ Desktop content updated successfully for page: ${page}`);
+    res.json({ success: true, message: "Desktop content updated successfully" });
+  } catch (error) {
+    console.error("Error updating desktop content:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update operations API endpoint
+app.put("/api/desktop-operations/:id", (req, res) => {
+  try {
+    const operationId = parseInt(req.params.id);
+    const updates = req.body;
+    
+    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+    if (operationIndex === -1) {
+      return res.status(404).json({ error: "Operation not found" });
+    }
+    
+    console.log(`📝 Updating operation ${operationId}:`, updates);
+    
+    // Only update fields that are provided
+    const operation = appData.desktopData.operations[operationIndex];
+    if (updates.title !== undefined) operation.title = updates.title;
+    if (updates.description !== undefined) operation.description = updates.description;
+    if (updates.linkText !== undefined) operation.linkText = updates.linkText;
+    
+    console.log(`✅ Operation updated successfully: ${operationId}`);
+    res.json({ success: true, message: "Operation updated successfully" });
+  } catch (error) {
+    console.error("Error updating operation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Add new operation API endpoint
+app.post("/api/desktop-operations", (req, res) => {
+  try {
+    const { title, description, linkText } = req.body;
+    
+    const newId = Math.max(...appData.desktopData.operations.map(op => op.id)) + 1;
+    const newOperation = {
+      id: newId,
+      title,
+      description,
+      linkText
+    };
+    
+    appData.desktopData.operations.push(newOperation);
+    
+    console.log(`📝 New operation added: ${newId}`);
+    res.json({ success: true, message: "Operation added successfully", operation: newOperation });
+  } catch (error) {
+    console.error("Error adding operation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Delete operation API endpoint
+app.delete("/api/desktop-operations/:id", (req, res) => {
+  try {
+    const operationId = parseInt(req.params.id);
+    
+    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+    if (operationIndex === -1) {
+      return res.status(404).json({ error: "Operation not found" });
+    }
+    
+    appData.desktopData.operations.splice(operationIndex, 1);
+    
+    console.log(`🗑️ Operation deleted: ${operationId}`);
+    res.json({ success: true, message: "Operation deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting operation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update mortgage product API endpoint
+app.put("/api/desktop-mortgage-products/:id", (req, res) => {
+  try {
+    const productId = parseInt(req.params.id);
+    const updates = req.body;
+    
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Mortgage product not found" });
+    }
+    
+    console.log(`📝 Updating mortgage product ${productId}:`, updates);
+    
+    // Only update fields that are provided
+    const product = appData.desktopData.mortgageProducts[productIndex];
+    if (updates.title !== undefined) product.title = updates.title;
+    if (updates.description !== undefined) product.description = updates.description;
+    if (updates.features !== undefined) product.features = updates.features;
+    
+    console.log(`✅ Mortgage product updated successfully: ${productId}`);
+    res.json({ success: true, message: "Mortgage product updated successfully" });
+  } catch (error) {
+    console.error("Error updating mortgage product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Add new mortgage product API endpoint
+app.post("/api/desktop-mortgage-products", (req, res) => {
+  try {
+    const { title, description, features } = req.body;
+    
+    const newId = Math.max(...appData.desktopData.mortgageProducts.map(prod => prod.id)) + 1;
+    const newProduct = {
+      id: newId,
+      title,
+      description,
+      features
+    };
+    
+    appData.desktopData.mortgageProducts.push(newProduct);
+    
+    console.log(`📝 New mortgage product added: ${newId}`);
+    res.json({ success: true, message: "Mortgage product added successfully", product: newProduct });
+  } catch (error) {
+    console.error("Error adding mortgage product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Delete mortgage product API endpoint
+app.delete("/api/desktop-mortgage-products/:id", (req, res) => {
+  try {
+    const productId = parseInt(req.params.id);
+    
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Mortgage product not found" });
+    }
+    
+    appData.desktopData.mortgageProducts.splice(productIndex, 1);
+    
+    console.log(`🗑️ Mortgage product deleted: ${productId}`);
+    res.json({ success: true, message: "Mortgage product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting mortgage product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // Test API endpoint (for debugging)
 app.get("/api/test", (req, res) => {

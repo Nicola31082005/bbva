@@ -11,6 +11,23 @@
     </div>
 </div>
 {{/if}}
+
+{{#if message}}
+<!-- Message Notification -->
+<div class="message-notification message-{{message.type}}">
+    <div class="message-content">
+        <span class="message-icon">
+            {{#if (eq message.type "warning")}}⚠️{{/if}}
+            {{#if (eq message.type "error")}}❌{{/if}}
+            {{#if (eq message.type "success")}}✅{{/if}}
+            {{#if (eq message.type "info")}}ℹ️{{/if}}
+        </span>
+        <span class="message-text">{{message.text}}</span>
+        <button class="message-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+    </div>
+</div>
+{{/if}}
+
 {{> top-header showVisible=true showRightIcons=true}}
 
 <main>

@@ -6,65 +6,34 @@
     <main class="desktop-main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>Mortgages and Loans</h1>
+            <h1>{{desktopData.mortgages.pageTitle}}</h1>
         </div>
 
         <!-- Available Products Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>Available Products</h2>
+                <h2>{{desktopData.mortgages.availableProductsTitle}}</h2>
             </div>
-            <div class="products-grid">
+                        <div class="products-grid">
+                {{#each desktopData.mortgageProducts}}
                 <div class="product-item">
-                    <h3>Home Mortgage</h3>
-                    <p>Finance your dream home with competitive interest rates.</p>
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.description}}</p>
                     <ul>
-                        <li>Up to 80% financing</li>
-                        <li>Fixed and variable rates</li>
-                        <li>Up to 30 years term</li>
+                        {{#each this.features}}
+                        <li>{{this}}</li>
+                        {{/each}}
                     </ul>
                     <button class="btn btn-secondary">Learn More</button>
                 </div>
-
-                <div class="product-item">
-                    <h3>Personal Loan</h3>
-                    <p>Quick approval for your personal projects and needs.</p>
-                    <ul>
-                        <li>Up to €60,000</li>
-                        <li>Fast approval process</li>
-                        <li>Flexible repayment terms</li>
-                    </ul>
-                    <button class="btn btn-secondary">Learn More</button>
-                </div>
-
-                <div class="product-item">
-                    <h3>Car Loan</h3>
-                    <p>Finance your new or used vehicle with special rates.</p>
-                    <ul>
-                        <li>Up to 100% financing</li>
-                        <li>Competitive rates</li>
-                        <li>Up to 8 years term</li>
-                    </ul>
-                    <button class="btn btn-secondary">Learn More</button>
-                </div>
-
-                <div class="product-item">
-                    <h3>Home Improvement Loan</h3>
-                    <p>Renovate and improve your home with our special financing.</p>
-                    <ul>
-                        <li>Up to €50,000</li>
-                        <li>No collateral required</li>
-                        <li>Quick processing</li>
-                    </ul>
-                    <button class="btn btn-secondary">Learn More</button>
-                </div>
+                {{/each}}
             </div>
         </div>
 
         <!-- Loan Calculator Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>Loan Calculator</h2>
+                <h2>{{desktopData.mortgages.calculatorTitle}}</h2>
             </div>
             <div class="calculator-area">
                 <div class="calculator-form">
@@ -109,13 +78,13 @@
         <!-- Contact Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>Need Help?</h2>
+                <h2>{{desktopData.mortgages.contactTitle}}</h2>
             </div>
             <div class="contact-info">
-                <p>Our mortgage and loan specialists are here to help you find the best solution for your needs.</p>
+                <p>{{desktopData.mortgages.contactDescription}}</p>
                 <div class="contact-options">
                     <button class="btn btn-primary">Schedule an Appointment</button>
-                    <button class="btn btn-secondary">Call Us: 944 23 00 45</button>
+                    <button class="btn btn-secondary">Call Us: {{desktopData.mortgages.contactPhone}}</button>
                 </div>
             </div>
         </div>

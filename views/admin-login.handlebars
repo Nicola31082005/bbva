@@ -30,10 +30,13 @@
       .admin-mode-buttons { display: flex; flex-direction: column; gap: 10px;
       margin-bottom: 20px; } .admin-panel-btn { background: var(--bbva-blue); }
       .inline-edit-btn { background: #ff6b6b; } .inline-edit-btn:hover {
-      background: #ee5a6f; } .mode-info { margin-top: 20px; padding: 15px;
+      background: #ee5a6f; }       .mode-info { margin-top: 20px; padding: 15px;
       background: #f8f9fa; border-radius: 6px; border-left: 4px solid
       var(--bbva-blue); } .mode-info p { margin: 5px 0; font-size: 0.85rem;
-      color: var(--text-secondary); }
+      color: var(--text-secondary); } .mobile-warning { margin-top: 15px; 
+      padding: 15px; background: #fff3cd; border: 1px solid #ffeaa7; 
+      border-radius: 6px; border-left: 4px solid #f57c00; } .mobile-warning p { 
+      margin: 0; font-size: 0.85rem; color: #856404; }
     </style>
   </head>
   <body>
@@ -76,10 +79,25 @@
 
       <div class="mode-info">
         <p><strong>Panel Admin:</strong>
-          Accede al panel de administración tradicional</p>
+          Accede al panel de administración (solo disponible en desktop)</p>
         <p><strong>Edición en Línea:</strong>
           Edita directamente en el sitio web</p>
       </div>
+
+      <div id="mobileWarning" class="mobile-warning" style="display: none;">
+        <p><strong>⚠️ Aviso:</strong> El Panel Admin solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil.</p>
+      </div>
+
+      <script>
+        // Show mobile warning if on mobile device
+        if (/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          document.getElementById('mobileWarning').style.display = 'block';
+          // Disable admin panel button on mobile
+          document.querySelector('.admin-panel-btn').disabled = true;
+          document.querySelector('.admin-panel-btn').style.opacity = '0.5';
+          document.querySelector('.admin-panel-btn').style.cursor = 'not-allowed';
+        }
+      </script>
 
       <script>
         function setMode(mode) { document.getElementById('mode').value = mode; }
