@@ -225,6 +225,10 @@ async function saveAllChanges() {
     for (const [pageKey, changes] of changesByPage) {
       if (pageKey === 'mainPage') {
         await saveMainPageChanges(changes);
+      } else if (pageKey === 'accounts') {
+        await saveAccountsChanges(changes);
+      } else if (pageKey === 'gestor') {
+        await saveGestorChanges(changes);
       } else if (pageKey === 'operations') {
         await saveOperationsChanges(changes);
       } else if (pageKey === 'mortgageProducts') {
@@ -280,6 +284,79 @@ async function saveMainPageChanges(changes) {
   }
   
   console.log('✅ Main page changes saved successfully');
+}
+
+async function saveAccountsChanges(changes) {
+  const formData = { page: 'accounts' };
+  
+  // Map accounts page fields
+  changes.forEach(change => {
+    if (change.field === 'pageTitle') formData.welcomeMessage = change.value;
+    else if (change.field === 'accountNumber') formData.lastConnection = change.value;
+    else if (change.field === 'accountType') formData.accountType = change.value;
+    else if (change.field === 'accountHolder') formData.accountHolder = change.value;
+    else if (change.field === 'currentBalance') formData.totalBalance = change.value;
+    else if (change.field === 'availableBalance') formData.availableBalance = change.value;
+    else if (change.field === 'cardNumber') formData.cardNumber = change.value;
+    else if (change.field === 'cardStatus') formData.cardStatus = change.value;
+    else if (change.field === 'cardType') formData.cardType = change.value;
+    else if (change.field === 'contactTeam') formData.contactTeam = change.value;
+    else if (change.field === 'contactPhone') formData.contactPhone = change.value;
+    else if (change.field === 'appointmentText') formData.appointmentText = change.value;
+    else if (change.field === 'transfersTitle') formData.transfersTitle = change.value;
+    else if (change.field === 'productSuggestion') formData.productSuggestion = change.value;
+  });
+  
+  console.log('📤 Sending accounts page changes:', formData);
+  
+  const response = await fetch('/api/desktop-content', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to save accounts changes');
+  }
+  
+  console.log('✅ Accounts changes saved successfully');
+}
+
+async function saveGestorChanges(changes) {
+  const formData = { page: 'gestor' };
+  
+  // Map gestor page fields
+  changes.forEach(change => {
+    if (change.field === 'pageTitle') formData.welcomeMessage = change.value;
+    else if (change.field === 'welcomeSubtitle') formData.lastConnection = change.value;
+    else if (change.field === 'servicesTitle') formData.servicesTitle = change.value;
+    else if (change.field === 'consultationTitle') formData.consultationTitle = change.value;
+    else if (change.field === 'consultationDescription') formData.consultationDescription = change.value;
+    else if (change.field === 'assistantTitle') formData.assistantTitle = change.value;
+    else if (change.field === 'assistantDescription') formData.assistantDescription = change.value;
+    else if (change.field === 'contactTitle') formData.contactTitle = change.value;
+    else if (change.field === 'contactPhone') formData.contactPhone = change.value;
+  });
+  
+  console.log('📤 Sending gestor page changes:', formData);
+  
+  const response = await fetch('/api/desktop-content', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to save gestor changes');
+  }
+  
+  console.log('✅ Gestor changes saved successfully');
 }
 
 async function saveOperationsChanges(changes) {

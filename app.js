@@ -213,6 +213,29 @@ let appData = {
       transfersTitle: "Next scheduled transfers and internal transfers",
       productSuggestion: "Do you want to take out a product?"
     },
+    gestor: {
+      id: 1,
+      pageTitle: "My Profile",
+      welcomeSubtitle: "Personal banking services",
+      servicesTitle: "Services",
+      consultationTitle: "Consultation",
+      consultationDescription: "Financial advice and guidance",
+      investmentsTitle: "Investments", 
+      investmentsDescription: "Investment planning services",
+      mortgagesTitle: "Mortgages",
+      mortgagesDescription: "Home financing solutions",
+      accountsTitle: "Accounts",
+      accountsDescription: "Account setup and management",
+      insuranceTitle: "Insurance",
+      insuranceDescription: "Asset protection services",
+      supportTitle: "Support",
+      supportDescription: "24/7 banking assistance",
+      assistantTitle: "Blue BBVA",
+      assistantDescription: "Virtual assistant available 24/7 for banking queries.",
+      contactTitle: "Need Immediate Help?",
+      contactPhone: "944 23 00 45",
+      profileSummaryTitle: "Profile Summary"
+    },
     transfers: {
       id: 1,
       operationsTitle: "Perform an operation",
@@ -415,6 +438,7 @@ app.get("/gestor", requireUserAuth, (req, res) => {
     user: user,
     showVisible: false,
     showRightIcons: true,
+    desktopData: appData.desktopData,
   });
 });
 
@@ -442,7 +466,7 @@ function requireAdminAuth(req, res, next) {
 // Admin login routes
 app.get("/admin-login", (req, res) => {
   if (req.session && req.session.isAdmin) {
-    return res.redirect("/admin-panel");
+    return res.redirect("/admin-wysiwyg");
   }
   res.render("admin-login", {
     title: "Acceso Admin - BBVA",
@@ -459,10 +483,10 @@ app.post("/admin-login", (req, res) => {
     
     // Check if they want to access admin panel or inline editing
     const redirectTo =
-      req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-panel";
+      req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-wysiwyg";
     
     // If trying to access admin panel from mobile, redirect to main page with message
-    if (redirectTo === "/admin-panel" && req.isMobile) {
+    if (redirectTo === "/admin-wysiwyg" && req.isMobile) {
       console.log("📱 Mobile user attempted admin panel access, redirecting to main page");
       return res.redirect("/main-page?message=admin-desktop-only");
     }
@@ -636,61 +660,64 @@ app.get("/admin-wysiwyg", requireAdminAuth, (req, res) => {
   });
 });
 
-// Admin Panel Route (Protected) - Desktop Only
-app.get("/admin-panel", requireAdminAuth, (req, res) => {
-  console.log("🖥️ Admin panel accessed:", {
-    isMobile: req.isMobile,
-    userAgent: req.headers['user-agent'],
-    viewPrefix: req.viewPrefix,
-    layoutPath: req.layoutPath
-  });
+// WYSIWYG Admin Routes for other pages
+app.get("/admin-wysiwyg/gestor", requireAdminAuth, (req, res) => {
+  console.log("🖥️ WYSIWYG Admin gestor page accessed");
 
+  if (req.isMobile) {
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
+  const user = appData.users[0];
+
+  res.render("desktop/gestor", {
+    title: "WYSIWYG Admin - Gestor - BBVA",
+    pageId: "gestor",
+    layout: "desktop/main",
+    user: user,
+    isAdminMode: false,
+    isWysiwygMode: true,
+    desktopData: appData.desktopData,
+  });
+});
+app.get("/admin-wysiwyg/accounts", requireAdminAuth, (req, res) => {
+  console.log("🖥️ WYSIWYG Admin accounts page accessed");
+
+  if (req.isMobile) {
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
+  const user = appData.users[0];
+  const userAccounts = appData.accounts.filter((acc) => acc.userId === user.id);
+  const userCards = appData.cards.filter((card) => card.userId === user.id);
+
+  res.render("desktop/accounts", {
+    title: "WYSIWYG Admin - Accounts - BBVA",
+    pageId: "accounts",
+    layout: "desktop/main",
+    user: user,
+    accounts: userAccounts,
+    cards: userCards,
+    isAdminMode: false,
+    isWysiwygMode: true,
+    desktopData: appData.desktopData,
+  });
+});
+
+
+
+// Admin Panel Route (Protected) - Redirect to WYSIWYG
+app.get("/admin-panel", requireAdminAuth, (req, res) => {
+  console.log("🖥️ Admin panel accessed - redirecting to WYSIWYG mode");
+  
   // Redirect mobile users to main page with message
   if (req.isMobile) {
     console.log("📱 Mobile user redirected from admin panel");
     return res.redirect("/main-page?message=admin-desktop-only");
   }
 
-  // Create sample transfers data for admin panel
-  const transfers = appData.transactions.map((transaction) => {
-    const account = appData.accounts.find(
-      (acc) => acc.id === transaction.accountId
-    );
-    return {
-      id: transaction.id,
-      description: transaction.description,
-      amount: Math.abs(transaction.amount),
-      currency: transaction.currency,
-      date: transaction.date,
-      fromAccountId: transaction.accountId,
-      recipientName:
-        transaction.amount > 0 ? "Remitente Externo" : "Beneficiario Externo",
-      recipientAccount:
-        transaction.amount > 0
-          ? "ES21 0000 0000 0000 0000 0000"
-          : "ES21 1111 1111 1111 1111 1111",
-      transferType: transaction.amount > 0 ? "received" : "sent",
-      status: "completed",
-    };
-  });
-
-  const adminData = {
-    ...appData,
-    transfers: transfers,
-  };
-
-  // Only serve desktop version
-  res.render("desktop/admin-panel", {
-    title: "Panel de Administración - BBVA",
-    pageId: "admin-panel",
-    layout: "desktop/main",
-    data: adminData,
-    transfersCount: transfers.length,
-    isMobile: false,
-    isDesktop: true,
-    // Pass desktop-specific data for desktop admin panel
-    desktopData: appData.desktopData,
-  });
+  // Redirect to WYSIWYG admin mode
+  res.redirect("/admin-wysiwyg");
 });
 
 // CRUD API Routes for Admin Panel
@@ -738,15 +765,39 @@ app.put("/api/desktop-content", (req, res) => {
         pageData.currentBalance = updates.totalBalance;
         pageData.availableBalance = updates.totalBalance;
       }
+      if (updates.availableBalance !== undefined) pageData.availableBalance = updates.availableBalance;
+      if (updates.accountType !== undefined) pageData.accountType = updates.accountType;
+      if (updates.accountHolder !== undefined) pageData.accountHolder = updates.accountHolder;
+      if (updates.cardNumber !== undefined) pageData.cardNumber = updates.cardNumber;
+      if (updates.cardStatus !== undefined) pageData.cardStatus = updates.cardStatus;
+      if (updates.cardType !== undefined) pageData.cardType = updates.cardType;
+      if (updates.transfersTitle !== undefined) pageData.transfersTitle = updates.transfersTitle;
+      if (updates.productSuggestion !== undefined) pageData.productSuggestion = updates.productSuggestion;
       if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
       if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
       if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
+      
+    } else if (page === 'gestor') {
+      const pageData = appData.desktopData.gestor;
+      
+      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined) pageData.welcomeSubtitle = updates.lastConnection;
+      if (updates.servicesTitle !== undefined) pageData.servicesTitle = updates.servicesTitle;
+      if (updates.consultationTitle !== undefined) pageData.consultationTitle = updates.consultationTitle;
+      if (updates.consultationDescription !== undefined) pageData.consultationDescription = updates.consultationDescription;
+      if (updates.assistantTitle !== undefined) pageData.assistantTitle = updates.assistantTitle;
+      if (updates.assistantDescription !== undefined) pageData.assistantDescription = updates.assistantDescription;
+      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
+      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
       
     } else if (page === 'mortgages') {
       const pageData = appData.desktopData.mortgages;
       
       if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
       if (updates.lastConnection !== undefined) pageData.contactDescription = updates.lastConnection;
+      if (updates.availableProductsTitle !== undefined) pageData.availableProductsTitle = updates.availableProductsTitle;
+      if (updates.calculatorTitle !== undefined) pageData.calculatorTitle = updates.calculatorTitle;
+      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
       if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
     }
     

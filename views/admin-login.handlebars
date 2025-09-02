@@ -42,8 +42,8 @@
   <body>
     <div class="login-container">
       <div class="login-header">
-        <h1>🔒 Acceso Admin</h1>
-        <p>Panel de Administración BBVA</p>
+        <h1>🎨 Acceso Admin</h1>
+        <p>Editor WYSIWYG - BBVA</p>
       </div>
 
       {{#if error}}
@@ -59,33 +59,18 @@
         </div>
         <input type="hidden" id="mode" name="mode" value="panel" />
 
-        <div class="admin-mode-buttons">
-          <button
-            type="submit"
-            class="login-btn admin-panel-btn"
-            onclick="setMode('panel')"
-          >
-            ⚙️ Panel Admin
-          </button>
-          <button
-            type="submit"
-            class="login-btn inline-edit-btn"
-            onclick="setMode('inline')"
-          >
-            ✏️ Edición en Línea
-          </button>
-        </div>
+        <button type="submit" class="login-btn admin-panel-btn">
+          🎨 Acceder al Editor WYSIWYG
+        </button>
       </form>
 
       <div class="mode-info">
-        <p><strong>Panel Admin:</strong>
-          Accede al panel de administración (solo disponible en desktop)</p>
-        <p><strong>Edición en Línea:</strong>
-          Edita directamente en el sitio web</p>
+        <p><strong>Editor WYSIWYG:</strong>
+          Edita el contenido directamente en las páginas del sitio web. Solo disponible en dispositivos desktop.</p>
       </div>
 
       <div id="mobileWarning" class="mobile-warning" style="display: none;">
-        <p><strong>⚠️ Aviso:</strong> El Panel Admin solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil.</p>
+        <p><strong>⚠️ Aviso:</strong> El Editor WYSIWYG solo está disponible en dispositivos desktop. Accede desde un ordenador para editar el contenido.</p>
       </div>
 
       <script>
@@ -97,10 +82,6 @@
           document.querySelector('.admin-panel-btn').style.opacity = '0.5';
           document.querySelector('.admin-panel-btn').style.cursor = 'not-allowed';
         }
-      </script>
-
-      <script>
-        function setMode(mode) { document.getElementById('mode').value = mode; }
       </script>
 
       <a href="/main-page" class="back-link">← Volver al inicio</a>

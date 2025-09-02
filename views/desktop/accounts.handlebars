@@ -1,12 +1,57 @@
+{{#if isWysiwygMode}}
+<!-- WYSIWYG Admin Toolbar -->
+<div id="wysiwygToolbar" class="wysiwyg-toolbar">
+    <div class="toolbar-content">
+        <div class="toolbar-left">
+            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-subtitle">Click on any text to edit</span>
+        </div>
+        <div class="toolbar-center">
+            <div class="page-navigation">
+                <a href="/admin-wysiwyg" class="nav-btn">
+                    <i class="icon">🏠</i>
+                    <span>Main</span>
+                </a>
+                <a href="/admin-wysiwyg/gestor" class="nav-btn">
+                    <i class="icon">👤</i>
+                    <span>Gestor</span>
+                </a>
+                <a href="/admin-wysiwyg/accounts" class="nav-btn active">
+                    <i class="icon">🏦</i>
+                    <span>Accounts</span>
+                </a>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="icon">✏️</i>
+                <span>Edit Mode: ON</span>
+            </button>
+            <button class="toolbar-btn" onclick="saveAllChanges()">
+                <i class="icon">💾</i>
+                <span>Save All</span>
+            </button>
+            <a href="/accounts" class="toolbar-btn toolbar-btn-exit">
+                <i class="icon">👁️</i>
+                <span>View Mode</span>
+            </a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 {{> desktop/top-header}}
 
-<div class="desktop-main-container">
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
     {{> desktop/sidebar}}
 
     <main class="desktop-main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>{{desktopData.accounts.pageTitle}}</h1>
+            <h1 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                {{#if isWysiwygMode}}data-field="pageTitle" data-page="accounts" data-type="text"{{/if}}>
+                {{desktopData.accounts.pageTitle}}
+            </h1>
             <div class="header-actions">
                 <button class="btn btn-primary">My overview</button>
                 <button class="btn btn-secondary">Apply</button>
@@ -52,20 +97,40 @@
                     <!-- Account Details -->
                     <div class="account-item">
                         <div class="account-info">
-                            <div class="account-number">{{desktopData.accounts.accountNumber}}</div>
-                            <div class="account-type">{{desktopData.accounts.accountType}}</div>
-                            <div class="account-holder">{{desktopData.accounts.accountHolder}}</div>
+                            <div class="account-number {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="accountNumber" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.accountNumber}}
+                            </div>
+                            <div class="account-type {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="accountType" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.accountType}}
+                            </div>
+                            <div class="account-holder {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="accountHolder" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.accountHolder}}
+                            </div>
                         </div>
                         <div class="account-balance">
-                            <div class="balance-amount">{{desktopData.accounts.currentBalance}}</div>
-                            <div class="balance-label">Current balance {{desktopData.accounts.currentBalance}}</div>
+                            <div class="balance-amount {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="currentBalance" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.currentBalance}}
+                            </div>
+                            <div class="balance-label">Current balance 
+                                <span class="{{#if isWysiwygMode}}editable{{/if}}" 
+                                      {{#if isWysiwygMode}}data-field="currentBalance" data-page="accounts" data-type="text"{{/if}}>
+                                      {{desktopData.accounts.currentBalance}}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Available Balance -->
                     <div class="available-balance">
                         <span class="available-label">Available</span>
-                        <span class="available-amount">{{desktopData.accounts.availableBalance}}</span>
+                        <span class="available-amount {{#if isWysiwygMode}}editable{{/if}}" 
+                              {{#if isWysiwygMode}}data-field="availableBalance" data-page="accounts" data-type="text"{{/if}}>
+                              {{desktopData.accounts.availableBalance}}
+                        </span>
                     </div>
                 </div>
 
@@ -92,10 +157,22 @@
                             <div class="card-status">AVAILABLE</div>
                         </div>
                         <div class="card-details">
-                            <div class="card-number">{{desktopData.accounts.cardNumber}}</div>
-                            <div class="card-status-text">{{desktopData.accounts.cardStatus}}</div>
-                            <div class="card-type">{{desktopData.accounts.cardType}}</div>
-                            <div class="card-holder">{{desktopData.accounts.accountHolder}}</div>
+                            <div class="card-number {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="cardNumber" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.cardNumber}}
+                            </div>
+                            <div class="card-status-text {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="cardStatus" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.cardStatus}}
+                            </div>
+                            <div class="card-type {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="cardType" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.cardType}}
+                            </div>
+                            <div class="card-holder {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="accountHolder" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.accountHolder}}
+                            </div>
                         </div>
                         <div class="card-actions">
                             <button class="btn btn-primary">Activate</button>
@@ -114,8 +191,14 @@
                             <img class="clip-box__image" src="https://web.bbva.es/packages/assets/img/coronita/entity/clip/light/170.svg?v=3646262f" alt="">
                         </div>
                         <div class="contact-info">
-                            <div class="contact-name">{{desktopData.accounts.contactTeam}}</div>
-                            <div class="contact-phone">{{desktopData.accounts.contactPhone}}</div>
+                            <div class="contact-name {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="contactTeam" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.contactTeam}}
+                            </div>
+                            <div class="contact-phone {{#if isWysiwygMode}}editable{{/if}}" 
+                                 {{#if isWysiwygMode}}data-field="contactPhone" data-page="accounts" data-type="text"{{/if}}>
+                                 {{desktopData.accounts.contactPhone}}
+                            </div>
                         </div>
                     </div>
                     <button class="request-appointment-btn">
@@ -123,7 +206,10 @@
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                        {{desktopData.accounts.appointmentText}}
+                        <span class="{{#if isWysiwygMode}}editable{{/if}}" 
+                              {{#if isWysiwygMode}}data-field="appointmentText" data-page="accounts" data-type="text"{{/if}}>
+                              {{desktopData.accounts.appointmentText}}
+                        </span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M9 18l6-6-6-6"></path>
                         </svg>
@@ -132,7 +218,10 @@
 
                 <!-- Scheduled Transfers -->
                 <div class="transfers-card">
-                    <h3>{{desktopData.accounts.transfersTitle}}</h3>
+                    <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                        {{#if isWysiwygMode}}data-field="transfersTitle" data-page="accounts" data-type="text"{{/if}}>
+                        {{desktopData.accounts.transfersTitle}}
+                    </h3>
                     <button class="view-btn">View</button>
                 </div>
 
@@ -141,7 +230,10 @@
                     <div class="product-header">
                         <span>At BBVA, we help you</span>
                     </div>
-                    <h3>{{desktopData.accounts.productSuggestion}}</h3>
+                    <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                        {{#if isWysiwygMode}}data-field="productSuggestion" data-page="accounts" data-type="text"{{/if}}>
+                        {{desktopData.accounts.productSuggestion}}
+                    </h3>
                     <div class="product-selector">
                         <select>
                             <option>Select the product family</option>

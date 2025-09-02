@@ -1,12 +1,57 @@
+{{#if isWysiwygMode}}
+<!-- WYSIWYG Admin Toolbar -->
+<div id="wysiwygToolbar" class="wysiwyg-toolbar">
+    <div class="toolbar-content">
+        <div class="toolbar-left">
+            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-subtitle">Click on any text to edit</span>
+        </div>
+        <div class="toolbar-center">
+            <div class="page-navigation">
+                <a href="/admin-wysiwyg" class="nav-btn">
+                    <i class="icon">🏠</i>
+                    <span>Main</span>
+                </a>
+                <a href="/admin-wysiwyg/gestor" class="nav-btn active">
+                    <i class="icon">👤</i>
+                    <span>Gestor</span>
+                </a>
+                <a href="/admin-wysiwyg/accounts" class="nav-btn">
+                    <i class="icon">🏦</i>
+                    <span>Accounts</span>
+                </a>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="icon">✏️</i>
+                <span>Edit Mode: ON</span>
+            </button>
+            <button class="toolbar-btn" onclick="saveAllChanges()">
+                <i class="icon">💾</i>
+                <span>Save All</span>
+            </button>
+            <a href="/gestor" class="toolbar-btn toolbar-btn-exit">
+                <i class="icon">👁️</i>
+                <span>View Mode</span>
+            </a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 {{> desktop/top-header}}
 
-<div class="desktop-main-container">
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
     {{> desktop/sidebar}}
 
     <main class="desktop-main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>My Profile</h1>
+            <h1 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                {{#if isWysiwygMode}}data-field="pageTitle" data-page="gestor" data-type="text"{{/if}}>
+                {{#if desktopData.gestor.pageTitle}}{{desktopData.gestor.pageTitle}}{{else}}My Profile{{/if}}
+            </h1>
             <div class="header-actions">
                 <button class="btn btn-primary">Edit Profile</button>
                 <button class="btn btn-secondary">Privacy Settings</button>
@@ -27,7 +72,10 @@
                         </div>
                         <div class="welcome-text">
                             <h2>Welcome, {{user.name}}</h2>
-                            <p>Personal banking services</p>
+                            <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                               {{#if isWysiwygMode}}data-field="welcomeSubtitle" data-page="gestor" data-type="text"{{/if}}>
+                               {{#if desktopData.gestor.welcomeSubtitle}}{{desktopData.gestor.welcomeSubtitle}}{{else}}Personal banking services{{/if}}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +83,10 @@
                 <!-- Services Grid -->
                 <div class="section-card">
                     <div class="section-header">
-                        <h2>Services</h2>
+                        <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                            {{#if isWysiwygMode}}data-field="servicesTitle" data-page="gestor" data-type="text"{{/if}}>
+                            {{#if desktopData.gestor.servicesTitle}}{{desktopData.gestor.servicesTitle}}{{else}}Services{{/if}}
+                        </h2>
                     </div>
                     <div class="services-grid">
                         <div class="service-item">
@@ -45,8 +96,14 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                             </div>
-                            <h3>Consultation</h3>
-                            <p>Financial advice and guidance</p>
+                            <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                                {{#if isWysiwygMode}}data-field="consultationTitle" data-page="gestor" data-type="text"{{/if}}>
+                                {{#if desktopData.gestor.consultationTitle}}{{desktopData.gestor.consultationTitle}}{{else}}Consultation{{/if}}
+                            </h3>
+                            <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                               {{#if isWysiwygMode}}data-field="consultationDescription" data-page="gestor" data-type="text"{{/if}}>
+                               {{#if desktopData.gestor.consultationDescription}}{{desktopData.gestor.consultationDescription}}{{else}}Financial advice and guidance{{/if}}
+                            </p>
                         </div>
                         <div class="service-item">
                             <div class="service-icon">
@@ -107,15 +164,24 @@
                 <div class="assistant-card">
                     <div class="assistant-header">
                         <img src="/Logo-BBVA.webp" alt="BBVA Logo" class="bbva-logo" />
-                        <h3>Blue BBVA</h3>
+                        <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                            {{#if isWysiwygMode}}data-field="assistantTitle" data-page="gestor" data-type="text"{{/if}}>
+                            {{#if desktopData.gestor.assistantTitle}}{{desktopData.gestor.assistantTitle}}{{else}}Blue BBVA{{/if}}
+                        </h3>
                     </div>
-                    <p>Virtual assistant available 24/7 for banking queries.</p>
+                    <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                       {{#if isWysiwygMode}}data-field="assistantDescription" data-page="gestor" data-type="textarea"{{/if}}>
+                       {{#if desktopData.gestor.assistantDescription}}{{desktopData.gestor.assistantDescription}}{{else}}Virtual assistant available 24/7 for banking queries.{{/if}}
+                    </p>
                     <button class="btn btn-primary">Start Conversation</button>
                 </div>
 
                 <!-- Quick Contact Card -->
                 <div class="quick-contact-card">
-                    <h3>Need Immediate Help?</h3>
+                    <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                        {{#if isWysiwygMode}}data-field="contactTitle" data-page="gestor" data-type="text"{{/if}}>
+                        {{#if desktopData.gestor.contactTitle}}{{desktopData.gestor.contactTitle}}{{else}}Need Immediate Help?{{/if}}
+                    </h3>
                     <div class="contact-options">
                         <a href="tel:944230045" class="contact-option">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -123,7 +189,10 @@
                             </svg>
                             <div class="contact-text">
                                 <strong>Call Us</strong>
-                                <span>944 23 00 45</span>
+                                <span class="{{#if isWysiwygMode}}editable{{/if}}" 
+                                      {{#if isWysiwygMode}}data-field="contactPhone" data-page="gestor" data-type="text"{{/if}}>
+                                      {{#if desktopData.gestor.contactPhone}}{{desktopData.gestor.contactPhone}}{{else}}944 23 00 45{{/if}}
+                                </span>
                             </div>
                         </a>
                         <a href="#" class="contact-option">

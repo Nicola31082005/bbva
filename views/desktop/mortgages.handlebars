@@ -1,27 +1,88 @@
+{{#if isWysiwygMode}}
+<!-- WYSIWYG Admin Toolbar -->
+<div id="wysiwygToolbar" class="wysiwyg-toolbar">
+    <div class="toolbar-content">
+        <div class="toolbar-left">
+            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-subtitle">Click on any text to edit</span>
+        </div>
+        <div class="toolbar-center">
+            <div class="page-navigation">
+                <a href="/admin-wysiwyg" class="nav-btn">
+                    <i class="icon">🏠</i>
+                    <span>Main</span>
+                </a>
+                <a href="/admin-wysiwyg/accounts" class="nav-btn">
+                    <i class="icon">🏦</i>
+                    <span>Accounts</span>
+                </a>
+                <a href="/admin-wysiwyg/mortgages" class="nav-btn active">
+                    <i class="icon">🏠</i>
+                    <span>Mortgages</span>
+                </a>
+                <a href="/admin-wysiwyg/transfers" class="nav-btn">
+                    <i class="icon">💸</i>
+                    <span>Transfers</span>
+                </a>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="icon">✏️</i>
+                <span>Edit Mode: ON</span>
+            </button>
+            <button class="toolbar-btn" onclick="saveAllChanges()">
+                <i class="icon">💾</i>
+                <span>Save All</span>
+            </button>
+            <a href="/mortgages" class="toolbar-btn toolbar-btn-exit">
+                <i class="icon">👁️</i>
+                <span>View Mode</span>
+            </a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 {{> desktop/top-header}}
 
-<div class="desktop-main-container">
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
     {{> desktop/sidebar}}
 
     <main class="desktop-main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>{{desktopData.mortgages.pageTitle}}</h1>
+            <h1 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                {{#if isWysiwygMode}}data-field="pageTitle" data-page="mortgages" data-type="text"{{/if}}>
+                {{desktopData.mortgages.pageTitle}}
+            </h1>
         </div>
 
         <!-- Available Products Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>{{desktopData.mortgages.availableProductsTitle}}</h2>
+                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                    {{#if isWysiwygMode}}data-field="availableProductsTitle" data-page="mortgages" data-type="text"{{/if}}>
+                    {{desktopData.mortgages.availableProductsTitle}}
+                </h2>
             </div>
                         <div class="products-grid">
                 {{#each desktopData.mortgageProducts}}
                 <div class="product-item">
-                    <h3>{{this.title}}</h3>
-                    <p>{{this.description}}</p>
+                    <h3 class="{{#if ../isWysiwygMode}}editable{{/if}}" 
+                        {{#if ../isWysiwygMode}}data-field="title" data-page="mortgageProducts" data-type="text" data-id="{{this.id}}"{{/if}}>
+                        {{this.title}}
+                    </h3>
+                    <p class="{{#if ../isWysiwygMode}}editable{{/if}}" 
+                       {{#if ../isWysiwygMode}}data-field="description" data-page="mortgageProducts" data-type="textarea" data-id="{{this.id}}"{{/if}}>
+                       {{this.description}}
+                    </p>
                     <ul>
                         {{#each this.features}}
-                        <li>{{this}}</li>
+                        <li class="{{#if ../../isWysiwygMode}}editable{{/if}}" 
+                            {{#if ../../isWysiwygMode}}data-field="features" data-page="mortgageProducts" data-type="text" data-id="{{../id}}" data-feature-index="{{@index}}"{{/if}}>
+                            {{this}}
+                        </li>
                         {{/each}}
                     </ul>
                     <button class="btn btn-secondary">Learn More</button>
@@ -33,7 +94,10 @@
         <!-- Loan Calculator Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>{{desktopData.mortgages.calculatorTitle}}</h2>
+                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                    {{#if isWysiwygMode}}data-field="calculatorTitle" data-page="mortgages" data-type="text"{{/if}}>
+                    {{desktopData.mortgages.calculatorTitle}}
+                </h2>
             </div>
             <div class="calculator-area">
                 <div class="calculator-form">
@@ -78,13 +142,24 @@
         <!-- Contact Section -->
         <div class="section-card">
             <div class="section-header">
-                <h2>{{desktopData.mortgages.contactTitle}}</h2>
+                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
+                    {{#if isWysiwygMode}}data-field="contactTitle" data-page="mortgages" data-type="text"{{/if}}>
+                    {{desktopData.mortgages.contactTitle}}
+                </h2>
             </div>
             <div class="contact-info">
-                <p>{{desktopData.mortgages.contactDescription}}</p>
+                <p class="{{#if isWysiwygMode}}editable{{/if}}" 
+                   {{#if isWysiwygMode}}data-field="contactDescription" data-page="mortgages" data-type="textarea"{{/if}}>
+                   {{desktopData.mortgages.contactDescription}}
+                </p>
                 <div class="contact-options">
                     <button class="btn btn-primary">Schedule an Appointment</button>
-                    <button class="btn btn-secondary">Call Us: {{desktopData.mortgages.contactPhone}}</button>
+                    <button class="btn btn-secondary">Call Us: 
+                        <span class="{{#if isWysiwygMode}}editable{{/if}}" 
+                              {{#if isWysiwygMode}}data-field="contactPhone" data-page="mortgages" data-type="text"{{/if}}>
+                              {{desktopData.mortgages.contactPhone}}
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>

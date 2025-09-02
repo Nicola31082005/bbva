@@ -1814,3 +1814,66 @@ input:checked + .slider:before {
 .wysiwyg-changes-indicator.show {
   display: flex;
 }
+
+/* Page Navigation Styles */
+.toolbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.page-navigation {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+}
+
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.nav-btn .icon {
+  font-size: 14px;
+}
+
+/* Adjust toolbar layout for navigation */
+.wysiwyg-toolbar .toolbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.toolbar-left {
+  flex: 0 0 auto;
+}
+
+.toolbar-right {
+  flex: 0 0 auto;
+}
