@@ -28,7 +28,7 @@ function addChangesIndicator() {
   indicator.className = 'wysiwyg-changes-indicator';
   indicator.id = 'changesIndicator';
   indicator.innerHTML = `
-    <span>💾</span>
+    <span>●</span>
     <span id="changesCount">0</span>
     <span>unsaved changes</span>
   `;
@@ -206,7 +206,7 @@ async function saveAllChanges() {
   
   const saveButton = document.querySelector('[onclick="saveAllChanges()"]');
   const originalText = saveButton.innerHTML;
-  saveButton.innerHTML = '<i class="icon">⏳</i><span>Saving...</span>';
+  saveButton.innerHTML = '<span>Saving...</span>';
   saveButton.disabled = true;
   
   try {
@@ -420,10 +420,10 @@ function toggleEditMode() {
   const btn = document.getElementById('editModeBtn');
   
   if (editMode) {
-    btn.innerHTML = '<i class="icon">✏️</i><span>Edit Mode: ON</span>';
+    btn.innerHTML = '<span>Edit Mode: ON</span>';
     document.body.classList.remove('edit-mode-off');
   } else {
-    btn.innerHTML = '<i class="icon">👁️</i><span>Edit Mode: OFF</span>';
+    btn.innerHTML = '<span>Edit Mode: OFF</span>';
     document.body.classList.add('edit-mode-off');
     closeInlineEditor();
   }

@@ -3,36 +3,30 @@
 <div id="wysiwygToolbar" class="wysiwyg-toolbar">
     <div class="toolbar-content">
         <div class="toolbar-left">
-            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-title">WYSIWYG Admin Mode</span>
             <span class="toolbar-subtitle">Click on any text to edit</span>
         </div>
         <div class="toolbar-center">
             <div class="page-navigation">
                 <a href="/admin-wysiwyg" class="nav-btn">
-                    <i class="icon">🏠</i>
                     <span>Main</span>
                 </a>
                 <a href="/admin-wysiwyg/gestor" class="nav-btn active">
-                    <i class="icon">👤</i>
                     <span>Gestor</span>
                 </a>
                 <a href="/admin-wysiwyg/accounts" class="nav-btn">
-                    <i class="icon">🏦</i>
                     <span>Accounts</span>
                 </a>
             </div>
         </div>
         <div class="toolbar-right">
             <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
-                <i class="icon">✏️</i>
                 <span>Edit Mode: ON</span>
             </button>
             <button class="toolbar-btn" onclick="saveAllChanges()">
-                <i class="icon">💾</i>
                 <span>Save All</span>
             </button>
             <a href="/gestor" class="toolbar-btn toolbar-btn-exit">
-                <i class="icon">👁️</i>
                 <span>View Mode</span>
             </a>
         </div>
@@ -160,21 +154,7 @@
 
             <!-- Right Sidebar -->
             <div class="profile-sidebar">
-                <!-- Blue BBVA Assistant Card -->
-                <div class="assistant-card">
-                    <div class="assistant-header">
-                        <img src="/Logo-BBVA.webp" alt="BBVA Logo" class="bbva-logo" />
-                        <h3 class="{{#if isWysiwygMode}}editable{{/if}}" 
-                            {{#if isWysiwygMode}}data-field="assistantTitle" data-page="gestor" data-type="text"{{/if}}>
-                            {{#if desktopData.gestor.assistantTitle}}{{desktopData.gestor.assistantTitle}}{{else}}Blue BBVA{{/if}}
-                        </h3>
-                    </div>
-                    <p class="{{#if isWysiwygMode}}editable{{/if}}" 
-                       {{#if isWysiwygMode}}data-field="assistantDescription" data-page="gestor" data-type="textarea"{{/if}}>
-                       {{#if desktopData.gestor.assistantDescription}}{{desktopData.gestor.assistantDescription}}{{else}}Virtual assistant available 24/7 for banking queries.{{/if}}
-                    </p>
-                    <button class="btn btn-primary">Start Conversation</button>
-                </div>
+                
 
                 <!-- Quick Contact Card -->
                 <div class="quick-contact-card">
