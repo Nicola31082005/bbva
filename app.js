@@ -197,7 +197,7 @@ let appData = {
       productsTitle: "Explore all the products you can take out",
       fastTransactionsTitle: "FAST TRANSACTIONS",
       operationsTitle: "Perform an operation",
-      operationsSubtitle: "IMPORTANT ACTIVITY"
+      operationsSubtitle: "IMPORTANT ACTIVITY",
     },
     accounts: {
       id: 1,
@@ -214,7 +214,7 @@ let appData = {
       contactPhone: "944230045",
       appointmentText: "Request teller appointment",
       transfersTitle: "Next scheduled transfers and internal transfers",
-      productSuggestion: "Do you want to take out a product?"
+      productSuggestion: "Do you want to take out a product?",
     },
     gestor: {
       id: 1,
@@ -223,7 +223,7 @@ let appData = {
       servicesTitle: "Services",
       consultationTitle: "Consultation",
       consultationDescription: "Financial advice and guidance",
-      investmentsTitle: "Investments", 
+      investmentsTitle: "Investments",
       investmentsDescription: "Investment planning services",
       mortgagesTitle: "Mortgages",
       mortgagesDescription: "Home financing solutions",
@@ -234,15 +234,16 @@ let appData = {
       supportTitle: "Support",
       supportDescription: "24/7 banking assistance",
       assistantTitle: "Blue BBVA",
-      assistantDescription: "Virtual assistant available 24/7 for banking queries.",
+      assistantDescription:
+        "Virtual assistant available 24/7 for banking queries.",
       contactTitle: "Need Immediate Help?",
       contactPhone: "944 23 00 45",
-      profileSummaryTitle: "Profile Summary"
+      profileSummaryTitle: "Profile Summary",
     },
     transfers: {
       id: 1,
       operationsTitle: "Perform an operation",
-      operationsSubtitle: "IMPORTANT ACTIVITY"
+      operationsSubtitle: "IMPORTANT ACTIVITY",
     },
     mortgages: {
       id: 1,
@@ -250,8 +251,9 @@ let appData = {
       availableProductsTitle: "Available Products",
       calculatorTitle: "Loan Calculator",
       contactTitle: "Need Help?",
-      contactDescription: "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
-      contactPhone: "944 23 00 45"
+      contactDescription:
+        "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
+      contactPhone: "944 23 00 45",
     },
     insurance: {
       id: 1,
@@ -259,137 +261,193 @@ let appData = {
       welcomeSubtitle: "Protect what matters most to you",
       availableProductsTitle: "Available Insurance Products",
       protectionTitle: "Comprehensive Protection",
-      protectionDescription: "From life insurance to property protection, we offer comprehensive coverage for all your needs.",
+      protectionDescription:
+        "From life insurance to property protection, we offer comprehensive coverage for all your needs.",
       coverageTitle: "Coverage Options",
-      coverageDescription: "Flexible insurance solutions tailored to your lifestyle and budget.",
+      coverageDescription:
+        "Flexible insurance solutions tailored to your lifestyle and budget.",
       claimsTitle: "Claims Support",
-      claimsDescription: "24/7 claims support to help you when you need it most.",
+      claimsDescription:
+        "24/7 claims support to help you when you need it most.",
       contactTitle: "Insurance Specialists",
-      contactDescription: "Our insurance experts are here to help you find the right coverage for your needs.",
+      contactDescription:
+        "Our insurance experts are here to help you find the right coverage for your needs.",
       contactPhone: "944 23 00 45",
-      contactTeam: "Insurance Team"
+      contactTeam: "Insurance Team",
     },
     fastActions: [
       { id: 1, label: "Check CVV", icon: "card" },
       { id: 2, label: "Manage a transfer", icon: "transfer" },
       { id: 3, label: "View PIN", icon: "pin" },
-      { id: 4, label: "Send / Receive money (Bizum)", icon: "bizum" }
+      { id: 4, label: "Send / Receive money (Bizum)", icon: "bizum" },
     ],
     operations: [
       {
         id: 1,
         title: "Transfers to other banks and transfers within the bank",
-        description: "You can make a domestic transfer and send your money immediately, on a one-off basis or scheduled.",
-        linkText: "Make a transfer to another bank or transfer within the bank"
+        description:
+          "You can make a domestic transfer and send your money immediately, on a one-off basis or scheduled.",
+        linkText: "Make a transfer to another bank or transfer within the bank",
       },
       {
         id: 2,
         title: "Send / Request Bizum",
-        description: "All you need is your cell phone to send money to a friend, shop online or donate to the cause of your choice.",
-        linkText: "Go to Bizum"
+        description:
+          "All you need is your cell phone to send money to a friend, shop online or donate to the cause of your choice.",
+        linkText: "Go to Bizum",
       },
       {
         id: 3,
         title: "International transfer",
-        description: "In foreign currency to more than 31 countries and with a preferential exchange rate.",
-        linkText: "Make an international transfer"
+        description:
+          "In foreign currency to more than 31 countries and with a preferential exchange rate.",
+        linkText: "Make an international transfer",
       },
       {
         id: 4,
         title: "Activate and deactivate your cards",
-        description: "Securely control the use of your cards by turning them on (activating) or off (deactivating).",
-        linkText: "Limit card operations"
+        description:
+          "Securely control the use of your cards by turning them on (activating) or off (deactivating).",
+        linkText: "Limit card operations",
       },
       {
         id: 5,
         title: "Split an expense",
-        description: "Finance your purchases, payments or transfers and pay in a more convenient and flexible way.",
-        linkText: "Split an expense"
+        description:
+          "Finance your purchases, payments or transfers and pay in a more convenient and flexible way.",
+        linkText: "Split an expense",
       },
       {
         id: 6,
         title: "Transfer from account to card",
-        description: "For when you want to settle a payment or take advantage of the benefits of using the card.",
-        linkText: "Transfer from account to card"
-      }
+        description:
+          "For when you want to settle a payment or take advantage of the benefits of using the card.",
+        linkText: "Transfer from account to card",
+      },
     ],
     mortgageProducts: [
       {
         id: 1,
         title: "Home Mortgage",
         description: "Finance your dream home with competitive interest rates.",
-        features: ["Up to 80% financing", "Fixed and variable rates", "Up to 30 years term"]
+        features: [
+          "Up to 80% financing",
+          "Fixed and variable rates",
+          "Up to 30 years term",
+        ],
       },
       {
         id: 2,
         title: "Personal Loan",
         description: "Quick approval for your personal projects and needs.",
-        features: ["Up to €60,000", "Fast approval process", "Flexible repayment terms"]
+        features: [
+          "Up to €60,000",
+          "Fast approval process",
+          "Flexible repayment terms",
+        ],
       },
       {
         id: 3,
         title: "Car Loan",
         description: "Finance your new or used vehicle with special rates.",
-        features: ["Up to 100% financing", "Competitive rates", "Up to 8 years term"]
+        features: [
+          "Up to 100% financing",
+          "Competitive rates",
+          "Up to 8 years term",
+        ],
       },
       {
         id: 4,
         title: "Home Improvement Loan",
-        description: "Renovate and improve your home with our special financing.",
-        features: ["Up to €50,000", "No collateral required", "Quick processing"]
-      }
+        description:
+          "Renovate and improve your home with our special financing.",
+        features: [
+          "Up to €50,000",
+          "No collateral required",
+          "Quick processing",
+        ],
+      },
     ],
     insuranceProducts: [
       {
         id: 1,
         title: "Life Insurance",
-        description: "Protect your family's financial future with comprehensive life insurance coverage.",
-        features: ["Up to €1,000,000 coverage", "Flexible premium payments", "Family protection benefits"],
+        description:
+          "Protect your family's financial future with comprehensive life insurance coverage.",
+        features: [
+          "Up to €1,000,000 coverage",
+          "Flexible premium payments",
+          "Family protection benefits",
+        ],
         premium: "From €15/month",
-        type: "life"
+        type: "life",
       },
       {
         id: 2,
         title: "Home Insurance",
-        description: "Complete protection for your home and personal belongings.",
-        features: ["Building and contents coverage", "24/7 emergency assistance", "Natural disaster protection"],
+        description:
+          "Complete protection for your home and personal belongings.",
+        features: [
+          "Building and contents coverage",
+          "24/7 emergency assistance",
+          "Natural disaster protection",
+        ],
         premium: "From €25/month",
-        type: "home"
+        type: "home",
       },
       {
         id: 3,
         title: "Car Insurance",
         description: "Comprehensive vehicle protection with competitive rates.",
-        features: ["Comprehensive and third-party coverage", "Breakdown assistance", "Accident forgiveness"],
+        features: [
+          "Comprehensive and third-party coverage",
+          "Breakdown assistance",
+          "Accident forgiveness",
+        ],
         premium: "From €35/month",
-        type: "auto"
+        type: "auto",
       },
       {
         id: 4,
         title: "Health Insurance",
-        description: "Private healthcare coverage with extensive network of providers.",
-        features: ["Private hospital access", "Dental and optical coverage", "Specialist consultations"],
+        description:
+          "Private healthcare coverage with extensive network of providers.",
+        features: [
+          "Private hospital access",
+          "Dental and optical coverage",
+          "Specialist consultations",
+        ],
         premium: "From €45/month",
-        type: "health"
+        type: "health",
       },
       {
         id: 5,
         title: "Travel Insurance",
-        description: "Travel with confidence with our comprehensive travel protection.",
-        features: ["Medical coverage abroad", "Trip cancellation protection", "Lost luggage coverage"],
+        description:
+          "Travel with confidence with our comprehensive travel protection.",
+        features: [
+          "Medical coverage abroad",
+          "Trip cancellation protection",
+          "Lost luggage coverage",
+        ],
         premium: "From €8/trip",
-        type: "travel"
+        type: "travel",
       },
       {
         id: 6,
         title: "Personal Liability Insurance",
-        description: "Protection against personal liability claims and legal costs.",
-        features: ["Up to €300,000 coverage", "Legal expense coverage", "Family protection"],
+        description:
+          "Protection against personal liability claims and legal costs.",
+        features: [
+          "Up to €300,000 coverage",
+          "Legal expense coverage",
+          "Family protection",
+        ],
         premium: "From €12/month",
-        type: "liability"
-      }
-    ]
-  }
+        type: "liability",
+      },
+    ],
+  },
 };
 
 // Helper function to get next ID
@@ -459,7 +517,7 @@ app.get("/main-page", requireUserAuth, (req, res) => {
   if (req.query.message === "admin-desktop-only") {
     message = {
       type: "warning",
-      text: "El Panel de Administración solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil."
+      text: "El Panel de Administración solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil.",
     };
   }
 
