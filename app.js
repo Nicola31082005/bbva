@@ -1501,7 +1501,7 @@ app.post("/login", (req, res) => {
   if (userid === "123123" && password === "123123") {
     req.session.isLoggedIn = true;
     req.session.userId = userid;
-    
+
     // Preserve mobile query parameter in redirect
     const redirectUrl = req.isMobile ? "/main-page?mobile" : "/main-page";
     res.redirect(redirectUrl);
