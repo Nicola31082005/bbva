@@ -970,20 +970,23 @@ app.put("/api/desktop-operations/:id", (req, res) => {
   try {
     const operationId = parseInt(req.params.id);
     const updates = req.body;
-    
-    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+
+    const operationIndex = appData.desktopData.operations.findIndex(
+      (op) => op.id === operationId
+    );
     if (operationIndex === -1) {
       return res.status(404).json({ error: "Operation not found" });
     }
-    
+
     console.log(`📝 Updating operation ${operationId}:`, updates);
-    
+
     // Only update fields that are provided
     const operation = appData.desktopData.operations[operationIndex];
     if (updates.title !== undefined) operation.title = updates.title;
-    if (updates.description !== undefined) operation.description = updates.description;
+    if (updates.description !== undefined)
+      operation.description = updates.description;
     if (updates.linkText !== undefined) operation.linkText = updates.linkText;
-    
+
     console.log(`✅ Operation updated successfully: ${operationId}`);
     res.json({ success: true, message: "Operation updated successfully" });
   } catch (error) {
@@ -996,19 +999,24 @@ app.put("/api/desktop-operations/:id", (req, res) => {
 app.post("/api/desktop-operations", (req, res) => {
   try {
     const { title, description, linkText } = req.body;
-    
-    const newId = Math.max(...appData.desktopData.operations.map(op => op.id)) + 1;
+
+    const newId =
+      Math.max(...appData.desktopData.operations.map((op) => op.id)) + 1;
     const newOperation = {
       id: newId,
       title,
       description,
-      linkText
+      linkText,
     };
-    
+
     appData.desktopData.operations.push(newOperation);
-    
+
     console.log(`📝 New operation added: ${newId}`);
-    res.json({ success: true, message: "Operation added successfully", operation: newOperation });
+    res.json({
+      success: true,
+      message: "Operation added successfully",
+      operation: newOperation,
+    });
   } catch (error) {
     console.error("Error adding operation:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1019,14 +1027,16 @@ app.post("/api/desktop-operations", (req, res) => {
 app.delete("/api/desktop-operations/:id", (req, res) => {
   try {
     const operationId = parseInt(req.params.id);
-    
-    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+
+    const operationIndex = appData.desktopData.operations.findIndex(
+      (op) => op.id === operationId
+    );
     if (operationIndex === -1) {
       return res.status(404).json({ error: "Operation not found" });
     }
-    
+
     appData.desktopData.operations.splice(operationIndex, 1);
-    
+
     console.log(`🗑️ Operation deleted: ${operationId}`);
     res.json({ success: true, message: "Operation deleted successfully" });
   } catch (error) {
