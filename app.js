@@ -1050,22 +1050,28 @@ app.put("/api/desktop-mortgage-products/:id", (req, res) => {
   try {
     const productId = parseInt(req.params.id);
     const updates = req.body;
-    
-    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(
+      (prod) => prod.id === productId
+    );
     if (productIndex === -1) {
       return res.status(404).json({ error: "Mortgage product not found" });
     }
-    
+
     console.log(`📝 Updating mortgage product ${productId}:`, updates);
-    
+
     // Only update fields that are provided
     const product = appData.desktopData.mortgageProducts[productIndex];
     if (updates.title !== undefined) product.title = updates.title;
-    if (updates.description !== undefined) product.description = updates.description;
+    if (updates.description !== undefined)
+      product.description = updates.description;
     if (updates.features !== undefined) product.features = updates.features;
-    
+
     console.log(`✅ Mortgage product updated successfully: ${productId}`);
-    res.json({ success: true, message: "Mortgage product updated successfully" });
+    res.json({
+      success: true,
+      message: "Mortgage product updated successfully",
+    });
   } catch (error) {
     console.error("Error updating mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1076,19 +1082,25 @@ app.put("/api/desktop-mortgage-products/:id", (req, res) => {
 app.post("/api/desktop-mortgage-products", (req, res) => {
   try {
     const { title, description, features } = req.body;
-    
-    const newId = Math.max(...appData.desktopData.mortgageProducts.map(prod => prod.id)) + 1;
+
+    const newId =
+      Math.max(...appData.desktopData.mortgageProducts.map((prod) => prod.id)) +
+      1;
     const newProduct = {
       id: newId,
       title,
       description,
-      features
+      features,
     };
-    
+
     appData.desktopData.mortgageProducts.push(newProduct);
-    
+
     console.log(`📝 New mortgage product added: ${newId}`);
-    res.json({ success: true, message: "Mortgage product added successfully", product: newProduct });
+    res.json({
+      success: true,
+      message: "Mortgage product added successfully",
+      product: newProduct,
+    });
   } catch (error) {
     console.error("Error adding mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1099,16 +1111,21 @@ app.post("/api/desktop-mortgage-products", (req, res) => {
 app.delete("/api/desktop-mortgage-products/:id", (req, res) => {
   try {
     const productId = parseInt(req.params.id);
-    
-    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(
+      (prod) => prod.id === productId
+    );
     if (productIndex === -1) {
       return res.status(404).json({ error: "Mortgage product not found" });
     }
-    
+
     appData.desktopData.mortgageProducts.splice(productIndex, 1);
-    
+
     console.log(`🗑️ Mortgage product deleted: ${productId}`);
-    res.json({ success: true, message: "Mortgage product deleted successfully" });
+    res.json({
+      success: true,
+      message: "Mortgage product deleted successfully",
+    });
   } catch (error) {
     console.error("Error deleting mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
