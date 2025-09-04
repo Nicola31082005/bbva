@@ -844,7 +844,7 @@ app.get("/admin-panel", requireAdminAuth, (req, res) => {
 // Desktop data API endpoint
 app.get("/api/desktop-data", (req, res) => {
   res.json({
-    desktopData: appData.desktopData
+    desktopData: appData.desktopData,
   });
 });
 
