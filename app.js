@@ -648,6 +648,23 @@ app.get("/insurance", requireUserAuth, (req, res) => {
   });
 });
 
+// Operations route
+app.get("/operations", requireUserAuth, (req, res) => {
+  // Pass user data for operations page
+  const user = appData.users[0];
+
+  res.render(`${req.viewPrefix}operations`, {
+    title: "Perform an Operation - BBVA",
+    pageId: "operations",
+    layout: req.layoutPath,
+    user: user,
+    showVisible: true,
+    showRightIcons: true,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
+  });
+});
+
 // Transfers route
 app.get("/transfers", requireUserAuth, (req, res) => {
   // Pass user data and transfers data
