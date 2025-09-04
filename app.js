@@ -710,7 +710,7 @@ app.get("/transfers", requireUserAuth, (req, res) => {
 app.get("/admin-wysiwyg", requireAdminAuth, (req, res) => {
   console.log("🖥️ WYSIWYG Admin mode accessed:", {
     isMobile: req.isMobile,
-    userAgent: req.headers['user-agent']
+    userAgent: req.headers["user-agent"],
   });
 
   // Redirect mobile users to main page with message
@@ -827,12 +827,10 @@ app.get("/admin-wysiwyg/insurance", requireAdminAuth, (req, res) => {
   });
 });
 
-
-
 // Admin Panel Route (Protected) - Redirect to WYSIWYG
 app.get("/admin-panel", requireAdminAuth, (req, res) => {
   console.log("🖥️ Admin panel accessed - redirecting to WYSIWYG mode");
-  
+
   // Redirect mobile users to main page with message
   if (req.isMobile) {
     console.log("📱 Mobile user redirected from admin panel");
