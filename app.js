@@ -8,28 +8,31 @@ const PORT = process.env.PORT || 3000;
 
 // Device detection middleware
 function detectDevice(req, res, next) {
-  const userAgent = req.headers['user-agent'] || '';
-  const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  
+  const userAgent = req.headers["user-agent"] || "";
+  const isMobile =
+    /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent
+    );
+
   // Allow manual override via query parameter for testing
   // Support both 'device=mobile' and 'mobile' query parameters
-  if (req.query.device === 'mobile' || req.query.mobile !== undefined) {
+  if (req.query.device === "mobile" || req.query.mobile !== undefined) {
     req.isMobile = true;
-  } else if (req.query.device === 'desktop') {
+  } else if (req.query.device === "desktop") {
     req.isMobile = false;
   } else {
     req.isMobile = isMobile;
   }
-  
+
   // Set layout and view paths based on device
   if (req.isMobile) {
-    req.layoutPath = 'main';
-    req.viewPrefix = '';
+    req.layoutPath = "main";
+    req.viewPrefix = "";
   } else {
-    req.layoutPath = 'desktop/main';
-    req.viewPrefix = 'desktop/';
+    req.layoutPath = "desktop/main";
+    req.viewPrefix = "desktop/";
   }
-  
+
   next();
 }
 
