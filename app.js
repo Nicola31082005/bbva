@@ -852,76 +852,113 @@ app.get("/api/desktop-data", (req, res) => {
 app.put("/api/desktop-content", (req, res) => {
   try {
     const { page, ...updates } = req.body;
-    
+
     if (!page) {
       return res.status(400).json({ error: "Page parameter is required" });
     }
-    
+
     console.log(`📝 Updating desktop content for page: ${page}`, updates);
-    
+
     // Update the appropriate page data - only update fields that are provided
-    if (page === 'mainPage') {
+    if (page === "mainPage") {
       const pageData = appData.desktopData.mainPage;
-      
+
       // Map WYSIWYG field names to actual data field names
-      if (updates.welcomeMessage !== undefined) pageData.welcomeMessage = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.lastConnection = updates.lastConnection;
-      if (updates.totalBalance !== undefined) pageData.totalBalance = updates.totalBalance;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
-      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
-      if (updates.balanceLabel !== undefined) pageData.balanceLabel = updates.balanceLabel;
-      if (updates.fastTransactionsTitle !== undefined) pageData.fastTransactionsTitle = updates.fastTransactionsTitle;
-      if (updates.operationsTitle !== undefined) pageData.operationsTitle = updates.operationsTitle;
-      if (updates.operationsSubtitle !== undefined) pageData.operationsSubtitle = updates.operationsSubtitle;
-      
-    } else if (page === 'accounts') {
+      if (updates.welcomeMessage !== undefined)
+        pageData.welcomeMessage = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.lastConnection = updates.lastConnection;
+      if (updates.totalBalance !== undefined)
+        pageData.totalBalance = updates.totalBalance;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined)
+        pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined)
+        pageData.appointmentText = updates.appointmentText;
+      if (updates.balanceLabel !== undefined)
+        pageData.balanceLabel = updates.balanceLabel;
+      if (updates.fastTransactionsTitle !== undefined)
+        pageData.fastTransactionsTitle = updates.fastTransactionsTitle;
+      if (updates.operationsTitle !== undefined)
+        pageData.operationsTitle = updates.operationsTitle;
+      if (updates.operationsSubtitle !== undefined)
+        pageData.operationsSubtitle = updates.operationsSubtitle;
+    } else if (page === "accounts") {
       const pageData = appData.desktopData.accounts;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.accountNumber = updates.lastConnection;
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.accountNumber = updates.lastConnection;
       if (updates.totalBalance !== undefined) {
         pageData.currentBalance = updates.totalBalance;
         pageData.availableBalance = updates.totalBalance;
       }
-      if (updates.availableBalance !== undefined) pageData.availableBalance = updates.availableBalance;
-      if (updates.accountType !== undefined) pageData.accountType = updates.accountType;
-      if (updates.accountHolder !== undefined) pageData.accountHolder = updates.accountHolder;
-      if (updates.cardNumber !== undefined) pageData.cardNumber = updates.cardNumber;
-      if (updates.cardStatus !== undefined) pageData.cardStatus = updates.cardStatus;
+      if (updates.availableBalance !== undefined)
+        pageData.availableBalance = updates.availableBalance;
+      if (updates.accountType !== undefined)
+        pageData.accountType = updates.accountType;
+      if (updates.accountHolder !== undefined)
+        pageData.accountHolder = updates.accountHolder;
+      if (updates.cardNumber !== undefined)
+        pageData.cardNumber = updates.cardNumber;
+      if (updates.cardStatus !== undefined)
+        pageData.cardStatus = updates.cardStatus;
       if (updates.cardType !== undefined) pageData.cardType = updates.cardType;
-      if (updates.transfersTitle !== undefined) pageData.transfersTitle = updates.transfersTitle;
-      if (updates.productSuggestion !== undefined) pageData.productSuggestion = updates.productSuggestion;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
-      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
-      
-    } else if (page === 'gestor') {
+      if (updates.transfersTitle !== undefined)
+        pageData.transfersTitle = updates.transfersTitle;
+      if (updates.productSuggestion !== undefined)
+        pageData.productSuggestion = updates.productSuggestion;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined)
+        pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined)
+        pageData.appointmentText = updates.appointmentText;
+    } else if (page === "gestor") {
       const pageData = appData.desktopData.gestor;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.welcomeSubtitle = updates.lastConnection;
-      if (updates.servicesTitle !== undefined) pageData.servicesTitle = updates.servicesTitle;
-      if (updates.consultationTitle !== undefined) pageData.consultationTitle = updates.consultationTitle;
-      if (updates.consultationDescription !== undefined) pageData.consultationDescription = updates.consultationDescription;
-      if (updates.assistantTitle !== undefined) pageData.assistantTitle = updates.assistantTitle;
-      if (updates.assistantDescription !== undefined) pageData.assistantDescription = updates.assistantDescription;
-      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      
-    } else if (page === 'mortgages') {
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.welcomeSubtitle = updates.lastConnection;
+      if (updates.servicesTitle !== undefined)
+        pageData.servicesTitle = updates.servicesTitle;
+      if (updates.consultationTitle !== undefined)
+        pageData.consultationTitle = updates.consultationTitle;
+      if (updates.consultationDescription !== undefined)
+        pageData.consultationDescription = updates.consultationDescription;
+      if (updates.assistantTitle !== undefined)
+        pageData.assistantTitle = updates.assistantTitle;
+      if (updates.assistantDescription !== undefined)
+        pageData.assistantDescription = updates.assistantDescription;
+      if (updates.contactTitle !== undefined)
+        pageData.contactTitle = updates.contactTitle;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+    } else if (page === "mortgages") {
       const pageData = appData.desktopData.mortgages;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.contactDescription = updates.lastConnection;
-      if (updates.availableProductsTitle !== undefined) pageData.availableProductsTitle = updates.availableProductsTitle;
-      if (updates.calculatorTitle !== undefined) pageData.calculatorTitle = updates.calculatorTitle;
-      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.contactDescription = updates.lastConnection;
+      if (updates.availableProductsTitle !== undefined)
+        pageData.availableProductsTitle = updates.availableProductsTitle;
+      if (updates.calculatorTitle !== undefined)
+        pageData.calculatorTitle = updates.calculatorTitle;
+      if (updates.contactTitle !== undefined)
+        pageData.contactTitle = updates.contactTitle;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
     }
-    
+
     console.log(`✅ Desktop content updated successfully for page: ${page}`);
-    res.json({ success: true, message: "Desktop content updated successfully" });
+    res.json({
+      success: true,
+      message: "Desktop content updated successfully",
+    });
   } catch (error) {
     console.error("Error updating desktop content:", error);
     res.status(500).json({ error: "Internal server error" });
