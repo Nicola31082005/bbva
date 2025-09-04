@@ -1,289 +1,310 @@
-{{#if isAdminMode}}
-<!-- Admin Mode Indicator -->
-<div class="admin-mode-indicator desktop">
-    <div class="admin-toolbar">
-        <span class="admin-status">🛠️ Modo de Edición Admin</span>
-        <div class="admin-actions">
-            <button class="admin-btn" onclick="exitAdminMode()">❌ Salir del Modo Admin</button>
-            <a href="/admin-panel" class="admin-btn">⚙️ Panel Admin</a>
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} | BBVA</title>
+    <link rel="icon" href="/Logo-BBVA.webp" type="image/webp">
+    
+    <!-- BBVA Brand Font System -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="/css/desktop/common.css">
+    <link rel="stylesheet" href="/css/desktop/main-page.css">
+    
+    {{#if isAdminMode}}
+    <!-- WYSIWYG Editing Styles -->
+    <style>
+        .editable {
+            border: 1px dashed #ccc !important;
+            padding: 4px !important;
+            min-height: 20px !important;
+            outline: none !important;
+            position: relative !important;
+        }
+        .editable:hover {
+            background-color: #f9f9f9 !important;
+            border-color: #999 !important;
+        }
+        .editable:focus {
+            background-color: #fff3cd !important;
+            border-color: #ffc107 !important;
+            box-shadow: 0 0 5px rgba(255,193,7,0.5) !important;
+        }
+        .inline-edit-controls {
+            position: fixed;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .inline-edit-controls button {
+            margin: 0 4px;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .inline-edit-controls button:hover {
+            background: #f5f5f5;
+        }
+        .wysiwyg-mode .desktop-main-content {
+            border: 2px dashed #ffc107;
+            margin: 10px;
+        }
+        .changes-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1001;
+            display: none;
+        }
+        .changes-indicator.show {
+            display: block;
+        }
+        .admin-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1002;
+        }
+    </style>
 {{/if}}
+</head>
+<body class="desktop">
 
-{{#if message}}
-<!-- Message Notification -->
-<div class="message-notification message-{{message.type}}">
-    <div class="message-content">
-        <span class="message-icon">
-            {{#if (eq message.type "warning")}}⚠️{{/if}}
-            {{#if (eq message.type "error")}}❌{{/if}}
-            {{#if (eq message.type "success")}}✅{{/if}}
-            {{#if (eq message.type "info")}}ℹ️{{/if}}
-        </span>
-        <span class="message-text">{{message.text}}</span>
-        <button class="message-close" onclick="this.parentElement.parentElement.style.display='none'">×</button>
-    </div>
-</div>
-{{/if}}
-
-{{#if isWysiwygMode}}
-<!-- WYSIWYG Admin Toolbar -->
-<div id="wysiwygToolbar" class="wysiwyg-toolbar">
-    <div class="toolbar-content">
-        <div class="toolbar-left">
-            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
-            <span class="toolbar-subtitle">Click on any text to edit</span>
-        </div>
-        <div class="toolbar-center">
-            <div class="page-navigation">
-                <a href="/admin-wysiwyg" class="nav-btn active">
-                    <i class="icon">🏠</i>
-                    <span>Main</span>
-                </a>
-                <a href="/admin-wysiwyg/gestor" class="nav-btn">
-                    <i class="icon">👤</i>
-                    <span>Gestor</span>
-                </a>
-                <a href="/admin-wysiwyg/accounts" class="nav-btn">
-                    <i class="icon">🏦</i>
-                    <span>Accounts</span>
-                </a>
-                <a href="/admin-wysiwyg/insurance" class="nav-btn">
-                    <i class="icon">🛡️</i>
-                    <span>Insurance</span>
-                </a>
-            </div>
-        </div>
-        <div class="toolbar-right">
-            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
-                <i class="icon">✏️</i>
-                <span>Edit Mode: ON</span>
-            </button>
-            <button class="toolbar-btn" onclick="saveAllChanges()">
-                <i class="icon">💾</i>
-                <span>Save All</span>
-            </button>
-            <a href="/main-page" class="toolbar-btn toolbar-btn-exit">
-                <i class="icon">👁️</i>
-                <span>View Mode</span>
-            </a>
-        </div>
-    </div>
-</div>
-{{/if}}
-
-{{> desktop/top-header}}
-
-<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}} no-header">
     <!-- Sidebar -->
     {{> desktop/sidebar}}
 
     <!-- Main Content Area -->
     <main class="desktop-main-content">
-        <!-- Top Navigation Links -->
-        <div class="top-nav-links">
-            <a href="#" class="nav-link">Tax information</a>
-            <a href="#" class="nav-link">Emergency help</a>
-            <a href="#" class="nav-link">Inheritance processing</a>
-            <a href="#" class="nav-link">Accessibility</a>
-        </div>
-
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <div class="welcome-header">
-                <div class="welcome-content">
-                    <h1 class="{{#if isWysiwygMode}}editable{{/if}}" 
-                        {{#if isWysiwygMode}}data-field="welcomeMessage" data-page="mainPage" data-type="text"{{/if}}>
-                        {{desktopData.mainPage.welcomeMessage}}
-                    </h1>
-                    <p class="last-connection {{#if isWysiwygMode}}editable{{/if}}" 
-                       {{#if isWysiwygMode}}data-field="lastConnection" data-page="mainPage" data-type="text"{{/if}}>
-                       {{desktopData.mainPage.lastConnection}}
-                    </p>
-                </div>
-                <div class="user-contact">
-                    <div class="contact-info">
-                        <div class="contact-icon">
-                            <img class="clip-box__image" src="https://web.bbva.es/packages/assets/img/coronita/entity/clip/light/170.svg?v=3646262f" alt="">
-                        </div>
-                        <div class="contact-details">
-                            <span class="contact-label {{#if isWysiwygMode}}editable{{/if}}" 
-                                  {{#if isWysiwygMode}}data-field="contactTeam" data-page="mainPage" data-type="text"{{/if}}>
-                                  {{desktopData.mainPage.contactTeam}}
-                            </span>
-                            <span class="contact-phone {{#if isWysiwygMode}}editable{{/if}}" 
-                                  {{#if isWysiwygMode}}data-field="contactPhone" data-page="mainPage" data-type="text"{{/if}}>
-                                  {{desktopData.mainPage.contactPhone}}
-                            </span>
-                        </div>
-                    </div>
-                    <a href="#" class="appointment-btn">
-                        <span class="{{#if isWysiwygMode}}editable{{/if}}" 
-                              {{#if isWysiwygMode}}data-field="appointmentText" data-page="mainPage" data-type="text"{{/if}}>
-                              {{desktopData.mainPage.appointmentText}}
-                        </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 18l6-6-6-6"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="balance-summary">
-                <div class="balance-main">
-                    <p class="balance-label {{#if isWysiwygMode}}editable{{/if}}" 
-                       {{#if isWysiwygMode}}data-field="balanceLabel" data-page="mainPage" data-type="text"{{/if}}>
-                       {{desktopData.mainPage.balanceLabel}}
-                    </p>
-                    <div class="main-balance-display">
-                        <span class="balance-amount-large {{#if isWysiwygMode}}editable{{/if}}" 
-                              {{#if isWysiwygMode}}data-field="totalBalance" data-page="mainPage" data-type="text"{{/if}}>
-                              {{desktopData.mainPage.totalBalance}}
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="balance-details">
-              
-                    
-                    <div class="balance-controls">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="showAmounts" checked>
-                            <span class="slider"></span>
-                        </label>
-                        <span class="toggle-label">{{desktopData.mainPage.showAmountsLabel}}</span>
-                        <a href="#" class="customize-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
-                            {{desktopData.mainPage.customizeText}}
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="products-info">
-                    <div class="products-card">
-                        <h3>{{desktopData.mainPage.productsTitle}}</h3>
-                        <a href="#" class="see-all-btn">See all</a>
-                    </div>
-                </div>
+        
+        <!-- Global Position Header -->
+        <div class="global-position-header">
+            <div class="title-row">
+                <h1 class="page-title">Global position</h1>
+                <p class="meta-label">FINANCIAL OVERVIEW</p>
             </div>
         </div>
 
+        <!-- Account Summary Section -->
+        <div class="account-summary-section">
+            <div class="summary-cards-grid">
+                <!-- Total Balance Card -->
+                <div class="summary-card balance-card">
+                    <div class="card-header">
+                        <h3>Total Balance</h3>
+                        <div class="balance-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="showBalance" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="toggle-label">Show amounts</span>
+                        </div>
+                    </div>
+                    <div class="balance-display">
+                        <span class="main-balance">€18,550.75</span>
+                        <span class="balance-change positive">+€250.30 this month</span>
+                    </div>
+                </div>
+                
+                <!-- Accounts Card -->
+                <div class="summary-card">
+                    <div class="card-header">
+                        <h3>My Accounts</h3>
+                        <span class="item-count">3</span>
+                    </div>
+                    <div class="account-list">
+                        <div class="account-item">
+                            <div class="account-info">
+                                <span class="account-name">Current Account</span>
+                                <span class="account-number">**** 4321</span>
+                            </div>
+                            <span class="account-balance">€2,450.75</span>
+                        </div>
+                        <div class="account-item">
+                            <div class="account-info">
+                                <span class="account-name">Savings Account</span>
+                                <span class="account-number">**** 8765</span>
+                            </div>
+                            <span class="account-balance">€15,250.00</span>
+                        </div>
+                        <div class="account-item">
+                            <div class="account-info">
+                                <span class="account-name">Business Account</span>
+                                <span class="account-number">**** 1234</span>
+                            </div>
+                            <span class="account-balance">€850.00</span>
+                        </div>
+                    </div>
+                    <a href="/accounts" class="view-all-link">View all accounts</a>
+                </div>
+                
+                <!-- Cards Card -->
+                <div class="summary-card">
+                    <div class="card-header">
+                        <h3>My Cards</h3>
+                        <span class="item-count">2</span>
+                    </div>
+                    <div class="cards-list">
+                        <div class="card-item">
+                            <div class="card-visual">
+                                <div class="card-chip"></div>
+                                <span class="card-number">**** 5678</span>
+                                <span class="card-type">Debit</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-name">BBVA Aqua</span>
+                                <span class="card-status active">Active</span>
+                            </div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card-visual credit">
+                                <div class="card-chip"></div>
+                                <span class="card-number">**** 9012</span>
+                                <span class="card-type">Credit</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-name">BBVA Credit</span>
+                                <span class="card-available">€2,500 available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/accounts" class="view-all-link">Manage cards</a>
+                </div>
+            </div>
+        </div>
 
-
-        <!-- Fast Transactions Section -->
-        <div class="fast-transactions-section">
+        <!-- Recent Transactions Section -->
+        <div class="recent-transactions-section">
             <div class="section-header">
-                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
-                    {{#if isWysiwygMode}}data-field="fastTransactionsTitle" data-page="mainPage" data-type="text"{{/if}}>
-                    {{desktopData.mainPage.fastTransactionsTitle}}
-                </h2>
-                <a href="#" class="setup-link">
-                    Set up
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                    </svg>
-                </a>
+                <h2>Recent Transactions</h2>
+                <a href="/accounts" class="view-all-link">View all</a>
             </div>
-            <div class="fast-actions-grid">
-                <div class="fast-action-item">
+            <div class="transactions-list">
+                <div class="transaction-item">
+                    <div class="transaction-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17l9.2-9.2M17 17H7V7"></path>
+                        </svg>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-description">Transfer to Maria Garcia</span>
+                        <span class="transaction-date">Today, 14:30</span>
+                    </div>
+                    <span class="transaction-amount negative">-€150.00</span>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-description">Grocery Store Purchase</span>
+                        <span class="transaction-date">Yesterday, 16:45</span>
+                    </div>
+                    <span class="transaction-amount negative">-€78.50</span>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-description">Salary Payment</span>
+                        <span class="transaction-date">2 days ago</span>
+                    </div>
+                    <span class="transaction-amount positive">+€2,500.00</span>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-description">Bizum from Carlos</span>
+                        <span class="transaction-date">3 days ago</span>
+                    </div>
+                    <span class="transaction-amount positive">+€25.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="quick-actions-section">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="quick-actions-grid">
+                <a href="/transfers" class="quick-action-card">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17l9.2-9.2M17 17H7V7"></path>
+                        </svg>
+                    </div>
+                    <span class="action-label">Make a Transfer</span>
+                </a>
+                <a href="#" class="quick-action-card">
+                    <div class="action-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <span class="action-label">Send Bizum</span>
+                </a>
+                <a href="/accounts" class="quick-action-card">
                     <div class="action-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
                             <line x1="1" y1="10" x2="23" y2="10"></line>
                         </svg>
                     </div>
-                    <span class="action-label">Check CVV</span>
-                </div>
-                <div class="fast-action-item">
+                    <span class="action-label">Manage Cards</span>
+                </a>
+                <a href="#" class="quick-action-card">
                     <div class="action-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <span class="action-label">Manage a transfer</span>
-                </div>
-                <div class="fast-action-item">
-                    <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 12l2 2 4-4"></path>
                             <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M2 12h20"></path>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                         </svg>
                     </div>
-                    <span class="action-label">View PIN</span>
-                </div>
-                <div class="fast-action-item">
-                    <div class="action-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </div>
-                    <span class="action-label">Send / Receive money (Bizum)</span>
-                </div>
-            </div>
-            <a href="#" class="see-all-transactions">See all the transactions</a>
-        </div>
-
-        <!-- Perform an Operation Section -->
-        <div class="operations-section">
-            <div class="section-header">
-                <h2 class="{{#if isWysiwygMode}}editable{{/if}}" 
-                    {{#if isWysiwygMode}}data-field="operationsTitle" data-page="mainPage" data-type="text"{{/if}}>
-                    {{desktopData.mainPage.operationsTitle}}
-                </h2>
-                <p class="section-subtitle {{#if isWysiwygMode}}editable{{/if}}" 
-                   {{#if isWysiwygMode}}data-field="operationsSubtitle" data-page="mainPage" data-type="text"{{/if}}>
-                   {{desktopData.mainPage.operationsSubtitle}}
-                </p>
-            </div>
-            <div class="operations-grid">
-                {{#each desktopData.operations}}
-                <div class="operation-card">
-                    <div class="operation-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7 17l9.2-9.2M17 17H7V7"></path>
-                        </svg>
-                    </div>
-                    <div class="operation-info">
-                        <h3 class="operation-title {{#if ../isWysiwygMode}}editable{{/if}}" 
-                            {{#if ../isWysiwygMode}}data-field="title" data-page="operations" data-type="text" data-id="{{this.id}}"{{/if}}>
-                            {{this.title}}
-                        </h3>
-                        <p class="operation-description {{#if ../isWysiwygMode}}editable{{/if}}" 
-                           {{#if ../isWysiwygMode}}data-field="description" data-page="operations" data-type="textarea" data-id="{{this.id}}"{{/if}}>
-                           {{this.description}}
-                        </p>
-                        <a href="#" class="operation-link">
-                            <span class="{{#if ../isWysiwygMode}}editable{{/if}}" 
-                                  {{#if ../isWysiwygMode}}data-field="linkText" data-page="operations" data-type="text" data-id="{{this.id}}"{{/if}}>
-                                  {{this.linkText}}
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-            
-            <div class="see-more-section">
-                <button class="see-more-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                    See more
-                </button>
+                    <span class="action-label">International</span>
+                </a>
             </div>
         </div>
     </main>
 </div>
 
-{{#if isWysiwygMode}}
-<!-- Changes Indicator will be added by JavaScript -->
-{{/if}}
+<!-- Back to Top Button -->
+<button class="back-to-top" onclick="scrollToTop()" title="Back to top" style="display: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"></path>
+    </svg>
+</button>
 
 <!-- Floating Help Button -->
 <div class="floating-help">
@@ -295,7 +316,14 @@
     </button>
 </div>
 
+{{#if isWysiwygMode}}
+<!-- Changes Indicator will be added by JavaScript -->
+{{/if}}
+
 <script src="/js/desktop/main-page.js"></script>
 {{#if isAdminMode}}
 <script src="/js/inline-editor.js"></script>
 {{/if}}
+
+</body>
+</html>
