@@ -549,17 +549,19 @@ app.post("/admin-login", (req, res) => {
   if (password === "123123") {
     req.session.isAdmin = true;
     req.session.isLoggedIn = true; // Also set user as logged in to access main page
-    
+
     // Check if they want to access admin panel or inline editing
     const redirectTo =
       req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-wysiwyg";
-    
+
     // If trying to access admin panel from mobile, redirect to main page with message
     if (redirectTo === "/admin-wysiwyg" && req.isMobile) {
-      console.log("📱 Mobile user attempted admin panel access, redirecting to main page");
+      console.log(
+        "📱 Mobile user attempted admin panel access, redirecting to main page"
+      );
       return res.redirect("/main-page?message=admin-desktop-only");
     }
-    
+
     res.redirect(redirectTo);
   } else {
     res.render("admin-login", {
