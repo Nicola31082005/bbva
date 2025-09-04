@@ -511,8 +511,6 @@ app.get("/gestor", requireUserAuth, (req, res) => {
   });
 });
 
-
-
 // Admin authentication middleware
 function requireAdminAuth(req, res, next) {
   console.log("🔐 Admin auth check:", {
