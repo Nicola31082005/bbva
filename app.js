@@ -8,28 +8,31 @@ const PORT = process.env.PORT || 3000;
 
 // Device detection middleware
 function detectDevice(req, res, next) {
-  const userAgent = req.headers['user-agent'] || '';
-  const isMobile = /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  
+  const userAgent = req.headers["user-agent"] || "";
+  const isMobile =
+    /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent
+    );
+
   // Allow manual override via query parameter for testing
   // Support both 'device=mobile' and 'mobile' query parameters
-  if (req.query.device === 'mobile' || req.query.mobile !== undefined) {
+  if (req.query.device === "mobile" || req.query.mobile !== undefined) {
     req.isMobile = true;
-  } else if (req.query.device === 'desktop') {
+  } else if (req.query.device === "desktop") {
     req.isMobile = false;
   } else {
     req.isMobile = isMobile;
   }
-  
+
   // Set layout and view paths based on device
   if (req.isMobile) {
-    req.layoutPath = 'main';
-    req.viewPrefix = '';
+    req.layoutPath = "main";
+    req.viewPrefix = "";
   } else {
-    req.layoutPath = 'desktop/main';
-    req.viewPrefix = 'desktop/';
+    req.layoutPath = "desktop/main";
+    req.viewPrefix = "desktop/";
   }
-  
+
   next();
 }
 
@@ -194,7 +197,7 @@ let appData = {
       productsTitle: "Explore all the products you can take out",
       fastTransactionsTitle: "FAST TRANSACTIONS",
       operationsTitle: "Perform an operation",
-      operationsSubtitle: "IMPORTANT ACTIVITY"
+      operationsSubtitle: "IMPORTANT ACTIVITY",
     },
     accounts: {
       id: 1,
@@ -211,7 +214,7 @@ let appData = {
       contactPhone: "944230045",
       appointmentText: "Request teller appointment",
       transfersTitle: "Next scheduled transfers and internal transfers",
-      productSuggestion: "Do you want to take out a product?"
+      productSuggestion: "Do you want to take out a product?",
     },
     gestor: {
       id: 1,
@@ -220,7 +223,7 @@ let appData = {
       servicesTitle: "Services",
       consultationTitle: "Consultation",
       consultationDescription: "Financial advice and guidance",
-      investmentsTitle: "Investments", 
+      investmentsTitle: "Investments",
       investmentsDescription: "Investment planning services",
       mortgagesTitle: "Mortgages",
       mortgagesDescription: "Home financing solutions",
@@ -231,15 +234,16 @@ let appData = {
       supportTitle: "Support",
       supportDescription: "24/7 banking assistance",
       assistantTitle: "Blue BBVA",
-      assistantDescription: "Virtual assistant available 24/7 for banking queries.",
+      assistantDescription:
+        "Virtual assistant available 24/7 for banking queries.",
       contactTitle: "Need Immediate Help?",
       contactPhone: "944 23 00 45",
-      profileSummaryTitle: "Profile Summary"
+      profileSummaryTitle: "Profile Summary",
     },
     transfers: {
       id: 1,
       operationsTitle: "Perform an operation",
-      operationsSubtitle: "IMPORTANT ACTIVITY"
+      operationsSubtitle: "IMPORTANT ACTIVITY",
     },
     mortgages: {
       id: 1,
@@ -247,8 +251,9 @@ let appData = {
       availableProductsTitle: "Available Products",
       calculatorTitle: "Loan Calculator",
       contactTitle: "Need Help?",
-      contactDescription: "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
-      contactPhone: "944 23 00 45"
+      contactDescription:
+        "Our mortgage and loan specialists are here to help you find the best solution for your needs.",
+      contactPhone: "944 23 00 45",
     },
     insurance: {
       id: 1,
@@ -256,137 +261,193 @@ let appData = {
       welcomeSubtitle: "Protect what matters most to you",
       availableProductsTitle: "Available Insurance Products",
       protectionTitle: "Comprehensive Protection",
-      protectionDescription: "From life insurance to property protection, we offer comprehensive coverage for all your needs.",
+      protectionDescription:
+        "From life insurance to property protection, we offer comprehensive coverage for all your needs.",
       coverageTitle: "Coverage Options",
-      coverageDescription: "Flexible insurance solutions tailored to your lifestyle and budget.",
+      coverageDescription:
+        "Flexible insurance solutions tailored to your lifestyle and budget.",
       claimsTitle: "Claims Support",
-      claimsDescription: "24/7 claims support to help you when you need it most.",
+      claimsDescription:
+        "24/7 claims support to help you when you need it most.",
       contactTitle: "Insurance Specialists",
-      contactDescription: "Our insurance experts are here to help you find the right coverage for your needs.",
+      contactDescription:
+        "Our insurance experts are here to help you find the right coverage for your needs.",
       contactPhone: "944 23 00 45",
-      contactTeam: "Insurance Team"
+      contactTeam: "Insurance Team",
     },
     fastActions: [
       { id: 1, label: "Check CVV", icon: "card" },
       { id: 2, label: "Manage a transfer", icon: "transfer" },
       { id: 3, label: "View PIN", icon: "pin" },
-      { id: 4, label: "Send / Receive money (Bizum)", icon: "bizum" }
+      { id: 4, label: "Send / Receive money (Bizum)", icon: "bizum" },
     ],
     operations: [
       {
         id: 1,
         title: "Transfers to other banks and transfers within the bank",
-        description: "You can make a domestic transfer and send your money immediately, on a one-off basis or scheduled.",
-        linkText: "Make a transfer to another bank or transfer within the bank"
+        description:
+          "You can make a domestic transfer and send your money immediately, on a one-off basis or scheduled.",
+        linkText: "Make a transfer to another bank or transfer within the bank",
       },
       {
         id: 2,
         title: "Send / Request Bizum",
-        description: "All you need is your cell phone to send money to a friend, shop online or donate to the cause of your choice.",
-        linkText: "Go to Bizum"
+        description:
+          "All you need is your cell phone to send money to a friend, shop online or donate to the cause of your choice.",
+        linkText: "Go to Bizum",
       },
       {
         id: 3,
         title: "International transfer",
-        description: "In foreign currency to more than 31 countries and with a preferential exchange rate.",
-        linkText: "Make an international transfer"
+        description:
+          "In foreign currency to more than 31 countries and with a preferential exchange rate.",
+        linkText: "Make an international transfer",
       },
       {
         id: 4,
         title: "Activate and deactivate your cards",
-        description: "Securely control the use of your cards by turning them on (activating) or off (deactivating).",
-        linkText: "Limit card operations"
+        description:
+          "Securely control the use of your cards by turning them on (activating) or off (deactivating).",
+        linkText: "Limit card operations",
       },
       {
         id: 5,
         title: "Split an expense",
-        description: "Finance your purchases, payments or transfers and pay in a more convenient and flexible way.",
-        linkText: "Split an expense"
+        description:
+          "Finance your purchases, payments or transfers and pay in a more convenient and flexible way.",
+        linkText: "Split an expense",
       },
       {
         id: 6,
         title: "Transfer from account to card",
-        description: "For when you want to settle a payment or take advantage of the benefits of using the card.",
-        linkText: "Transfer from account to card"
-      }
+        description:
+          "For when you want to settle a payment or take advantage of the benefits of using the card.",
+        linkText: "Transfer from account to card",
+      },
     ],
     mortgageProducts: [
       {
         id: 1,
         title: "Home Mortgage",
         description: "Finance your dream home with competitive interest rates.",
-        features: ["Up to 80% financing", "Fixed and variable rates", "Up to 30 years term"]
+        features: [
+          "Up to 80% financing",
+          "Fixed and variable rates",
+          "Up to 30 years term",
+        ],
       },
       {
         id: 2,
         title: "Personal Loan",
         description: "Quick approval for your personal projects and needs.",
-        features: ["Up to €60,000", "Fast approval process", "Flexible repayment terms"]
+        features: [
+          "Up to €60,000",
+          "Fast approval process",
+          "Flexible repayment terms",
+        ],
       },
       {
         id: 3,
         title: "Car Loan",
         description: "Finance your new or used vehicle with special rates.",
-        features: ["Up to 100% financing", "Competitive rates", "Up to 8 years term"]
+        features: [
+          "Up to 100% financing",
+          "Competitive rates",
+          "Up to 8 years term",
+        ],
       },
       {
         id: 4,
         title: "Home Improvement Loan",
-        description: "Renovate and improve your home with our special financing.",
-        features: ["Up to €50,000", "No collateral required", "Quick processing"]
-      }
+        description:
+          "Renovate and improve your home with our special financing.",
+        features: [
+          "Up to €50,000",
+          "No collateral required",
+          "Quick processing",
+        ],
+      },
     ],
     insuranceProducts: [
       {
         id: 1,
         title: "Life Insurance",
-        description: "Protect your family's financial future with comprehensive life insurance coverage.",
-        features: ["Up to €1,000,000 coverage", "Flexible premium payments", "Family protection benefits"],
+        description:
+          "Protect your family's financial future with comprehensive life insurance coverage.",
+        features: [
+          "Up to €1,000,000 coverage",
+          "Flexible premium payments",
+          "Family protection benefits",
+        ],
         premium: "From €15/month",
-        type: "life"
+        type: "life",
       },
       {
         id: 2,
         title: "Home Insurance",
-        description: "Complete protection for your home and personal belongings.",
-        features: ["Building and contents coverage", "24/7 emergency assistance", "Natural disaster protection"],
+        description:
+          "Complete protection for your home and personal belongings.",
+        features: [
+          "Building and contents coverage",
+          "24/7 emergency assistance",
+          "Natural disaster protection",
+        ],
         premium: "From €25/month",
-        type: "home"
+        type: "home",
       },
       {
         id: 3,
         title: "Car Insurance",
         description: "Comprehensive vehicle protection with competitive rates.",
-        features: ["Comprehensive and third-party coverage", "Breakdown assistance", "Accident forgiveness"],
+        features: [
+          "Comprehensive and third-party coverage",
+          "Breakdown assistance",
+          "Accident forgiveness",
+        ],
         premium: "From €35/month",
-        type: "auto"
+        type: "auto",
       },
       {
         id: 4,
         title: "Health Insurance",
-        description: "Private healthcare coverage with extensive network of providers.",
-        features: ["Private hospital access", "Dental and optical coverage", "Specialist consultations"],
+        description:
+          "Private healthcare coverage with extensive network of providers.",
+        features: [
+          "Private hospital access",
+          "Dental and optical coverage",
+          "Specialist consultations",
+        ],
         premium: "From €45/month",
-        type: "health"
+        type: "health",
       },
       {
         id: 5,
         title: "Travel Insurance",
-        description: "Travel with confidence with our comprehensive travel protection.",
-        features: ["Medical coverage abroad", "Trip cancellation protection", "Lost luggage coverage"],
+        description:
+          "Travel with confidence with our comprehensive travel protection.",
+        features: [
+          "Medical coverage abroad",
+          "Trip cancellation protection",
+          "Lost luggage coverage",
+        ],
         premium: "From €8/trip",
-        type: "travel"
+        type: "travel",
       },
       {
         id: 6,
         title: "Personal Liability Insurance",
-        description: "Protection against personal liability claims and legal costs.",
-        features: ["Up to €300,000 coverage", "Legal expense coverage", "Family protection"],
+        description:
+          "Protection against personal liability claims and legal costs.",
+        features: [
+          "Up to €300,000 coverage",
+          "Legal expense coverage",
+          "Family protection",
+        ],
         premium: "From €12/month",
-        type: "liability"
-      }
-    ]
-  }
+        type: "liability",
+      },
+    ],
+  },
 };
 
 // Helper function to get next ID
@@ -456,7 +517,7 @@ app.get("/main-page", requireUserAuth, (req, res) => {
   if (req.query.message === "admin-desktop-only") {
     message = {
       type: "warning",
-      text: "El Panel de Administración solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil."
+      text: "El Panel de Administración solo está disponible en dispositivos desktop. Usa la Edición en Línea para editar desde móvil.",
     };
   }
 
@@ -508,8 +569,6 @@ app.get("/gestor", requireUserAuth, (req, res) => {
   });
 });
 
-
-
 // Admin authentication middleware
 function requireAdminAuth(req, res, next) {
   console.log("🔐 Admin auth check:", {
@@ -546,17 +605,19 @@ app.post("/admin-login", (req, res) => {
   if (password === "123123") {
     req.session.isAdmin = true;
     req.session.isLoggedIn = true; // Also set user as logged in to access main page
-    
+
     // Check if they want to access admin panel or inline editing
     const redirectTo =
       req.body.mode === "inline" ? "/main-page?admin=true" : "/admin-wysiwyg";
-    
+
     // If trying to access admin panel from mobile, redirect to main page with message
     if (redirectTo === "/admin-wysiwyg" && req.isMobile) {
-      console.log("📱 Mobile user attempted admin panel access, redirecting to main page");
+      console.log(
+        "📱 Mobile user attempted admin panel access, redirecting to main page"
+      );
       return res.redirect("/main-page?message=admin-desktop-only");
     }
-    
+
     res.redirect(redirectTo);
   } else {
     res.render("admin-login", {
@@ -688,7 +749,7 @@ app.get("/transfers", requireUserAuth, (req, res) => {
 app.get("/admin-wysiwyg", requireAdminAuth, (req, res) => {
   console.log("🖥️ WYSIWYG Admin mode accessed:", {
     isMobile: req.isMobile,
-    userAgent: req.headers['user-agent']
+    userAgent: req.headers["user-agent"],
   });
 
   // Redirect mobile users to main page with message
@@ -805,12 +866,10 @@ app.get("/admin-wysiwyg/insurance", requireAdminAuth, (req, res) => {
   });
 });
 
-
-
 // Admin Panel Route (Protected) - Redirect to WYSIWYG
 app.get("/admin-panel", requireAdminAuth, (req, res) => {
   console.log("🖥️ Admin panel accessed - redirecting to WYSIWYG mode");
-  
+
   // Redirect mobile users to main page with message
   if (req.isMobile) {
     console.log("📱 Mobile user redirected from admin panel");
@@ -826,7 +885,7 @@ app.get("/admin-panel", requireAdminAuth, (req, res) => {
 // Desktop data API endpoint
 app.get("/api/desktop-data", (req, res) => {
   res.json({
-    desktopData: appData.desktopData
+    desktopData: appData.desktopData,
   });
 });
 
@@ -834,76 +893,113 @@ app.get("/api/desktop-data", (req, res) => {
 app.put("/api/desktop-content", (req, res) => {
   try {
     const { page, ...updates } = req.body;
-    
+
     if (!page) {
       return res.status(400).json({ error: "Page parameter is required" });
     }
-    
+
     console.log(`📝 Updating desktop content for page: ${page}`, updates);
-    
+
     // Update the appropriate page data - only update fields that are provided
-    if (page === 'mainPage') {
+    if (page === "mainPage") {
       const pageData = appData.desktopData.mainPage;
-      
+
       // Map WYSIWYG field names to actual data field names
-      if (updates.welcomeMessage !== undefined) pageData.welcomeMessage = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.lastConnection = updates.lastConnection;
-      if (updates.totalBalance !== undefined) pageData.totalBalance = updates.totalBalance;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
-      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
-      if (updates.balanceLabel !== undefined) pageData.balanceLabel = updates.balanceLabel;
-      if (updates.fastTransactionsTitle !== undefined) pageData.fastTransactionsTitle = updates.fastTransactionsTitle;
-      if (updates.operationsTitle !== undefined) pageData.operationsTitle = updates.operationsTitle;
-      if (updates.operationsSubtitle !== undefined) pageData.operationsSubtitle = updates.operationsSubtitle;
-      
-    } else if (page === 'accounts') {
+      if (updates.welcomeMessage !== undefined)
+        pageData.welcomeMessage = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.lastConnection = updates.lastConnection;
+      if (updates.totalBalance !== undefined)
+        pageData.totalBalance = updates.totalBalance;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined)
+        pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined)
+        pageData.appointmentText = updates.appointmentText;
+      if (updates.balanceLabel !== undefined)
+        pageData.balanceLabel = updates.balanceLabel;
+      if (updates.fastTransactionsTitle !== undefined)
+        pageData.fastTransactionsTitle = updates.fastTransactionsTitle;
+      if (updates.operationsTitle !== undefined)
+        pageData.operationsTitle = updates.operationsTitle;
+      if (updates.operationsSubtitle !== undefined)
+        pageData.operationsSubtitle = updates.operationsSubtitle;
+    } else if (page === "accounts") {
       const pageData = appData.desktopData.accounts;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.accountNumber = updates.lastConnection;
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.accountNumber = updates.lastConnection;
       if (updates.totalBalance !== undefined) {
         pageData.currentBalance = updates.totalBalance;
         pageData.availableBalance = updates.totalBalance;
       }
-      if (updates.availableBalance !== undefined) pageData.availableBalance = updates.availableBalance;
-      if (updates.accountType !== undefined) pageData.accountType = updates.accountType;
-      if (updates.accountHolder !== undefined) pageData.accountHolder = updates.accountHolder;
-      if (updates.cardNumber !== undefined) pageData.cardNumber = updates.cardNumber;
-      if (updates.cardStatus !== undefined) pageData.cardStatus = updates.cardStatus;
+      if (updates.availableBalance !== undefined)
+        pageData.availableBalance = updates.availableBalance;
+      if (updates.accountType !== undefined)
+        pageData.accountType = updates.accountType;
+      if (updates.accountHolder !== undefined)
+        pageData.accountHolder = updates.accountHolder;
+      if (updates.cardNumber !== undefined)
+        pageData.cardNumber = updates.cardNumber;
+      if (updates.cardStatus !== undefined)
+        pageData.cardStatus = updates.cardStatus;
       if (updates.cardType !== undefined) pageData.cardType = updates.cardType;
-      if (updates.transfersTitle !== undefined) pageData.transfersTitle = updates.transfersTitle;
-      if (updates.productSuggestion !== undefined) pageData.productSuggestion = updates.productSuggestion;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      if (updates.contactTeam !== undefined) pageData.contactTeam = updates.contactTeam;
-      if (updates.appointmentText !== undefined) pageData.appointmentText = updates.appointmentText;
-      
-    } else if (page === 'gestor') {
+      if (updates.transfersTitle !== undefined)
+        pageData.transfersTitle = updates.transfersTitle;
+      if (updates.productSuggestion !== undefined)
+        pageData.productSuggestion = updates.productSuggestion;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+      if (updates.contactTeam !== undefined)
+        pageData.contactTeam = updates.contactTeam;
+      if (updates.appointmentText !== undefined)
+        pageData.appointmentText = updates.appointmentText;
+    } else if (page === "gestor") {
       const pageData = appData.desktopData.gestor;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.welcomeSubtitle = updates.lastConnection;
-      if (updates.servicesTitle !== undefined) pageData.servicesTitle = updates.servicesTitle;
-      if (updates.consultationTitle !== undefined) pageData.consultationTitle = updates.consultationTitle;
-      if (updates.consultationDescription !== undefined) pageData.consultationDescription = updates.consultationDescription;
-      if (updates.assistantTitle !== undefined) pageData.assistantTitle = updates.assistantTitle;
-      if (updates.assistantDescription !== undefined) pageData.assistantDescription = updates.assistantDescription;
-      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
-      
-    } else if (page === 'mortgages') {
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.welcomeSubtitle = updates.lastConnection;
+      if (updates.servicesTitle !== undefined)
+        pageData.servicesTitle = updates.servicesTitle;
+      if (updates.consultationTitle !== undefined)
+        pageData.consultationTitle = updates.consultationTitle;
+      if (updates.consultationDescription !== undefined)
+        pageData.consultationDescription = updates.consultationDescription;
+      if (updates.assistantTitle !== undefined)
+        pageData.assistantTitle = updates.assistantTitle;
+      if (updates.assistantDescription !== undefined)
+        pageData.assistantDescription = updates.assistantDescription;
+      if (updates.contactTitle !== undefined)
+        pageData.contactTitle = updates.contactTitle;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
+    } else if (page === "mortgages") {
       const pageData = appData.desktopData.mortgages;
-      
-      if (updates.welcomeMessage !== undefined) pageData.pageTitle = updates.welcomeMessage;
-      if (updates.lastConnection !== undefined) pageData.contactDescription = updates.lastConnection;
-      if (updates.availableProductsTitle !== undefined) pageData.availableProductsTitle = updates.availableProductsTitle;
-      if (updates.calculatorTitle !== undefined) pageData.calculatorTitle = updates.calculatorTitle;
-      if (updates.contactTitle !== undefined) pageData.contactTitle = updates.contactTitle;
-      if (updates.contactPhone !== undefined) pageData.contactPhone = updates.contactPhone;
+
+      if (updates.welcomeMessage !== undefined)
+        pageData.pageTitle = updates.welcomeMessage;
+      if (updates.lastConnection !== undefined)
+        pageData.contactDescription = updates.lastConnection;
+      if (updates.availableProductsTitle !== undefined)
+        pageData.availableProductsTitle = updates.availableProductsTitle;
+      if (updates.calculatorTitle !== undefined)
+        pageData.calculatorTitle = updates.calculatorTitle;
+      if (updates.contactTitle !== undefined)
+        pageData.contactTitle = updates.contactTitle;
+      if (updates.contactPhone !== undefined)
+        pageData.contactPhone = updates.contactPhone;
     }
-    
+
     console.log(`✅ Desktop content updated successfully for page: ${page}`);
-    res.json({ success: true, message: "Desktop content updated successfully" });
+    res.json({
+      success: true,
+      message: "Desktop content updated successfully",
+    });
   } catch (error) {
     console.error("Error updating desktop content:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -915,20 +1011,23 @@ app.put("/api/desktop-operations/:id", (req, res) => {
   try {
     const operationId = parseInt(req.params.id);
     const updates = req.body;
-    
-    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+
+    const operationIndex = appData.desktopData.operations.findIndex(
+      (op) => op.id === operationId
+    );
     if (operationIndex === -1) {
       return res.status(404).json({ error: "Operation not found" });
     }
-    
+
     console.log(`📝 Updating operation ${operationId}:`, updates);
-    
+
     // Only update fields that are provided
     const operation = appData.desktopData.operations[operationIndex];
     if (updates.title !== undefined) operation.title = updates.title;
-    if (updates.description !== undefined) operation.description = updates.description;
+    if (updates.description !== undefined)
+      operation.description = updates.description;
     if (updates.linkText !== undefined) operation.linkText = updates.linkText;
-    
+
     console.log(`✅ Operation updated successfully: ${operationId}`);
     res.json({ success: true, message: "Operation updated successfully" });
   } catch (error) {
@@ -941,19 +1040,24 @@ app.put("/api/desktop-operations/:id", (req, res) => {
 app.post("/api/desktop-operations", (req, res) => {
   try {
     const { title, description, linkText } = req.body;
-    
-    const newId = Math.max(...appData.desktopData.operations.map(op => op.id)) + 1;
+
+    const newId =
+      Math.max(...appData.desktopData.operations.map((op) => op.id)) + 1;
     const newOperation = {
       id: newId,
       title,
       description,
-      linkText
+      linkText,
     };
-    
+
     appData.desktopData.operations.push(newOperation);
-    
+
     console.log(`📝 New operation added: ${newId}`);
-    res.json({ success: true, message: "Operation added successfully", operation: newOperation });
+    res.json({
+      success: true,
+      message: "Operation added successfully",
+      operation: newOperation,
+    });
   } catch (error) {
     console.error("Error adding operation:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -964,14 +1068,16 @@ app.post("/api/desktop-operations", (req, res) => {
 app.delete("/api/desktop-operations/:id", (req, res) => {
   try {
     const operationId = parseInt(req.params.id);
-    
-    const operationIndex = appData.desktopData.operations.findIndex(op => op.id === operationId);
+
+    const operationIndex = appData.desktopData.operations.findIndex(
+      (op) => op.id === operationId
+    );
     if (operationIndex === -1) {
       return res.status(404).json({ error: "Operation not found" });
     }
-    
+
     appData.desktopData.operations.splice(operationIndex, 1);
-    
+
     console.log(`🗑️ Operation deleted: ${operationId}`);
     res.json({ success: true, message: "Operation deleted successfully" });
   } catch (error) {
@@ -985,22 +1091,28 @@ app.put("/api/desktop-mortgage-products/:id", (req, res) => {
   try {
     const productId = parseInt(req.params.id);
     const updates = req.body;
-    
-    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(
+      (prod) => prod.id === productId
+    );
     if (productIndex === -1) {
       return res.status(404).json({ error: "Mortgage product not found" });
     }
-    
+
     console.log(`📝 Updating mortgage product ${productId}:`, updates);
-    
+
     // Only update fields that are provided
     const product = appData.desktopData.mortgageProducts[productIndex];
     if (updates.title !== undefined) product.title = updates.title;
-    if (updates.description !== undefined) product.description = updates.description;
+    if (updates.description !== undefined)
+      product.description = updates.description;
     if (updates.features !== undefined) product.features = updates.features;
-    
+
     console.log(`✅ Mortgage product updated successfully: ${productId}`);
-    res.json({ success: true, message: "Mortgage product updated successfully" });
+    res.json({
+      success: true,
+      message: "Mortgage product updated successfully",
+    });
   } catch (error) {
     console.error("Error updating mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1011,19 +1123,25 @@ app.put("/api/desktop-mortgage-products/:id", (req, res) => {
 app.post("/api/desktop-mortgage-products", (req, res) => {
   try {
     const { title, description, features } = req.body;
-    
-    const newId = Math.max(...appData.desktopData.mortgageProducts.map(prod => prod.id)) + 1;
+
+    const newId =
+      Math.max(...appData.desktopData.mortgageProducts.map((prod) => prod.id)) +
+      1;
     const newProduct = {
       id: newId,
       title,
       description,
-      features
+      features,
     };
-    
+
     appData.desktopData.mortgageProducts.push(newProduct);
-    
+
     console.log(`📝 New mortgage product added: ${newId}`);
-    res.json({ success: true, message: "Mortgage product added successfully", product: newProduct });
+    res.json({
+      success: true,
+      message: "Mortgage product added successfully",
+      product: newProduct,
+    });
   } catch (error) {
     console.error("Error adding mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1034,16 +1152,21 @@ app.post("/api/desktop-mortgage-products", (req, res) => {
 app.delete("/api/desktop-mortgage-products/:id", (req, res) => {
   try {
     const productId = parseInt(req.params.id);
-    
-    const productIndex = appData.desktopData.mortgageProducts.findIndex(prod => prod.id === productId);
+
+    const productIndex = appData.desktopData.mortgageProducts.findIndex(
+      (prod) => prod.id === productId
+    );
     if (productIndex === -1) {
       return res.status(404).json({ error: "Mortgage product not found" });
     }
-    
+
     appData.desktopData.mortgageProducts.splice(productIndex, 1);
-    
+
     console.log(`🗑️ Mortgage product deleted: ${productId}`);
-    res.json({ success: true, message: "Mortgage product deleted successfully" });
+    res.json({
+      success: true,
+      message: "Mortgage product deleted successfully",
+    });
   } catch (error) {
     console.error("Error deleting mortgage product:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -1419,7 +1542,7 @@ app.post("/login", (req, res) => {
   if (userid === "123123" && password === "123123") {
     req.session.isLoggedIn = true;
     req.session.userId = userid;
-    
+
     // Preserve mobile query parameter in redirect
     const redirectUrl = req.isMobile ? "/main-page?mobile" : "/main-page";
     res.redirect(redirectUrl);
