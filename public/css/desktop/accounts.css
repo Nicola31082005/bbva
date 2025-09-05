@@ -2,527 +2,641 @@
 
 /* Page Header */
 .page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1.5rem 0 1rem 0;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .page-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.75rem; /* 44px */
+  font-weight: 700;
+  color: #1a2b47; /* Dark navy */
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.btn-icon {
-    background: none;
-    border: 1px solid #e2e8f0;
-    color: #64748b;
-    padding: 0.75rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Primary and Secondary Pills */
+.btn-primary-pill {
+  background: #004481;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 36px;
 }
 
-.btn-icon:hover {
-    background: #f8fafc;
-    border-color: #cbd5e0;
-    color: #1a202c;
+.btn-primary-pill:hover {
+  background: #003366;
+  transform: translateY(-1px);
 }
 
-.btn-icon svg {
-    width: 20px;
-    height: 20px;
+.btn-secondary-pill {
+  background: #ffffff;
+  color: #004481;
+  border: 1px solid #004481;
+  padding: 0.5rem 1.5rem;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 36px;
+}
+
+.btn-secondary-pill:hover {
+  background: #f0f8ff;
+  border-color: #003366;
+}
+
+.btn-icon-small {
+  background: none;
+  border: none;
+  color: #64748b;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-small:hover {
+  color: #1a202c;
+}
+
+.btn-icon-small svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Main Layout */
 .accounts-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2.5rem;
 }
 
 .accounts-main {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* Section Styles */
 .accounts-section,
 .cards-section {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e8ecf0;
-    overflow: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8ecf0;
+  overflow: hidden;
 }
 
 .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .section-header h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
 }
 
 .bizum-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #004481;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #004481;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .bizum-toggle svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .chevron-up {
-    width: 20px !important;
-    height: 20px !important;
-    color: #64748b !important;
+  width: 20px !important;
+  height: 20px !important;
+  color: #64748b !important;
 }
 
 /* Account Item */
 .account-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .account-info {
-    flex: 1;
+  flex: 1;
 }
 
-.account-number {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 0.5rem;
+.account-number-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #004481;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.account-number-link:hover {
+  text-decoration: underline;
 }
 
 .account-type {
-    font-size: 0.85rem;
-    color: #64748b;
-    margin-bottom: 0.25rem;
-    font-weight: 500;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }
 
 .account-holder {
-    font-size: 0.85rem;
-    color: #64748b;
+  font-size: 0.85rem;
+  color: #64748b;
 }
 
 .account-balance {
-    text-align: right;
+  text-align: right;
 }
 
 .balance-amount {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.25rem;
 }
 
 .balance-label {
-    font-size: 0.85rem;
-    color: #64748b;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 400;
 }
 
 /* Available Balance */
 .available-balance {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  background: #f3f4f6;
+  border-top: 1px solid #e5e7eb;
 }
 
 .available-label {
-    font-size: 0.9rem;
-    color: #64748b;
-    font-weight: 500;
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
 }
 
-.available-amount {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #004481;
+.available-amount-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #004481;
+  text-decoration: none;
 }
 
-/* Card Item */
-.card-item {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem;
+.available-amount-link:hover {
+  text-decoration: underline;
 }
 
-.card-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+/* Cards Table Header */
+.cards-table-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  padding: 0.75rem 2rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
+.header-col-1 {
+  text-align: left;
+}
+
+.header-col-2 {
+  width: 120px;
+}
+
+.header-col-3 {
+  width: 100px;
+  text-align: right;
+}
+
+/* Card Table Row */
+.card-table-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  padding: 1.5rem 2rem;
+  align-items: center;
+  position: relative;
+}
+
+.card-col-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-col-2 {
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+  border-left: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.card-col-3 {
+  width: 100px;
+  text-align: center;
 }
 
 .card-image {
-    width: 60px;
-    height: 38px;
-    background: #f1f5f9;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e2e8f0;
+  width: 60px;
+  height: 38px;
+  margin-bottom: 0.5rem;
 }
 
-.card-logo svg {
-    width: 32px;
-    height: 20px;
+.card-image svg {
+  width: 100%;
+  height: 100%;
 }
 
-.card-status {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #059669;
-    text-transform: uppercase;
+.card-number-link {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #004481;
+  text-decoration: none;
 }
 
-.card-details {
-    flex: 1;
+.card-number-link:hover {
+  text-decoration: underline;
 }
 
-.card-number {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 0.25rem;
-}
-
-.card-status-text {
-    font-size: 0.85rem;
-    color: #f59e0b;
-    font-weight: 500;
-    margin-bottom: 0.25rem;
+.card-status-pending {
+  font-size: 0.75rem;
+  color: #f97316;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .card-type {
-    font-size: 0.85rem;
-    color: #64748b;
-    margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .card-holder {
-    font-size: 0.85rem;
-    color: #64748b;
+  font-size: 0.8rem;
+  color: #6b7280;
 }
 
-.card-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1rem;
+.btn-activate.compact-pill {
+  background: #004481;
+  color: #ffffff;
+  border: none;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  height: 32px;
 }
 
-.card-balance {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #64748b;
+.btn-activate.compact-pill:hover {
+  background: #003366;
+}
+
+.card-available-dash {
+  font-size: 1.25rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 /* Right Sidebar */
 .accounts-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .contact-card,
 .transfers-card,
 .product-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e8ecf0;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8ecf0;
 }
 
 /* Contact Card */
 .contact-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .contact-icon {
-    width: 48px;
-    height: 48px;
-    background: #004481;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: #004481;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .contact-icon svg {
-    width: 24px;
-    height: 24px;
-    color: #ffffff;
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
 }
 
 .contact-info {
-    flex: 1;
+  flex: 1;
 }
 
 .contact-name {
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 0.25rem;
-    margin-left: 0.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
 }
 
 .contact-phone {
-    margin-left: 0.5rem;
-    color: #64748b;
-    font-size: 0.9rem;
+  margin-left: 0.5rem;
+  color: #64748b;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.phone-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 .request-appointment-btn {
-    margin-top: 2rem;
-    width: 100%;
-    background: #004481;
-    color: #ffffff;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.9rem;
+  margin-top: 1rem;
+  width: 100%;
+  background: #ffffff;
+  color: #004481;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
 }
 
 .request-appointment-btn:hover {
-    background: #003366;
-    transform: translateY(-1px);
+  background: #f9fafb;
+  border-color: #004481;
 }
 
-.request-appointment-btn svg {
-    width: 16px;
-    height: 16px;
+.request-appointment-btn .btn-icon-left {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.request-appointment-btn .btn-icon-right {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 /* Transfers Card */
 .transfers-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .transfers-card h3 {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin: 0;
-    flex: 1;
-    line-height: 1.4;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+  flex: 1;
+  line-height: 1.4;
 }
 
-.view-btn {
-    background: #004481;
-    color: #ffffff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.85rem;
-    flex-shrink: 0;
+.view-btn.compact-pill {
+  background: #004481;
+  color: #ffffff;
+  border: none;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  height: 32px;
 }
 
-.view-btn:hover {
-    background: #003366;
+.view-btn.compact-pill:hover {
+  background: #003366;
 }
 
 /* Product Card */
 .product-header {
-    font-size: 0.85rem;
-    color: #64748b;
-    margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
 }
 
 .product-card h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin: 0 0 1rem 0;
-    line-height: 1.4;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
 }
 
 .product-selector {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .product-selector select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #64748b;
-    font-size: 0.9rem;
-    cursor: pointer;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .product-selector select:focus {
-    outline: none;
-    border-color: #004481;
-    box-shadow: 0 0 0 3px rgba(0, 68, 129, 0.1);
+  outline: none;
+  border-color: #004481;
+  box-shadow: 0 0 0 3px rgba(0, 68, 129, 0.1);
 }
 
-.enter-btn {
-    background: #004481;
-    color: #ffffff;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.9rem;
+.enter-btn.compact-pill {
+  background: #004481;
+  color: #ffffff;
+  border: none;
+  padding: 0.375rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  height: 32px;
+  width: 100%;
 }
 
-.enter-btn:hover {
-    background: #003366;
+.enter-btn.compact-pill:hover {
+  background: #003366;
 }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .accounts-layout {
-        grid-template-columns: 1fr 280px;
-        gap: 1.5rem;
-    }
-    
-    .account-item,
-    .card-item {
-        padding: 1.5rem;
-    }
+  .accounts-layout {
+    grid-template-columns: 1fr 280px;
+    gap: 1.5rem;
+  }
+
+  .account-item,
+  .card-item {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 1024px) {
-    .accounts-layout {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .accounts-sidebar {
-        order: -1;
-    }
-    
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .header-actions {
-        width: 100%;
-        justify-content: flex-start;
-    }
+  .accounts-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .accounts-sidebar {
+    order: -1;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
-    .account-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .account-balance {
-        text-align: left;
-        width: 100%;
-    }
-    
-    .card-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .card-actions {
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .section-header {
-        padding: 1rem 1.5rem;
-    }
-    
-    .account-item,
-    .card-item {
-        padding: 1.5rem;
-    }
-    
-    .available-balance {
-        padding: 1rem 1.5rem;
-    }
+  .account-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .account-balance {
+    text-align: left;
+    width: 100%;
+  }
+
+  .card-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .card-actions {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .section-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .account-item,
+  .card-item {
+    padding: 1.5rem;
+  }
+
+  .available-balance {
+    padding: 1rem 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .header-actions {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .btn-icon {
-        padding: 0.5rem;
-    }
-    
-    .contact-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.75rem;
-    }
-    
-    .request-appointment-btn {
-        font-size: 0.85rem;
-        padding: 0.625rem 0.75rem;
-    }
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .btn-icon {
+    padding: 0.5rem;
+  }
+
+  .contact-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .request-appointment-btn {
+    font-size: 0.85rem;
+    padding: 0.625rem 0.75rem;
+  }
 }
 
 /* WYSIWYG Admin Mode Styles */
@@ -781,9 +895,15 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .wysiwyg-changes-indicator.show {
@@ -851,4 +971,102 @@
 
 .toolbar-right {
   flex: 0 0 auto;
+}
+
+/* Floating Help Bubble */
+.floating-help-bubble {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #004481;
+  color: #ffffff;
+  border-radius: 50px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 68, 129, 0.3);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.floating-help-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 68, 129, 0.4);
+}
+
+.help-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.help-icon {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* BBVA Footer */
+.bbva-footer {
+  background: #004481;
+  color: #ffffff;
+  padding: 3rem 0;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.footer-logo img {
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footer-badge img {
+  height: 35px;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
 }
