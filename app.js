@@ -706,6 +706,21 @@ app.get("/insurance", requireUserAuth, (req, res) => {
   });
 });
 
+// I want to apply route
+app.get("/apply", requireUserAuth, (req, res) => {
+  const user = appData.users[0];
+
+  res.render(`${req.viewPrefix}apply`, {
+    title: "I want to subscribe - BBVA",
+    pageId: "apply",
+    layout: req.layoutPath,
+    user: user,
+    isAdminMode: req.session.isAdminMode || false,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
+  });
+});
+
 // Transfers route
 app.get("/transfers", requireUserAuth, (req, res) => {
   // Pass user data and transfers data
