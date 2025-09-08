@@ -760,6 +760,21 @@ app.get("/transfers", requireUserAuth, (req, res) => {
   });
 });
 
+// Profile route
+app.get("/profile", requireUserAuth, (req, res) => {
+  const user = appData.users[0];
+
+  res.render(`${req.viewPrefix}profile`, {
+    title: "My Profile - BBVA",
+    pageId: "profile",
+    layout: req.layoutPath,
+    user: user,
+    isAdminMode: req.session.isAdminMode || false,
+    // Pass desktop-specific data for desktop templates
+    desktopData: appData.desktopData,
+  });
+});
+
 // WYSIWYG Admin Mode Route (Protected) - Desktop Only
 app.get("/admin-wysiwyg", requireAdminAuth, (req, res) => {
   console.log("🖥️ WYSIWYG Admin mode accessed:", {
@@ -873,6 +888,26 @@ app.get("/admin-wysiwyg/insurance", requireAdminAuth, (req, res) => {
   res.render("desktop/insurance", {
     title: "WYSIWYG Admin - Insurance - BBVA",
     pageId: "insurance",
+    layout: "desktop/main",
+    user: user,
+    isAdminMode: false,
+    isWysiwygMode: true,
+    desktopData: appData.desktopData,
+  });
+});
+
+app.get("/admin-wysiwyg/profile", requireAdminAuth, (req, res) => {
+  console.log("🖥️ WYSIWYG Admin profile page accessed");
+
+  if (req.isMobile) {
+    return res.redirect("/main-page?message=admin-desktop-only");
+  }
+
+  const user = appData.users[0];
+
+  res.render("desktop/profile", {
+    title: "WYSIWYG Admin - Profile - BBVA",
+    pageId: "profile",
     layout: "desktop/main",
     user: user,
     isAdminMode: false,

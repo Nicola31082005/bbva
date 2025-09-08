@@ -1,0 +1,218 @@
+{{#if isWysiwygMode}}
+<!-- WYSIWYG Admin Toolbar -->
+<div id="wysiwygToolbar" class="wysiwyg-toolbar">
+    <div class="toolbar-content">
+        <div class="toolbar-left">
+            <span class="toolbar-title">🎨 WYSIWYG Admin Mode</span>
+            <span class="toolbar-subtitle">Click on any text to edit</span>
+        </div>
+        <div class="toolbar-center">
+            <div class="page-navigation">
+                <a href="/admin-wysiwyg" class="nav-btn">
+                    <i class="icon">🏠</i>
+                    <span>Main</span>
+                </a>
+                <a href="/admin-wysiwyg/gestor" class="nav-btn">
+                    <i class="icon">👤</i>
+                    <span>Gestor</span>
+                </a>
+                <a href="/admin-wysiwyg/accounts" class="nav-btn">
+                    <i class="icon">🏦</i>
+                    <span>Accounts</span>
+                </a>
+                <a href="/admin-wysiwyg/profile" class="nav-btn active">
+                    <i class="icon">👤</i>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <button class="toolbar-btn" onclick="toggleEditMode()" id="editModeBtn">
+                <i class="icon">✏️</i>
+                <span>Edit Mode: ON</span>
+            </button>
+            <button class="toolbar-btn" onclick="saveAllChanges()">
+                <i class="icon">💾</i>
+                <span>Save All</span>
+            </button>
+            <a href="/profile" class="toolbar-btn toolbar-btn-exit">
+                <i class="icon">👁️</i>
+                <span>View Mode</span>
+            </a>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{> desktop/top-header}}
+
+<div class="desktop-main-container {{#if isWysiwygMode}}wysiwyg-mode{{/if}}">
+    {{> desktop/sidebar}}
+
+    <main class="desktop-main-content">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <h1>My profile</h1>
+                <div class="profile-tabs">
+                    <button class="profile-tab active">Personal details and settings</button>
+                    <button class="profile-tab">Security and privacy</button>
+                    <button class="profile-tab">Sustainability</button>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-nav">
+                        <a href="#personal-data" class="profile-nav-item active">Personal data</a>
+                        <a href="#documents" class="profile-nav-item">Documents and Certificates</a>
+                        <a href="#contacts" class="profile-nav-item">Contacts</a>
+                        <a href="#authorized" class="profile-nav-item">Manage Authorized</a>
+                        <a href="#other-banks" class="profile-nav-item">Your other banks</a>
+                        <a href="#minors" class="profile-nav-item">Manage Minors</a>
+                    </div>
+                </div>
+
+                <!-- Main Profile Content -->
+                <div class="profile-main">
+                    <!-- Profile Avatar and Basic Info -->
+                    <div class="profile-info-section">
+                        <div class="profile-avatar">
+                            <div class="avatar-circle"></div>
+                        </div>
+                        <div class="profile-basic-info">
+                            <!-- Name Section -->
+                            <div class="form-group">
+                                <label class="form-label">Name:</label>
+                                <div class="form-value">TASIO JAURRIETA MENE</div>
+                            </div>
+
+                            <!-- Language Section -->
+                            <div class="form-group">
+                                <label class="form-label">Language</label>
+                                <div class="form-control-group">
+                                    <select class="form-select">
+                                        <option value="en" selected>English</option>
+                                        <option value="es">Español</option>
+                                        <option value="fr">Français</option>
+                                    </select>
+                                    <button class="btn-link">Change</button>
+                                </div>
+                            </div>
+
+                            <!-- Notifications Language Section -->
+                            <div class="form-group">
+                                <label class="form-label">Notifications Language</label>
+                                <div class="form-description">This language will be used in notifications that BBVA sends you by: letter, e-mail, SMS, etc</div>
+                                <div class="form-control-group">
+                                    <select class="form-select">
+                                        <option value="es" selected>Español</option>
+                                        <option value="en">English</option>
+                                        <option value="fr">Français</option>
+                                    </select>
+                                    <button class="btn-link">Change</button>
+                                </div>
+                            </div>
+
+                            <!-- Personal Data Section -->
+                            <div class="form-group">
+                                <label class="form-label">Personal data</label>
+                                <div class="form-description">Here you will be able to change the details regarding your occupation, tax residence, etc.</div>
+                                <button class="btn-link">Change</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Telephone Numbers Section -->
+                    <div class="profile-section">
+                        <h3>Telephone numbers</h3>
+                        
+                        <div class="phone-section">
+                            <div class="phone-group">
+                                <label class="form-label">Phone number for operating</label>
+                                <div class="form-description">With this telephone you will carry out operations and receive single-use codes for validating them.</div>
+                                <div class="phone-number-display">
+                                    <span class="phone-label">Operation:</span>
+                                    <span class="phone-number">****2902</span>
+                                </div>
+                            </div>
+                            
+                            <div class="phone-group">
+                                <label class="form-label">Other phone numbers</label>
+                                <div class="form-description">These phone numbers just only be used as a contact method</div>
+                                <div class="phone-number-display">
+                                    <span class="phone-label">Individuals:</span>
+                                    <span class="phone-number">****7959</span>
+                                    <button class="btn-delete">Delete</button>
+                                </div>
+                                <button class="btn-primary btn-small">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Section -->
+                    <div class="profile-section">
+                        <h3>Email</h3>
+                        <div class="email-display">
+                            <span class="email-address">****2012@GMAIL.COM</span>
+                            <button class="btn-link">Manage</button>
+                        </div>
+                        
+                        <div class="unhide-section">
+                            <h4>Unhide</h4>
+                            <div class="form-description">For reasons of privacy, some of your personal details are masked. If you wish, you can make them fully visible by clicking on this button</div>
+                            <button class="btn-secondary">👁 Unhide</button>
+                        </div>
+                    </div>
+
+                    <!-- Addresses Section -->
+                    <div class="profile-section">
+                        <h3>Addresses</h3>
+                        <div class="addresses-note">Addresses associated to contracts</div>
+                        
+                        <div class="address-group">
+                            <label class="form-label">Address for tax purposes</label>
+                            <div class="address-display">
+                                <div class="address-text">
+                                    CALLE RAMON AGUINAGA, 22<br>
+                                    31016 PAMPLONA/IRUÑA<br>
+                                    NAVARRA SPAIN
+                                </div>
+                                <button class="btn-link">Change</button>
+                            </div>
+                        </div>
+                        
+                        <div class="address-actions">
+                            <button class="btn-primary">Add new address</button>
+                            <button class="btn-secondary">Enquiry about associated products</button>
+                        </div>
+                    </div>
+
+                    <!-- My Branches Section -->
+                    <div class="profile-section">
+                        <h3>My branches</h3>
+                        <div class="form-description">See the branches linked to your BBVA products below. If you would like, you can transfer the contracts for which you are the holder to a branch of your choice.</div>
+                        
+                        <div class="branch-item">
+                            <button class="branch-expand">+ 5297 - OFICINA DIGITAL DT NORTE (2 products)</button>
+                        </div>
+                        
+                        <div class="branch-info">
+                            <div class="info-box">
+                                <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                                <p>The request to change branches will not result in any changes to the numbers of your accounts, deposits or credit accounts of which you are the main account holder. The numbers of all other products and services of which you are the main account holder will be changed. This change request does not include portfolio management and SICAV contracts. Please contact your adviser to process the transfer of these products.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/js/desktop/common.js"></script>
